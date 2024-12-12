@@ -11,7 +11,7 @@
 #endif
 
 #include "ClutchConfiguratorDoc.h"
-
+#include"CAssembleTree.h"
 #include <propkey.h>
 
 #ifdef _DEBUG
@@ -42,7 +42,7 @@ BOOL CClutchConfiguratorDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
-
+	m_pAssembleTree -> FillTree();
 	// TODO: добавьте код повторной инициализации
 	// (Документы SDI будут повторно использовать этот документ)
 
@@ -132,6 +132,7 @@ void CClutchConfiguratorDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
+
 #endif //_DEBUG
 
 

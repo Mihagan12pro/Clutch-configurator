@@ -5,9 +5,10 @@
 #include "pch.h"
 #include "framework.h"
 #include "ClutchConfigurator.h"
-
+#include"ClutchConfiguratorDoc.h"
 #include "MainFrm.h"
-
+#include"ClutchConfiguratorView.h"
+#include"CAssembleTree.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -94,3 +95,27 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 // Обработчики сообщений CMainFrame
 
+
+
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
+{
+	m_wndSplitter.CreateStatic(this, 1, 2);
+
+
+	m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CAssembleTree), CSize(210, 0), pContext);
+	m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CClutchConfiguratorView), CSize(0, 0), pContext);
+	// TODO: добавьте специализированный код или вызов базового класса
+	CClutchConfiguratorView* pView = (CClutchConfiguratorView*)AfxGetMainWnd();
+
+		SetActiveView((CView*)m_wndSplitter.GetPane(0, 1));
+
+	CClutchConfiguratorDoc* pDoc = (CClutchConfiguratorDoc*)GetActiveDocument();
+
+	pDoc->m_pAssembleTree = (CAssembleTree*)m_wndSplitter.GetPane(0, 0);
+	pDoc->m_pClutchConfigView = (CClutchConfiguratorDoc*)m_wndSplitter.GetPane(0, 1);
+
+	pDoc->m_pAssembleTree->m_pDoc = pDoc;
+
+
+	return TRUE;
+}

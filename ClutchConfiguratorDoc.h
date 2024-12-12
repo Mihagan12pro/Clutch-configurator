@@ -4,7 +4,9 @@
 
 
 #pragma once
-
+class CAssembleTree;
+class CClutchConfiguratorDoc;
+class CMainFrame;
 
 class CClutchConfiguratorDoc : public CDocument
 {
@@ -29,6 +31,7 @@ public:
 
 // Реализация
 public:
+	
 	virtual ~CClutchConfiguratorDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -36,6 +39,10 @@ public:
 #endif
 
 protected:
+	CAssembleTree* m_pAssembleTree;
+	CClutchConfiguratorDoc* m_pClutchConfigView;
+
+	friend class CMainFrame;
 
 // Созданные функции схемы сообщений
 protected:

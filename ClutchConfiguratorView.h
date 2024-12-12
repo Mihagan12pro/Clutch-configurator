@@ -4,7 +4,7 @@
 
 #pragma once
 
-
+#include"ClutchConfiguratorDoc.h"
 class CClutchConfiguratorView : public CFormView
 {
 protected: // создать только из сериализации
