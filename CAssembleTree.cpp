@@ -46,18 +46,6 @@ void CAssembleTree::Dump(CDumpContext& dc) const
 
 int CAssembleTree::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	/*CTreeCtrl& tree = GetTreeCtrl();
-
-	tree.DeleteAllItems();
-
-	m_hAssemble = tree.InsertItem(L"Сборка втулочной муфты", -1, -1, NULL, TVI_FIRST);
-
-	m_hCollar = tree.InsertItem(L"Втулка", -1, -1, m_hAssemble, TVI_FIRST);
-	m_hRing= tree.InsertItem(L"Кольцо", -1, -1, m_hAssemble, TVI_FIRST);
-	m_hScrew = tree.InsertItem(L"Винт", -1, -1, m_hAssemble, TVI_FIRST);
-	
-	tree.Expand(m_hAssemble, TVE_EXPAND);*/
-
 	lpCreateStruct->style |= TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | TVS_SHOWSELALWAYS;
 	if (CTreeView::OnCreate(lpCreateStruct) == -1)
 		return -1;

@@ -48,6 +48,9 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 	CStatic m_sketchPicture;
+public:
+
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // версия отладки в ClutchConfiguratorView.cpp

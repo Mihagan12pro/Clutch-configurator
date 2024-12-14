@@ -13,6 +13,7 @@
 #include "ClutchConfiguratorDoc.h"
 #include "ClutchConfiguratorView.h"
 
+#include"CClutchAssenbler.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -27,6 +28,7 @@ BEGIN_MESSAGE_MAP(CClutchConfiguratorView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CClutchConfiguratorView
@@ -111,3 +113,15 @@ CClutchConfiguratorDoc* CClutchConfiguratorView::GetDocument() const // встр
 
 
 // Обработчики сообщений CClutchConfiguratorView
+
+
+void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+
+	CClutchAssenbler assemble;
+
+	assemble.Assemble();
+
+	CFormView::OnLButtonDown(nFlags, point);
+}

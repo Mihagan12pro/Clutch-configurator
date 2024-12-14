@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAssembleTree.h" />
+    <ClInclude Include="CClutchAssenbler.h" />
     <ClInclude Include="ClutchConfigurator.h" />
     <ClInclude Include="ClutchConfiguratorDoc.h" />
     <ClInclude Include="ClutchConfiguratorView.h" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAssembleTree.cpp" />
+    <ClCompile Include="CClutchAssenbler.cpp" />
     <ClCompile Include="ClutchConfigurator.cpp" />
     <ClCompile Include="ClutchConfiguratorDoc.cpp" />
     <ClCompile Include="ClutchConfiguratorView.cpp" />
