@@ -164,4 +164,114 @@ void CClutchAssenbler::CreateCollar()
 	pCutExtrusion1Def -> directionType = dtNormal;
 
 	pCutExtrusion1->Create();
+
+
+
+
+	ksEntityPtr pChamfer1 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer1Def = pChamfer1->GetDefinition();
+
+	pChamfer1Def->tangent = true;
+	pChamfer1Def->SetChamferParam(true, c, c);
+
+	ksEntityCollectionPtr pEdges = m_pPart->EntityCollection(o3d_edge);
+	ksEntityCollectionPtr pChamfers = pChamfer1Def->array();
+	pChamfers->Clear();
+
+	pEdges->SelectByPoint(0,D/2,0);
+	
+	
+	
+	pChamfers->Add(pEdges->GetByIndex(0));
+	
+	
+	
+	pChamfer1->Create();
+
+
+
+	ksEntityPtr pChamfer2 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer2Def = pChamfer2->GetDefinition();
+
+	pChamfer2Def->tangent = true;
+	pChamfer2Def->SetChamferParam(true, c, c);
+
+	 pEdges = m_pPart->EntityCollection(o3d_edge);
+	pChamfers = pChamfer2Def->array();
+	pChamfers->Clear();
+
+	pEdges->SelectByPoint(L, D / 2, 0);
+
+
+	pChamfers->Add(pEdges->GetByIndex(0));
+
+
+
+	pChamfer2->Create();
+
+
+	ksEntityPtr pChamfer3 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer3Def = pChamfer3->GetDefinition();
+
+	pChamfer3Def->tangent = true;
+	pChamfer3Def->SetChamferParam(true, c, c);
+
+	pEdges = m_pPart->EntityCollection(o3d_edge);
+	pChamfers = pChamfer3Def->array();
+	pChamfers->Clear();
+
+	pEdges->SelectByPoint(L, d / 2, 0);
+
+
+	pChamfers->Add(pEdges->GetByIndex(0));
+
+
+
+	pChamfer3->Create();
+
+
+
+
+	ksEntityPtr pChamfer4 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer4Def = pChamfer4->GetDefinition();
+
+	pChamfer4Def->tangent = true;
+	pChamfer4Def->SetChamferParam(true, c, c);
+
+	pEdges = m_pPart->EntityCollection(o3d_edge);
+	pChamfers = pChamfer4Def->array();
+	pChamfers->Clear();
+
+	pEdges->SelectByPoint(0, d / 2, 0);
+
+
+	pChamfers->Add(pEdges->GetByIndex(0));
+
+
+
+	pChamfer4->Create();
+
+
+
+
+
+
+	/*ksEntityPtr pChamfer5 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer5Def = pChamfer5->GetDefinition();
+
+	pChamfer5Def->tangent = true;
+	pChamfer5Def->SetChamferParam(true, c, c);
+
+	pEdges = m_pPart->EntityCollection(o3d_edge);
+	pChamfers = pChamfer5Def->array();
+	pChamfers->Clear();
+
+	pEdges->SelectByPoint(0, d / 2, 0);
+
+
+	pChamfers->Add(pEdges->GetByIndex(0));
+
+
+
+	pChamfer5->Create();*/
 }
