@@ -119,7 +119,7 @@ void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 
-	CClutchAssenbler assemble;
+	CClutchAssenbler assemble(38,45,10,1,34,16,1,6,1,20,2,0.2,0.3);
 
 	assemble.Assemble();
 
