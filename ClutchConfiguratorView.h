@@ -51,6 +51,8 @@ protected:
 public:
 
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnClose();
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // версия отладки в ClutchConfiguratorView.cpp

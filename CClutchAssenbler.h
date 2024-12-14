@@ -15,7 +15,7 @@ using namespace Kompas6API5;
 #define YOX o3d_planeXOY
 
 #define YOZ o3d_planeYOZ
-#define ZOY 03d_planeYOZ
+#define ZOY o3d_planeYOZ
 
 class CClutchAssenbler
 {

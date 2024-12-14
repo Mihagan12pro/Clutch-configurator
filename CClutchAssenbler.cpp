@@ -64,8 +64,6 @@ void CClutchAssenbler::Assemble()
 }
 void CClutchAssenbler::CreateCollar()
 {
-	
-
 	m_pDoc3D = m_pKompasApp5->Document3D();
 
 	m_pDoc3D->Create(false, true);
@@ -95,13 +93,75 @@ void CClutchAssenbler::CreateCollar()
 
 	pSketch1Def->EndEdit();
 
-
-
-
 	ksEntityPtr pRotate1 = m_pPart->NewEntity(o3d_bossRotated);
 	ksBossRotatedDefinitionPtr pRotate1Def = pRotate1->GetDefinition();
 
 	pRotate1Def -> SetSketch(pSketch1);
 	pRotate1Def -> SetSideParam(TRUE, 360);
 	pRotate1 -> Create();
+
+
+
+
+
+
+
+
+
+
+
+	ksEntityPtr pSketch2 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch2Def = pSketch2->GetDefinition();
+
+	pSketch2Def -> SetPlane(m_pPart->GetDefaultEntity(XOZ));
+	pSketch2 -> Create();
+
+	m_pDoc2D = pSketch2Def -> BeginEdit();
+
+	m_pDoc2D -> ksLineSeg(0,0,0,d/2,MAIN_LINE);
+	m_pDoc2D -> ksLineSeg(0,d/2,L,d/2,MAIN_LINE);
+	m_pDoc2D -> ksLineSeg(L,d/2,L,0,MAIN_LINE);
+	m_pDoc2D -> ksLineSeg(L,0,0,0,MAIN_LINE);
+
+	m_pDoc2D -> ksLineSeg(0,0,-100,0,HATCH_LINE);
+
+	pSketch2Def->EndEdit();
+
+
+	ksEntityPtr pCutRotate1 = m_pPart -> NewEntity(o3d_cutRotated);
+	ksCutRotatedDefinitionPtr pCutRotate1Def = pCutRotate1 -> GetDefinition();
+
+	pCutRotate1Def -> SetSideParam(TRUE,360);
+	pCutRotate1Def -> SetSketch(pSketch2);
+
+	pCutRotate1 -> Create();
+
+
+
+
+	ksEntityPtr pSketch3 = m_pPart -> NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch3Def = pSketch3 -> GetDefinition();
+	pSketch3Def -> SetPlane(m_pPart->GetDefaultEntity(ZOY));
+
+	pSketch3 -> Create();
+
+	m_pDoc2D = pSketch3Def->BeginEdit();
+
+	m_pDoc2D->ksLineSeg(-b/2, 0, -b/2, D2/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b/2,D2/2,b/2,D2/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(b/2,D2/2,b/2,0,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b/2,0,b/2,0,MAIN_LINE);
+
+	pSketch3Def->EndEdit();
+
+
+	ksEntityPtr pCutExtrusion1 = m_pPart->NewEntity(o3d_cutExtrusion);
+	ksCutExtrusionDefinitionPtr pCutExtrusion1Def = pCutExtrusion1->GetDefinition();
+
+
+	pCutExtrusion1Def -> SetSketch(pSketch3);
+	pCutExtrusion1Def -> SetSideParam(true, etThroughAll, 0, 0, false);
+	pCutExtrusion1Def -> directionType = dtNormal;
+
+	pCutExtrusion1->Create();
 }
