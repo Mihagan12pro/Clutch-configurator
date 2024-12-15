@@ -286,6 +286,14 @@ void CClutchAssenbler::CreateCollar()
 				ed->Putname("HoleEdge");
 				pChamfers->Add(ed);
 			}
+
+			/*if (x != 0 && fabs(y) < 8)
+			{
+
+				ed->Putname("HoleEdge");
+				pChamfers->Add(ed);
+			}*/
+		}
 	}
 
 	pChamfer5->Create();
