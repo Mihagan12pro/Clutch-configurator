@@ -151,7 +151,8 @@ void CClutchAssenbler::CreateCollar()
 	m_pDoc2D->ksLineSeg(-b/2,D2/2,b/2,D2/2,MAIN_LINE);
 	m_pDoc2D->ksLineSeg(b/2,D2/2,b/2,0,MAIN_LINE);
 	m_pDoc2D->ksLineSeg(-b/2,0,b/2,0,MAIN_LINE);
-
+	/*m_pDoc2D->ksLineSeg(b / 2, D2 / 2, b / 2, 0, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b / 2, D2 / 2, b / 2, D2 / 2, MAIN_LINE);*/
 	pSketch3Def->EndEdit();
 
 
@@ -168,6 +169,8 @@ void CClutchAssenbler::CreateCollar()
 
 
 
+
+
 	ksEntityPtr pChamfer1 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer1Def = pChamfer1->GetDefinition();
 
@@ -178,14 +181,14 @@ void CClutchAssenbler::CreateCollar()
 	ksEntityCollectionPtr pChamfers = pChamfer1Def->array();
 	pChamfers->Clear();
 
-	pEdges->SelectByPoint(0,D/2,0);
-	
-	
-	
+	pEdges->SelectByPoint(0, d / 2, 0);
+
+
+
 	pChamfers->Add(pEdges->GetByIndex(0));
-	
-	
-	
+
+
+
 	pChamfer1->Create();
 
 
@@ -196,7 +199,7 @@ void CClutchAssenbler::CreateCollar()
 	pChamfer2Def->tangent = true;
 	pChamfer2Def->SetChamferParam(true, c, c);
 
-	 pEdges = m_pPart->EntityCollection(o3d_edge);
+	pEdges = m_pPart->EntityCollection(o3d_edge);
 	pChamfers = pChamfer2Def->array();
 	pChamfers->Clear();
 
@@ -254,24 +257,41 @@ void CClutchAssenbler::CreateCollar()
 
 
 
-
-
-	/*ksEntityPtr pChamfer5 = m_pPart->NewEntity(o3d_chamfer);
+	ksEntityPtr pChamfer5 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer5Def = pChamfer5->GetDefinition();
 
-	pChamfer5Def->tangent = true;
-	pChamfer5Def->SetChamferParam(true, c, c);
-
+	pChamfer5Def->SetChamferParam(true, f, f);
 	pEdges = m_pPart->EntityCollection(o3d_edge);
 	pChamfers = pChamfer5Def->array();
 	pChamfers->Clear();
 
-	pEdges->SelectByPoint(0, d / 2, 0);
+	//pEdges->SelectByPoint(-10, -7.94, 1);
 
 
-	pChamfers->Add(pEdges->GetByIndex(0));
+	//pChamfers->Add(pEdges->GetByIndex(0));
+
+	for (int i = 0;i < pEdges->GetCount();i++)
+	{
+		ksEntityPtr ed = pEdges->GetByIndex(i);
+		ksEdgeDefinitionPtr def = ed->GetDefinition();
+
+		if (def->GetOwnerEntity() == pCutExtrusion1)
+		{
+			ksVertexDefinitionPtr vert = def->GetVertex(true);
+			double x, y, z;
+			vert->GetPoint(&x, &y, &z);
+			if (y>-10 && x!=0 && z>0)
+			{
+				
+				ed->Putname("HoleEdge");
+				pChamfers->Add(ed);
+			}
+
+			
+		}
+	}
+
+	pChamfer5->Create();
 
 
-
-	pChamfer5->Create();*/
 }
