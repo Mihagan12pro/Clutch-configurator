@@ -17,12 +17,12 @@ using namespace Kompas6API5;
 #define YOZ o3d_planeYOZ
 #define ZOY o3d_planeYOZ
 
-class CClutchAssenbler
+class CClutchAssembler
 {
 
 	public:
 		void Assemble();
-		CClutchAssenbler(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f);
+		CClutchAssembler(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f);
 	protected:
 		KompasObjectPtr m_pKompasApp5;
 		
