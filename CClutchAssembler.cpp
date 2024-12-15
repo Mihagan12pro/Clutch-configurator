@@ -322,11 +322,14 @@ void CClutchAssembler::CreateCollar()
 					{
 						if (x == L)
 						{
-							pEdges->SelectByPoint(L-c,y,z);
+							pEdges->SelectByPoint(L-c,y,-1);
+						
 							pFillets->Add(pEdges->GetByIndex(0));
+
 						}
 						else
 						{
+
 							ed->Putname("fillet");
 							pFillets->Add(ed);
 						}
@@ -340,4 +343,16 @@ void CClutchAssembler::CreateCollar()
 		
 	}
 	pFillet1 -> Create();
+
+	ksEntityPtr pMirrorCopy1 = m_pPart->NewEntity(o3d_mirrorOperation);
+	ksMirrorCopyDefinitionPtr pMirrorCopy1Def = pMirrorCopy1->GetDefinition();
+
+	pMirrorCopy1Def->SetPlane(m_pPart->GetDefaultEntity(XOY));
+	
+	pEdges = ksEntityCollectionPtr(pMirrorCopy1Def->GetOperationArray());
+	pEdges->Clear();
+
+	pEdges->Add(pFillet1);
+
+	pMirrorCopy1->Create();
 }
