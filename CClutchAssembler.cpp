@@ -79,15 +79,19 @@ void CClutchAssembler::CreateCollar()
 
 	m_pDoc2D = pSketch1Def->BeginEdit();
 
+	/*m_pDoc2D->ksLineSeg(0,0,0,D/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(0,D/2,    l-b1/2,D/2   ,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l - b1 / 2, D / 2,    l - b1 / 2,D1/2,MAIN_LINE   );
+	m_pDoc2D->ksLineSeg(l - b1 / 2, D1 / 2,    l+b1/2,D1/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l + b1 / 2, D1 / 2,     l + b1 / 2, D / 2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l + b1 / 2, D / 2,    L,D/2,   MAIN_LINE);
+	m_pDoc2D->ksLineSeg(L, D / 2,    L,0,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(L,0,0,0,MAIN_LINE);*/
 
-	m_pDoc2D->ksLineSeg(0, 0, 0, D / 2, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(0, D / 2, l, D / 2, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l, D / 2, l, D1 / 2, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l, D1 / 2, l + b1, D1 / 2, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l + b1, D1 / 2, l + b1, D / 2, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l + b1, D / 2, L, D / 2, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(L, D / 2, L, 0, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(L, 0, 0, 0, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(0, 0, 0, D/2, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(0, D / 2,L,D/2, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(L, D / 2,L,0,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(L, 0,0,0,MAIN_LINE);
 
 	m_pDoc2D->ksLineSeg(0, 0, -10, 0, HATCH_LINE);
 
@@ -151,8 +155,6 @@ void CClutchAssembler::CreateCollar()
 	m_pDoc2D->ksLineSeg(-b / 2, D2 / 2, b / 2, D2 / 2, MAIN_LINE);
 	m_pDoc2D->ksLineSeg(b / 2, D2 / 2, b / 2, 0, MAIN_LINE);
 	m_pDoc2D->ksLineSeg(-b / 2, 0, b / 2, 0, MAIN_LINE);
-	/*m_pDoc2D->ksLineSeg(b / 2, D2 / 2, b / 2, 0, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(-b / 2, D2 / 2, b / 2, D2 / 2, MAIN_LINE);*/
 	pSketch3Def->EndEdit();
 
 
@@ -344,17 +346,17 @@ void CClutchAssembler::CreateCollar()
 	}
 	pFillet1 -> Create();
 
-	ksEntityPtr pMirrorCopy1 = m_pPart->NewEntity(o3d_mirrorOperation);
-	ksMirrorCopyDefinitionPtr pMirrorCopy1Def = pMirrorCopy1->GetDefinition();
+	ksEntityPtr pMirrorCopy = m_pPart->NewEntity(o3d_mirrorOperation);
+	ksMirrorCopyDefinitionPtr pMirrorCopyDef = pMirrorCopy->GetDefinition();
 
-	pMirrorCopy1Def->SetPlane(m_pPart->GetDefaultEntity(XOY));
+	pMirrorCopyDef->SetPlane(m_pPart->GetDefaultEntity(XOY));
 	
-	pEdges = ksEntityCollectionPtr(pMirrorCopy1Def->GetOperationArray());
+	pEdges = ksEntityCollectionPtr(pMirrorCopyDef->GetOperationArray());
 	pEdges->Clear();
 
 	pEdges->Add(pFillet1);
 
-	pMirrorCopy1->Create();
+	pMirrorCopy->Create();
 
 
 
@@ -375,8 +377,114 @@ void CClutchAssembler::CreateCollar()
 	pEdges->Add(pCutExtrusion1);
 	pEdges->Add(pFillet1);
 	pEdges->Add(pChamfer5);
-	pEdges->Add(pMirrorCopy1);
+	pEdges->Add(pMirrorCopy);
 	
 
 	pCircularCopy1->Create();
+
+
+	ksEntityPtr pSketch4 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch4Def = pSketch4->GetDefinition();
+
+	pSketch4Def->SetPlane(m_pPart->GetDefaultEntity(YOX));
+
+
+	m_pDoc2D = pSketch4Def->BeginEdit();
+	
+	m_pDoc2D->ksLineSeg(l-c1*2,-D/2,   l,-D/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l, -D / 2,l,0,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l - c1 * 2, 0, l, 0, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l - c1 * 2, -D/2,       l - c1 * 2, 0, MAIN_LINE);
+	
+	m_pDoc2D->ksLineSeg(l,-D/2,l,10,HATCH_LINE);
+	pSketch4Def->EndEdit();
+
+	pSketch4->Create();
+
+
+
+	ksEntityPtr pCutRotate2 = m_pPart->NewEntity(o3d_cutRotated);
+	ksCutRotatedDefinitionPtr pCutRotate2Def = pCutRotate2->GetDefinition();
+
+	pCutRotate2Def->SetSketch(pSketch4);
+	pCutRotate2Def->SetSideParam(TRUE,360);
+
+
+	pCutRotate2->Create();
+
+
+	ksEntityPtr pChamfer6 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer6Def = pChamfer6->GetDefinition();
+
+	pEdges = m_pPart->EntityCollection(o3d_edge);
+	pChamfers = pChamfer6Def->array();
+	pChamfers->Clear();
+
+	pChamfer6Def->tangent = true;
+	pChamfer6Def->SetChamferParam(true, c1, c1);
+
+	for (int i = 0; i < pEdges->GetCount(); i++)
+	{
+		ksEntityPtr ed = pEdges->GetByIndex(i);
+		ksEdgeDefinitionPtr def = ed->GetDefinition();
+
+		if (def->GetOwnerEntity() == pCutRotate2)
+		{
+			ksVertexDefinitionPtr vert = def->GetVertex(true);
+			double x, y, z;
+			vert->GetPoint(&x,&y,&z);
+
+
+			if (y==-D/2)
+			{
+				//ed->Putname("chamfer6");
+			
+
+				pEdges->SelectByPoint(x,y,z);
+
+				ed = pEdges->GetByIndex(0);
+				pChamfers->Add(ed);
+
+				pEdges->SelectByPoint(x+b1/2, y, z);
+
+				ed = pEdges->GetByIndex(1);
+				pChamfers->Add(ed);
+
+			}
+
+
+		}
+
+
+
+	}
+	pChamfer6->Create();
+
+
+	ksEntityPtr pSketch5 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch5Def = pSketch5->GetDefinition();
+
+	pSketch5Def->SetPlane(m_pPart->GetDefaultEntity(XOY));
+
+	m_pDoc2D = pSketch5Def->BeginEdit();
+
+	m_pDoc2D->ksLineSeg(l-b1/2,-D/2,l + b1 / 2,-D/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l+ b1 / 2, -D / 2,l + b1 / 2,-D1/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l + b1 / 2, -D1 / 2, l - b1/2,-D1/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l - b1/2, -D / 2, l-b1/2, -D1 / 2, MAIN_LINE);
+	
+	m_pDoc2D->ksLineSeg(0, 0, l,0, HATCH_LINE);
+	pSketch5Def->EndEdit();
+
+	pSketch5->Create();
+
+
+	ksEntityPtr pCutRotate3 = m_pPart->NewEntity(o3d_cutRotated);
+	ksCutRotatedDefinitionPtr pCutRotate3Def = pCutRotate3->GetDefinition();
+
+	pCutRotate3Def->SetSketch(pSketch5);
+	pCutRotate3Def->SetSideParam(TRUE, 360);
+
+	pCutRotate3->Create();
+
 }
