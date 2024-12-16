@@ -79,14 +79,6 @@ void CClutchAssembler::CreateCollar()
 
 	m_pDoc2D = pSketch1Def->BeginEdit();
 
-	/*m_pDoc2D->ksLineSeg(0,0,0,D/2,MAIN_LINE);
-	m_pDoc2D->ksLineSeg(0,D/2,    l-b1/2,D/2   ,MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l - b1 / 2, D / 2,    l - b1 / 2,D1/2,MAIN_LINE   );
-	m_pDoc2D->ksLineSeg(l - b1 / 2, D1 / 2,    l+b1/2,D1/2,MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l + b1 / 2, D1 / 2,     l + b1 / 2, D / 2,MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l + b1 / 2, D / 2,    L,D/2,   MAIN_LINE);
-	m_pDoc2D->ksLineSeg(L, D / 2,    L,0,MAIN_LINE);
-	m_pDoc2D->ksLineSeg(L,0,0,0,MAIN_LINE);*/
 
 	m_pDoc2D->ksLineSeg(0, 0, 0, D/2, MAIN_LINE);
 	m_pDoc2D->ksLineSeg(0, D / 2,L,D/2, MAIN_LINE);
@@ -487,4 +479,29 @@ void CClutchAssembler::CreateCollar()
 
 	pCutRotate3->Create();
 
+
+	ksEntityPtr pThread = m_pPart->NewEntity(o3d_thread);
+	ksThreadDefinitionPtr pThreadDef = pThread->GetDefinition();
+	pThreadDef -> PutallLength(TRUE);
+	pThreadDef -> Putlength(D);
+	pThreadDef -> PutautoDefinDr(TRUE);
+	
+	ksEntityCollectionPtr pFaces = m_pPart ->EntityCollection(o3d_face);
+	
+
+	for (int i = 0; i < pFaces->GetCount(); i++)
+	{
+		ksEntityPtr face = pFaces->GetByIndex(i);
+		ksFaceDefinitionPtr def = face->GetDefinition();
+	
+		if (def->GetOwnerEntity()==pCutRotate2)
+		{
+			face->Putname("holeWithThread");
+			face->Update();
+			pThreadDef->SetBaseObject(face);
+		}
+		
+	}
+	pThread->Create();
+	m_pDoc3D->SaveAs("C:\\—борка втулочной муфты\\¬тулка.m3d");
 }
