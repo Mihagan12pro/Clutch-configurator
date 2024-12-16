@@ -31,6 +31,8 @@ class CClutchAssembler
 		ksDocument3DPtr m_pDoc3D;
 		ksDocument2DPtr m_pDoc2D;
 
+		
+
 
 		double D, L, l, b1, D1, d, c, d1, c1, D2, b, r, f;
 

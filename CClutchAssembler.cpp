@@ -355,4 +355,28 @@ void CClutchAssembler::CreateCollar()
 	pEdges->Add(pFillet1);
 
 	pMirrorCopy1->Create();
+
+
+
+	pEdges->Clear();
+
+	ksEntityPtr pCircularCopy1 = m_pPart->NewEntity(o3d_circularCopy);
+	ksCircularCopyDefinitionPtr pCircularCopy1Def = pCircularCopy1->GetDefinition();
+
+	//pCircularCopy1Def->count1 = 2;
+	pCircularCopy1Def->SetCopyParamAlongDir(2, 45, FALSE, FALSE);
+	
+	
+
+	pEdges = ksEntityCollectionPtr(pCircularCopy1Def->GetOperationArray());
+
+	pCircularCopy1Def->SetAxis(m_pPart->GetDefaultEntity(o3d_axisOX));
+
+	pEdges->Add(pCutExtrusion1);
+	pEdges->Add(pFillet1);
+	pEdges->Add(pChamfer5);
+	pEdges->Add(pMirrorCopy1);
+	
+
+	pCircularCopy1->Create();
 }
