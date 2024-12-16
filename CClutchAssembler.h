@@ -38,6 +38,6 @@ class CClutchAssembler
 
 
 		void CreateCollar();//Создание втулки
-
+		void CreateRing();//Создание кольца
 };
 

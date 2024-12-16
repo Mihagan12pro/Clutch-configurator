@@ -61,6 +61,7 @@ void CClutchAssembler::Assemble()
 	m_pKompasApp5->Visible = true;
 
 	CreateCollar();
+	CreateRing();
 }
 void CClutchAssembler::CreateCollar()
 {
@@ -504,4 +505,49 @@ void CClutchAssembler::CreateCollar()
 	}
 	pThread->Create();
 	m_pDoc3D->SaveAs("C:\\Сборка втулочной муфты\\Втулка.m3d");
+}
+
+void CClutchAssembler::CreateRing()
+{
+	m_pDoc3D = m_pKompasApp5->Document3D();
+	m_pDoc3D->Create(false, true);
+	m_pPart = m_pDoc3D->GetPart(pTop_Part);
+
+	ksEntityPtr pSketch1 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch1Def = pSketch1->GetDefinition();
+
+	pSketch1Def->SetPlane(m_pPart->GetDefaultEntity(XOY));
+
+	m_pDoc2D = pSketch1Def->BeginEdit();
+
+	
+	pSketch1->Create();
+
+	m_pDoc2D -> ksLineSeg(-b1/2,D1/2,	b1/2,D1/2,	MAIN_LINE);
+	m_pDoc2D -> ksLineSeg( b1/2,D1/2,	b1/2,D/2,	MAIN_LINE);
+	m_pDoc2D -> ksLineSeg(-b1/2,D/2,	b1/2,D/2,	MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b1 / 2, D1 / 2, -b1 / 2, D / 2, MAIN_LINE);
+
+
+	m_pDoc2D->ksLineSeg(0,0,100,0, HATCH_LINE);
+
+	pSketch1Def->EndEdit();
+
+
+	ksEntityPtr pRotate1 = m_pPart->NewEntity(o3d_bossRotated);
+	ksBossRotatedDefinitionPtr pRotate1Def = pRotate1->GetDefinition();
+
+	pRotate1Def->SetSketch(pSketch1);
+	pRotate1Def->SetSideParam(TRUE,360);
+
+	pRotate1->Create();
+
+	//m_pPart->SetAdvancedColor(RGB(0,0,0), 50, 60, 80, 80, 60, 50);
+	/*ksColorParamPtr pBlackColor = ksColorParamPtr();
+	pBlackColor->useColor = */
+	
+	//ksColorParamPtr pBlackColor = ksColorParamPtr();
+	//pBlackColor->color = RGB(0, 0, 0);
+	//	m_pPart->SetAdvancedColor(pBlackColor->useColor,50,50,50,50,50,50);
+	m_pDoc3D->SaveAs("C:\\Сборка втулочной муфты\\Кольцо.m3d");
 }

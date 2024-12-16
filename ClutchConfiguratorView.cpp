@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CClutchConfiguratorView, CFormView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_CLOSE()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CClutchConfiguratorView
@@ -142,4 +143,16 @@ void CClutchConfiguratorView::OnRButtonDown(UINT nFlags, CPoint point)
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 	AfxGetMainWnd()->SendMessage(WM_CLOSE);
 	CFormView::OnRButtonDown(nFlags, point);
+}
+
+
+int CClutchConfiguratorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	
+	if (CFormView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  Добавьте специализированный код создания
+
+	return 0;
 }

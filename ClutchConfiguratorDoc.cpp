@@ -40,6 +40,7 @@ CClutchConfiguratorDoc::~CClutchConfiguratorDoc()
 
 BOOL CClutchConfiguratorDoc::OnNewDocument()
 {
+	this->SetTitle(L"API Компаса 3Д");
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 	m_pAssembleTree -> FillTree();
