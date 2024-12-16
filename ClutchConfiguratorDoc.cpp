@@ -13,7 +13,7 @@
 #include "ClutchConfiguratorDoc.h"
 #include"CAssembleTree.h"
 #include <propkey.h>
-
+#include"CClutchAssembler.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -41,6 +41,11 @@ CClutchConfiguratorDoc::~CClutchConfiguratorDoc()
 BOOL CClutchConfiguratorDoc::OnNewDocument()
 {
 	this->SetTitle(L"API Компаса 3Д");
+
+	CClutchAssembler::SetFolderName("C:\\Сборка втулочной муфты");
+	CClutchAssembler::SetCollarName("Втулка.m3d");
+	CClutchAssembler::SetRingName("Кольцо.m3d");
+
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 	m_pAssembleTree -> FillTree();

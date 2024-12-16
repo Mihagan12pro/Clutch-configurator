@@ -504,7 +504,7 @@ void CClutchAssembler::CreateCollar()
 		
 	}
 	pThread->Create();
-	m_pDoc3D->SaveAs("C:\\Сборка втулочной муфты\\Втулка.m3d");
+	m_pDoc3D->SaveAs(m_collarName);
 }
 
 void CClutchAssembler::CreateRing()
@@ -549,5 +549,24 @@ void CClutchAssembler::CreateRing()
 	//ksColorParamPtr pBlackColor = ksColorParamPtr();
 	//pBlackColor->color = RGB(0, 0, 0);
 	//	m_pPart->SetAdvancedColor(pBlackColor->useColor,50,50,50,50,50,50);
-	m_pDoc3D->SaveAs("C:\\Сборка втулочной муфты\\Кольцо.m3d");
+	m_pDoc3D->SaveAs(m_ringName);
 }
+
+void CClutchAssembler::SetFolderName(const char*  save)
+{
+	CClutchAssembler::m_saveFolder = _bstr_t(save);
+}
+
+void CClutchAssembler::SetCollarName(const char* name)
+{
+	CClutchAssembler::m_collarName = m_saveFolder+"\\" + _bstr_t(name);
+}
+void CClutchAssembler::SetRingName(const char* name)
+{
+	CClutchAssembler::m_ringName = m_saveFolder + "\\" + _bstr_t(name);
+}
+
+
+_bstr_t CClutchAssembler::m_saveFolder = _bstr_t("");
+_bstr_t CClutchAssembler::m_collarName = _bstr_t("");
+_bstr_t CClutchAssembler::m_ringName = _bstr_t("");
