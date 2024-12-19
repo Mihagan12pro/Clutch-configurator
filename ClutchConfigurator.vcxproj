@@ -188,6 +188,7 @@
     <ClInclude Include="ClutchConfigurator.h" />
     <ClInclude Include="ClutchConfiguratorDoc.h" />
     <ClInclude Include="ClutchConfiguratorView.h" />
+    <ClInclude Include="CSaveConfigurationsDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="pch.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="ClutchConfigurator.cpp" />
     <ClCompile Include="ClutchConfiguratorDoc.cpp" />
     <ClCompile Include="ClutchConfiguratorView.cpp" />
+    <ClCompile Include="CSaveConfigurationsDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

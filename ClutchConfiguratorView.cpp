@@ -12,7 +12,7 @@
 
 #include "ClutchConfiguratorDoc.h"
 #include "ClutchConfiguratorView.h"
-
+#include"CSaveConfigurationsDlg.h"
 #include"MainFrm.h"
 #include"CClutchAssembler.h"
 #ifdef _DEBUG
@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CClutchConfiguratorView, CFormView)
 	ON_WM_CLOSE()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_CREATE()
+	ON_COMMAND(ID_whereSaveMenu, &CClutchConfiguratorView::OnWhereSaveMenu)
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CClutchConfiguratorView
@@ -175,4 +176,16 @@ int CClutchConfiguratorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// TODO:  Добавьте специализированный код создания
 
 	return 0;
+}
+
+
+void CClutchConfiguratorView::OnWhereSaveMenu()
+{
+	CSaveConfigurationsDlg dlg;
+
+	if (dlg.DoModal() == IDOK)
+	{
+
+	}
+	// TODO: добавьте свой код обработчика команд
 }
