@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CClutchAssembler.h"
-
+#include<cmath>
 
 CClutchAssembler::CClutchAssembler(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f)
 {
@@ -633,6 +633,26 @@ void   CClutchAssembler::CreateScrew()
 
 	}
 	pThread->Create();
+
+
+	ksEntityPtr pChamfer1 = m_pPart->NewEntity(o3d_chamfer);
+	ksChamferDefinitionPtr pChamfer1Def = pChamfer1->GetDefinition();
+	
+	pChamfer1Def->SetChamferParam(true,1,tan((60*3.14/180))*1);
+	pChamfer1Def -> tangent = true;
+
+	ksEntityCollectionPtr pEdges = m_pPart->EntityCollection(o3d_edge);
+	ksEntityCollectionPtr pChamfers = pChamfer1Def->array();
+	pChamfers->Clear();
+
+	pEdges->SelectByPoint(d1 / 2 - c1,0, -((D / 2) - (d / 2)));
+
+
+
+	pChamfers->Add(pEdges->GetByIndex(0));
+
+
+	pChamfer1->Create();
 
 	m_pDoc3D->SaveAs(m_screwName);
 }

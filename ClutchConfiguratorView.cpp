@@ -130,7 +130,7 @@ void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	switch (pDoc->m_selectedAssemble)
 	{
-		case selected::first:
+		case selected::CLT_140NM:
 		{
 			pFrame ->m_pAssembler = new CClutchAssembler(38, 45, 10, 1, 34, 16, 1, 6, 1, 20, 2, 0.2, 0.3);
 			break;

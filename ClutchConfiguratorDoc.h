@@ -10,7 +10,8 @@ class CMainFrame;
 namespace selected
 {
 	enum SelectedAssemble {
-		first = 0,
+		CLT_140NM,
+		CLT_150NM
 	};
 }
 class CClutchConfiguratorDoc : public CDocument
@@ -44,7 +45,7 @@ public:
 #endif
 
 protected:
-	selected::SelectedAssemble m_selectedAssemble = selected::first;
+	selected::SelectedAssemble m_selectedAssemble = selected::CLT_140NM;
 	CAssembleTree* m_pAssembleTree;
 	CClutchConfiguratorView* m_pClutchConfigView;
 

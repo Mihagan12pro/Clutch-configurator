@@ -52,5 +52,10 @@ public:
 	 static void SetCollarName(const char* name);
 	 static void SetRingName(const char* name);
 	 static void SetScrewName(const char* name);
+
+	 static CString GetFolderName();
+	 static CString GetCollarName();
+	 static CString GetRingName();
+	 static CString GetScrewName();
 };
 
