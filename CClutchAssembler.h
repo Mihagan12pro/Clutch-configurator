@@ -42,6 +42,8 @@ class CClutchAssembler
 		void CreateCollar();//Создание втулки
 		void CreateRing();//Создание кольца
 		void CreateScrew();//Создание винта
+
+		void DoAssemble();
 	private:
 		static _bstr_t m_saveFolder;
 		static _bstr_t m_collarName;

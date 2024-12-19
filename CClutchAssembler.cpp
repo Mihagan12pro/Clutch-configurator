@@ -63,6 +63,7 @@ void CClutchAssembler::Assemble()
 	CreateCollar();
 	CreateRing();
 	CreateScrew();
+	DoAssemble();
 }
 void CClutchAssembler::CreateCollar()
 {
@@ -656,6 +657,29 @@ void   CClutchAssembler::CreateScrew()
 
 	m_pDoc3D->SaveAs(m_screwName);
 }
+
+void  CClutchAssembler::DoAssemble()
+{
+	ksPartPtr pClutch, pRing, pScrew;
+
+	m_pDoc3D = m_pKompasApp5->Document3D();
+
+	m_pDoc3D->Create(false, false);
+
+	m_pPart = m_pDoc3D->GetPart(pTop_Part);
+
+	
+	m_pDoc3D ->  SetPartFromFile(m_collarName, m_pPart, true);
+	m_pDoc3D ->  SetPartFromFile(m_ringName, m_pPart, true);
+	m_pDoc3D -> SetPartFromFile(m_screwName, m_pPart, true);
+
+	pClutch = m_pDoc3D -> GetPart(0);
+	pRing = m_pDoc3D -> GetPart(1);
+	pScrew = m_pDoc3D -> GetPart(2);
+
+	m_pDoc3D -> RebuildDocument();
+}
+
 
 
 void CClutchAssembler::SetFolderName(const char*  save)
