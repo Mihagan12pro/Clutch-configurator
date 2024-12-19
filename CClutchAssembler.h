@@ -41,13 +41,16 @@ class CClutchAssembler
 
 		void CreateCollar();//Создание втулки
 		void CreateRing();//Создание кольца
+		void CreateScrew();//Создание винта
 	private:
 		static _bstr_t m_saveFolder;
 		static _bstr_t m_collarName;
 		static _bstr_t m_ringName;
+		static _bstr_t m_screwName;
 public:
 	 static void SetFolderName(const char*save);
 	 static void SetCollarName(const char* name);
 	 static void SetRingName(const char* name);
+	 static void SetScrewName(const char* name);
 };
 

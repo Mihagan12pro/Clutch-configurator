@@ -112,7 +112,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	CClutchConfiguratorDoc* pDoc = (CClutchConfiguratorDoc*)GetActiveDocument();
 
 	pDoc->m_pAssembleTree = (CAssembleTree*)m_wndSplitter.GetPane(0, 0);
-	pDoc->m_pClutchConfigView = (CClutchConfiguratorDoc*)m_wndSplitter.GetPane(0, 1);
+	pDoc->m_pClutchConfigView = (CClutchConfiguratorView*)m_wndSplitter.GetPane(0, 1);
 
 	pDoc->m_pAssembleTree->m_pDoc = pDoc;
 

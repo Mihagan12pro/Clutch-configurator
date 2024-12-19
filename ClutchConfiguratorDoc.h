@@ -5,9 +5,14 @@
 
 #pragma once
 class CAssembleTree;
-class CClutchConfiguratorDoc;
+class CClutchConfiguratorView;
 class CMainFrame;
-
+namespace selected
+{
+	enum SelectedAssemble {
+		first = 0,
+	};
+}
 class CClutchConfiguratorDoc : public CDocument
 {
 protected: // создать только из сериализации
@@ -16,7 +21,7 @@ protected: // создать только из сериализации
 
 // Атрибуты
 public:
-
+	
 // Операции
 public:
 
@@ -39,11 +44,12 @@ public:
 #endif
 
 protected:
+	selected::SelectedAssemble m_selectedAssemble = selected::first;
 	CAssembleTree* m_pAssembleTree;
-	CClutchConfiguratorDoc* m_pClutchConfigView;
+	CClutchConfiguratorView* m_pClutchConfigView;
 
 	friend class CMainFrame;
-
+	friend class CClutchConfiguratorView;
 // Созданные функции схемы сообщений
 protected:
 	DECLARE_MESSAGE_MAP()

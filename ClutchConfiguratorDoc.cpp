@@ -14,6 +14,7 @@
 #include"CAssembleTree.h"
 #include <propkey.h>
 #include"CClutchAssembler.h"
+#include"ClutchConfiguratorDoc.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -45,6 +46,7 @@ BOOL CClutchConfiguratorDoc::OnNewDocument()
 	CClutchAssembler::SetFolderName("C:\\Сборка втулочной муфты");
 	CClutchAssembler::SetCollarName("Втулка.m3d");
 	CClutchAssembler::SetRingName("Кольцо.m3d");
+	CClutchAssembler::SetScrewName("Винт.m3d");
 
 	if (!CDocument::OnNewDocument())
 		return FALSE;

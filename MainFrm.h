@@ -3,7 +3,9 @@
 //
 
 #pragma once
-
+#include"CClutchAssembler.h"
+//class CClutchAssembler;
+class CClutchConfiguratorView;
 class CMainFrame : public CFrameWnd
 {
 	
@@ -40,6 +42,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+private:
+	CClutchAssembler* m_pAssembler;
+private:
+	friend class CClutchConfiguratorView;
 };
 
 

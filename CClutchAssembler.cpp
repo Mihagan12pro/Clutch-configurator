@@ -62,6 +62,7 @@ void CClutchAssembler::Assemble()
 
 	CreateCollar();
 	CreateRing();
+	CreateScrew();
 }
 void CClutchAssembler::CreateCollar()
 {
@@ -542,15 +543,100 @@ void CClutchAssembler::CreateRing()
 
 	pRotate1->Create();
 
-	//m_pPart->SetAdvancedColor(RGB(0,0,0), 50, 60, 80, 80, 60, 50);
-	/*ksColorParamPtr pBlackColor = ksColorParamPtr();
-	pBlackColor->useColor = */
 	
-	//ksColorParamPtr pBlackColor = ksColorParamPtr();
-	//pBlackColor->color = RGB(0, 0, 0);
-	//	m_pPart->SetAdvancedColor(pBlackColor->useColor,50,50,50,50,50,50);
 	m_pDoc3D->SaveAs(m_ringName);
 }
+
+
+void   CClutchAssembler::CreateScrew()
+{
+	m_pDoc3D = m_pKompasApp5->Document3D();
+
+	m_pDoc3D->Create(false, true);
+
+	m_pPart = m_pDoc3D->GetPart(pTop_Part);
+
+
+	ksEntityPtr pSketch1 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch1Def = pSketch1->GetDefinition();
+
+	
+	pSketch1Def->SetPlane(m_pPart->GetDefaultEntity(ZOY));
+	pSketch1->Create();
+	m_pDoc2D = pSketch1Def->BeginEdit();
+
+	m_pDoc2D->ksLineSeg(0,0,0,d1/2-c1,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(0,d1/2-c1,D/2-d/2,d1/2-c1,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(D / 2 - d / 2, d1 / 2 - c1, D / 2 - d / 2,0,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(D / 2 - d / 2, 0,0,0,MAIN_LINE);
+
+	m_pDoc2D->ksLineSeg(0,0,100,0,HATCH_LINE);
+
+	pSketch1Def->EndEdit();
+
+	ksEntityPtr pRotation1 = m_pPart->NewEntity(o3d_bossRotated);
+	ksBossRotatedDefinitionPtr pRotation1Def = pRotation1->GetDefinition();
+
+	pRotation1Def->SetSketch(pSketch1);
+	pRotation1Def->SetSideParam(true,360);
+
+	pRotation1->Create();
+
+
+	ksEntityPtr pSketch2 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch2Def = pSketch2->GetDefinition();
+
+	pSketch2Def->SetPlane(m_pPart->GetDefaultEntity(ZOY));
+	pSketch2->Create();
+
+
+	m_pDoc2D = pSketch2Def->BeginEdit();
+
+	
+	m_pDoc2D->ksLineSeg(0, b1 / 2, (D / 2) - (D1 / 2), b1 / 2, MAIN_LINE);
+	m_pDoc2D->ksLineSeg( (D / 2) - (D1 / 2), b1 / 2, (D / 2) - (D1 / 2),-b1/2, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(0, b1 / 2, 0, -b1 / 2, MAIN_LINE);
+	m_pDoc2D->ksLineSeg((D / 2) - (D1 / 2),-b1/2, 0,-b1/2,MAIN_LINE);
+	pSketch2Def->EndEdit();
+
+	ksEntityPtr pCutExtrusion = m_pPart->NewEntity(o3d_cutExtrusion);
+	ksCutExtrusionDefinitionPtr pCutExtrusionDef = pCutExtrusion->GetDefinition();
+
+	pCutExtrusionDef->SetSketch(pSketch2);
+	pCutExtrusionDef->SetSideParam(true, etThroughAll, 0, 0, false);
+	pCutExtrusionDef->directionType = dtBoth;
+
+
+	pCutExtrusion->Create();
+
+
+	ksEntityPtr pThread = m_pPart->NewEntity(o3d_thread);
+	ksThreadDefinitionPtr pThreadDef = pThread->GetDefinition();
+	pThreadDef->PutallLength(TRUE);
+	pThreadDef->Putlength((D / 2) - (d / 2));
+	pThreadDef->PutautoDefinDr(TRUE);
+
+	ksEntityCollectionPtr pFaces = m_pPart->EntityCollection(o3d_face);
+
+
+	for (int i = 0; i < pFaces->GetCount(); i++)
+	{
+		ksEntityPtr face = pFaces->GetByIndex(i);
+		ksFaceDefinitionPtr def = face->GetDefinition();
+
+		if (def->GetOwnerEntity() == pRotation1)
+		{
+			face->Putname("screw");
+			face->Update();
+			pThreadDef->SetBaseObject(face);
+		}
+
+	}
+	pThread->Create();
+
+	m_pDoc3D->SaveAs(m_screwName);
+}
+
 
 void CClutchAssembler::SetFolderName(const char*  save)
 {
@@ -565,8 +651,13 @@ void CClutchAssembler::SetRingName(const char* name)
 {
 	CClutchAssembler::m_ringName = m_saveFolder + "\\" + _bstr_t(name);
 }
+void CClutchAssembler::SetScrewName(const char* name)
+{
+	CClutchAssembler::m_screwName = m_saveFolder + "\\" + _bstr_t(name);
+}
 
 
 _bstr_t CClutchAssembler::m_saveFolder = _bstr_t("");
 _bstr_t CClutchAssembler::m_collarName = _bstr_t("");
 _bstr_t CClutchAssembler::m_ringName = _bstr_t("");
+_bstr_t CClutchAssembler::m_screwName = _bstr_t("");

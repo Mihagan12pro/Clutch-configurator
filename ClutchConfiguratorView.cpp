@@ -13,6 +13,7 @@
 #include "ClutchConfiguratorDoc.h"
 #include "ClutchConfiguratorView.h"
 
+#include"MainFrm.h"
 #include"CClutchAssembler.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -122,9 +123,28 @@ void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 
-	CClutchAssembler assemble(38,45,10,1,34,16,1,6,1,20,2,0.2,0.3);
+	CClutchConfiguratorDoc* pDoc = GetDocument();
 
-	assemble.Assemble();
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+
+	switch (pDoc->m_selectedAssemble)
+	{
+		case selected::first:
+		{
+			pFrame ->m_pAssembler = new CClutchAssembler(38, 45, 10, 1, 34, 16, 1, 6, 1, 20, 2, 0.2, 0.3);
+			break;
+		}
+	}
+
+	
+	if(pFrame->m_pAssembler!=nullptr)
+	{
+		pFrame->m_pAssembler->Assemble();
+			delete pFrame->m_pAssembler;
+	}
+
+
+	
 
 	CFormView::OnLButtonDown(nFlags, point);
 }
