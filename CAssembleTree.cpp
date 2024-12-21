@@ -21,6 +21,8 @@ CAssembleTree::~CAssembleTree()
 
 BEGIN_MESSAGE_MAP(CAssembleTree, CTreeView)
 	ON_WM_CREATE()
+	ON_NOTIFY_REFLECT(NM_CLICK, &CAssembleTree::OnNMClick)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -67,4 +69,40 @@ void CAssembleTree::FillTree()
 	m_hScrew = tree.InsertItem(L"Винт", -1, -1, m_hAssemble, TVI_FIRST);
 
 	tree.Expand(m_hAssemble, TVE_EXPAND);
+}
+
+void CAssembleTree::OnNMClick(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	*pResult = 0;
+}
+
+
+void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	CTreeCtrl& tree = GetTreeCtrl();
+	HTREEITEM item = tree.GetSelectedItem();
+
+	wchar_t* sketch;
+	if (item == m_hAssemble)
+	{
+
+	}
+	else if (item == m_hCollar)
+	{
+
+	}
+	else if (item == m_hRing)
+	{
+		 sketch = L"Sketches\\Ring.bmp";
+		m_pView->SetSketchImage(sketch);
+	}
+	else if (item == m_hScrew)
+	{
+
+	}
+
+
+	CTreeView::OnLButtonDown(nFlags, point);
 }

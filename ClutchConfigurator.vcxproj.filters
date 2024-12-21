@@ -96,5 +96,8 @@
     <Image Include="res\Toolbar.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="Sketches\Ring.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>

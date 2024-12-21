@@ -5,7 +5,7 @@
 #include<string>
 
 using namespace Kompas6API5;
-#define COM_STRING _bstr_t
+
 
 #define MAIN_LINE  1
 #define HATCH_LINE 3
@@ -18,6 +18,11 @@ using namespace Kompas6API5;
 
 #define YOZ o3d_planeYOZ
 #define ZOY o3d_planeYOZ
+
+
+#define COLLAR_HOLE_FOR_SCREW "HoleForScrew"
+#define SCREW_BODY "ScrewBody"
+
 
 class CClutchAssembler
 {
@@ -33,7 +38,7 @@ class CClutchAssembler
 		ksDocument3DPtr m_pDoc3D;
 		ksDocument2DPtr m_pDoc2D;
 
-		
+		int n1, n2;
 
 
 		double D, L, l, b1, D1, d, c, d1, c1, D2, b, r, f;

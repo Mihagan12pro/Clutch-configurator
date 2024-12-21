@@ -242,8 +242,8 @@ void CClutchAssembler::CreateCollar()
 	pChamfers = pChamfer4Def->array();
 	pChamfers->Clear();
 
-	pEdges->SelectByPoint(0, d / 2, 0);
-
+	//pEdges->SelectByPoint(0, d / 2, 0);
+	pEdges->SelectByPoint(0, D / 2, 0);
 
 	pChamfers->Add(pEdges->GetByIndex(0));
 
@@ -262,10 +262,6 @@ void CClutchAssembler::CreateCollar()
 	pChamfers = pChamfer5Def->array();
 	pChamfers->Clear();
 
-	//pEdges->SelectByPoint(-10, -7.94, 1);
-
-
-	//pChamfers->Add(pEdges->GetByIndex(0));
 
 	for (int i = 0;i < pEdges->GetCount();i++)
 	{
@@ -280,7 +276,7 @@ void CClutchAssembler::CreateCollar()
 			if (x != 0 && fabs(y) < d / 2)
 			{
 
-				ed->Putname("HoleEdge");
+				
 				pChamfers->Add(ed);
 			}
 		}
@@ -434,6 +430,7 @@ void CClutchAssembler::CreateCollar()
 			{
 				//ed->Putname("chamfer6");
 			
+				n1 = i;
 
 				pEdges->SelectByPoint(x,y,z);
 
@@ -499,14 +496,16 @@ void CClutchAssembler::CreateCollar()
 	
 		if (def->GetOwnerEntity()==pCutRotate2)
 		{
-			face->Putname("holeWithThread");
 			face->Update();
+			face->Putname("HoleForScrew");
 			pThreadDef->SetBaseObject(face);
+			n1 = i;
 		}
 		
 	}
 	pThread->Create();
 	m_pDoc3D->SaveAs(m_collarName);
+	//m_pDoc3D->close();
 }
 
 void CClutchAssembler::CreateRing()
@@ -546,6 +545,7 @@ void CClutchAssembler::CreateRing()
 
 	
 	m_pDoc3D->SaveAs(m_ringName);
+	//m_pDoc3D->close();
 }
 
 
@@ -611,30 +611,7 @@ void   CClutchAssembler::CreateScrew()
 	pCutExtrusion->Create();
 
 
-	ksEntityPtr pThread = m_pPart->NewEntity(o3d_thread);
-	ksThreadDefinitionPtr pThreadDef = pThread->GetDefinition();
-	pThreadDef->PutallLength(TRUE);
-	pThreadDef->Putlength((D / 2) - (d / 2));
-	pThreadDef->PutautoDefinDr(TRUE);
-
-	ksEntityCollectionPtr pFaces = m_pPart->EntityCollection(o3d_face);
-
-
-	for (int i = 0; i < pFaces->GetCount(); i++)
-	{
-		ksEntityPtr face = pFaces->GetByIndex(i);
-		ksFaceDefinitionPtr def = face->GetDefinition();
-
-		if (def->GetOwnerEntity() == pRotation1)
-		{
-			face->Putname("screw");
-			face->Update();
-			pThreadDef->SetBaseObject(face);
-		}
-
-	}
-	pThread->Create();
-
+	
 
 	ksEntityPtr pChamfer1 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer1Def = pChamfer1->GetDefinition();
@@ -655,12 +632,46 @@ void   CClutchAssembler::CreateScrew()
 
 	pChamfer1->Create();
 
+	ksEntityPtr pThread = m_pPart->NewEntity(o3d_thread);
+	ksThreadDefinitionPtr pThreadDef = pThread->GetDefinition();
+	pThreadDef->PutallLength(TRUE);
+	pThreadDef->Putlength((D / 2) - (d / 2));
+	pThreadDef->PutautoDefinDr(TRUE);
+
+	ksEntityCollectionPtr pFaces = m_pPart->EntityCollection(o3d_face);
+
+
+	for (int i = 0; i < pFaces->GetCount(); i++)
+	{
+		ksEntityPtr face = pFaces->GetByIndex(i);
+		ksFaceDefinitionPtr def = face->GetDefinition();
+
+		if (def->GetOwnerEntity() == pRotation1)
+		{
+			
+			face->Update();
+			face->Putname(SCREW_BODY);
+			pThreadDef->SetBaseObject(face);
+			n2 = i;
+		}
+		
+
+	}
+	pThread->Create();
+
+
 	m_pDoc3D->SaveAs(m_screwName);
+	//m_pDoc3D->close();
 }
 
 void  CClutchAssembler::DoAssemble()
 {
-	ksPartPtr pClutch, pRing, pScrew;
+	ksPartPtr pCollar, pRing, pScrew;
+
+	ksEntityPtr pCollarHoleForScrew, pScrewBody;
+
+	ksEntityCollectionPtr pCollarFaces, pRingFaces, pScrewFaces;
+
 
 	m_pDoc3D = m_pKompasApp5->Document3D();
 
@@ -673,9 +684,30 @@ void  CClutchAssembler::DoAssemble()
 	m_pDoc3D ->  SetPartFromFile(m_ringName, m_pPart, true);
 	m_pDoc3D -> SetPartFromFile(m_screwName, m_pPart, true);
 
-	pClutch = m_pDoc3D -> GetPart(0);
+	pCollar = m_pDoc3D -> GetPart(0);
 	pRing = m_pDoc3D -> GetPart(1);
 	pScrew = m_pDoc3D -> GetPart(2);
+
+
+	pCollarFaces = pCollar -> EntityCollection(o3d_face);
+	pRingFaces = pRing -> EntityCollection(o3d_face);
+	pScrewFaces = pScrew -> EntityCollection(o3d_face);
+
+	//pCollarFaces->SelectByPoint(0,0,D/2);
+	//pCollarHoleForScrew = pCollarFaces->First();
+
+	//pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
+	//pScrewBody = pScrewFaces->First();
+
+	pCollarFaces->SelectByPoint(0, d1 / 2 - c1, l - d / 2);
+	pCollarHoleForScrew = pCollarFaces->First();
+	
+	
+
+	pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
+	pScrewBody = pScrewFaces->First();
+
+	m_pDoc3D -> AddMateConstraint(mc_Concentric,  pScrewBody,pCollarHoleForScrew , 1, 1, 0);
 
 	m_pDoc3D -> RebuildDocument();
 }
@@ -683,6 +715,7 @@ void  CClutchAssembler::DoAssemble()
 
 
 void CClutchAssembler::SetFolderName(const char*  save)
+
 {
 	CClutchAssembler::m_saveFolder = _bstr_t(save);
 }

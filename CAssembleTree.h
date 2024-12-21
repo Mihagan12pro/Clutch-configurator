@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include"afxcview.h"
+#include"ClutchConfiguratorView.h"
 // Просмотр CAssembleTree
 class CClutchConfiguratorDoc;
 class CAssembleTree : public CTreeView
@@ -15,6 +16,7 @@ protected:
 public:
 	void FillTree();
 	CClutchConfiguratorDoc* m_pDoc;
+	CClutchConfiguratorView* m_pView;
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 #ifndef _WIN32_WCE
@@ -26,6 +28,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnNMClick(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 

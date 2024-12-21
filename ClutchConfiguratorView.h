@@ -47,7 +47,7 @@ protected:
 // Созданные функции схемы сообщений
 protected:
 	DECLARE_MESSAGE_MAP()
-	CStatic m_sketchPicture;
+	//CStatic m_sketchPicture;
 public:
 
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
@@ -55,6 +55,11 @@ public:
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnWhereSaveMenu();
+
+	void SetSketchImage(wchar_t* image);
+private:
+	//CImage m_stetchImage;
+	CStatic m_sketchImage;
 };
 
 #ifndef _DEBUG  // версия отладки в ClutchConfiguratorView.cpp

@@ -52,14 +52,16 @@ CClutchConfiguratorView::~CClutchConfiguratorView()
 void CClutchConfiguratorView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_Sketch_PICTURE, m_sketchPicture);
+	//DDX_Control(pDX, IDC_Sketch_PICTURE, m_sketchPicture);
+	//DDX_Control(pDX, IDC_PICTURE_STATIC, m_stetchImage);
+	DDX_Control(pDX, IDC_PICTURE_STATIC, m_sketchImage);
 }
 
 BOOL CClutchConfiguratorView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: изменить класс Window или стили посредством изменения
 	//  CREATESTRUCT cs
-
+	
 	return CFormView::PreCreateWindow(cs);
 }
 
@@ -188,4 +190,14 @@ void CClutchConfiguratorView::OnWhereSaveMenu()
 
 	}
 	// TODO: добавьте свой код обработчика команд
+}
+void CClutchConfiguratorView::SetSketchImage(wchar_t* image)
+{
+	CImage img;
+
+	img.Load(image);
+
+	HBITMAP bitmap = img.Detach();;
+
+	m_sketchImage.SetBitmap(bitmap);
 }
