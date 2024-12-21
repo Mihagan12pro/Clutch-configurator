@@ -499,6 +499,7 @@ void CClutchAssembler::CreateCollar()
 			face->Update();
 			face->Putname("HoleForScrew");
 			pThreadDef->SetBaseObject(face);
+			
 			n1 = i;
 		}
 		
@@ -668,7 +669,8 @@ void  CClutchAssembler::DoAssemble()
 {
 	ksPartPtr pCollar, pRing, pScrew;
 
-	ksEntityPtr pCollarHoleForScrew, pScrewBody;
+	ksEntityPtr pCollarHoleForScrew, pScrewFace;
+	ksEntityPtr pCollarHoleForRing, pRingFace;
 
 	ksEntityCollectionPtr pCollarFaces, pRingFaces, pScrewFaces;
 
@@ -693,21 +695,28 @@ void  CClutchAssembler::DoAssemble()
 	pRingFaces = pRing -> EntityCollection(o3d_face);
 	pScrewFaces = pScrew -> EntityCollection(o3d_face);
 
+	pCollarFaces->SelectByPoint(l - b1 / 2, 0, D1/2);
+	pCollarHoleForRing = pCollarFaces->First(); 
+
+	pRingFaces->SelectByPoint(b1 / 2,0,D1/2);
+	pRingFace = pRingFaces->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pRingFace, pCollarHoleForRing, 1, 1, 0);
 	//pCollarFaces->SelectByPoint(0,0,D/2);
 	//pCollarHoleForScrew = pCollarFaces->First();
 
 	//pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
 	//pScrewBody = pScrewFaces->First();
 
-	pCollarFaces->SelectByPoint(0, d1 / 2 - c1, l - d / 2);
-	pCollarHoleForScrew = pCollarFaces->First();
-	
-	
+	//pCollarFaces->SelectByPoint(D / 2, 0, l - d1 / 2);
+	//pCollarHoleForScrew = pCollarFaces->First();
+	////pCollarHoleForScrew = pCollarFaces->GetByIndex(n1);
+	//
 
-	pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
-	pScrewBody = pScrewFaces->First();
+	//pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
+	//pScrewBody = pScrewFaces->First();
 
-	m_pDoc3D -> AddMateConstraint(mc_Concentric,  pScrewBody,pCollarHoleForScrew , 1, 1, 0);
+	//m_pDoc3D -> AddMateConstraint(mc_Concentric,  pScrewBody,pCollarHoleForScrew , 1, 1, 0);
 
 	m_pDoc3D -> RebuildDocument();
 }
