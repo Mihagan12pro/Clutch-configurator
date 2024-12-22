@@ -700,21 +700,32 @@ void  CClutchAssembler::DoAssemble()
 	pRingEdges = pRing->EntityCollection(o3d_edge);
 	pScrewEdges = pScrew->EntityCollection(o3d_edge);
 
-
 	pCollarEdges->SelectByPoint(l - b1 / 2, 0, D1 / 2);
 	pCollarHoleForRing = pCollarEdges->First();
 
 	pRingEdges->SelectByPoint(b1 / 2,0,D1/2);
 	pRingFace = pRingEdges->First();
 
-
-
-	//pScrewFaces->SelectByPoint(0, (d1 / 2) - c1,0);
-	//pScrewFace = pScrewFaces->First();
-
-
 	m_pDoc3D->AddMateConstraint(mc_Concentric, pRingFace, pCollarHoleForRing, 1, 1, 0);
-	//m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewFace, pCollarHoleForRing, 1, 1, 0);
+
+
+
+
+	pScrewFaces->SelectByPoint(0, (d1 / 2) - c1, 0);
+	pScrewFace = pScrewEdges->First();
+	pCollarEdges->Clear();
+	pCollarEdges = pCollar->EntityCollection(o3d_edge);
+	pCollarEdges->SelectByPoint(l - c1 * 2,c1-D1 / 2, 0);
+	
+	/*pCollarEdges->SelectByPoint(D1 / 2, 0, l - c1 * 2);*/
+	//pCollarEdges->SelectByPoint(l - c1 * 2, -D / 2, 0);
+	/*pCollarHoleForScrew = pCollarEdges->First();*/
+	pCollarHoleForScrew = pCollarEdges->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewFace, pCollarHoleForScrew, 1, 1, 0);
+
+
+
 
 	m_pDoc3D -> RebuildDocument();
 }
