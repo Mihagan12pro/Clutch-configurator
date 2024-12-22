@@ -673,6 +673,7 @@ void  CClutchAssembler::DoAssemble()
 	ksEntityPtr pCollarHoleForRing, pRingFace;
 
 	ksEntityCollectionPtr pCollarFaces, pRingFaces, pScrewFaces;
+	ksEntityCollectionPtr pCollarEdges, pRingEdges, pScrewEdges;
 
 
 	m_pDoc3D = m_pKompasApp5->Document3D();
@@ -695,28 +696,25 @@ void  CClutchAssembler::DoAssemble()
 	pRingFaces = pRing -> EntityCollection(o3d_face);
 	pScrewFaces = pScrew -> EntityCollection(o3d_face);
 
-	pCollarFaces->SelectByPoint(l - b1 / 2, 0, D1/2);
-	pCollarHoleForRing = pCollarFaces->First(); 
+	pCollarEdges = pCollar->EntityCollection(o3d_edge);
+	pRingEdges = pRing->EntityCollection(o3d_edge);
+	pScrewEdges = pScrew->EntityCollection(o3d_edge);
 
-	pRingFaces->SelectByPoint(b1 / 2,0,D1/2);
-	pRingFace = pRingFaces->First();
+
+	pCollarEdges->SelectByPoint(l - b1 / 2, 0, D1 / 2);
+	pCollarHoleForRing = pCollarEdges->First();
+
+	pRingEdges->SelectByPoint(b1 / 2,0,D1/2);
+	pRingFace = pRingEdges->First();
+
+
+
+	//pScrewFaces->SelectByPoint(0, (d1 / 2) - c1,0);
+	//pScrewFace = pScrewFaces->First();
+
 
 	m_pDoc3D->AddMateConstraint(mc_Concentric, pRingFace, pCollarHoleForRing, 1, 1, 0);
-	//pCollarFaces->SelectByPoint(0,0,D/2);
-	//pCollarHoleForScrew = pCollarFaces->First();
-
-	//pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
-	//pScrewBody = pScrewFaces->First();
-
-	//pCollarFaces->SelectByPoint(D / 2, 0, l - d1 / 2);
-	//pCollarHoleForScrew = pCollarFaces->First();
-	////pCollarHoleForScrew = pCollarFaces->GetByIndex(n1);
-	//
-
-	//pScrewFaces->SelectByPoint(0, d1 / 2 - c1, 0);
-	//pScrewBody = pScrewFaces->First();
-
-	//m_pDoc3D -> AddMateConstraint(mc_Concentric,  pScrewBody,pCollarHoleForScrew , 1, 1, 0);
+	//m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewFace, pCollarHoleForRing, 1, 1, 0);
 
 	m_pDoc3D -> RebuildDocument();
 }
