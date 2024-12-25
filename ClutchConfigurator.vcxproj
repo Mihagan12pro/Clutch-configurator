@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAssemblesCollection.h" />
     <ClInclude Include="CAssembleTree.h" />
     <ClInclude Include="CClutchAssemble.h" />
     <ClInclude Include="CClutchAssembler.h" />
@@ -197,6 +198,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAssemblesCollection.cpp" />
     <ClCompile Include="CAssembleTree.cpp" />
     <ClCompile Include="CClutchAssemble.cpp" />
     <ClCompile Include="CClutchAssembler.cpp" />
