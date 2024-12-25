@@ -733,19 +733,20 @@ void  CClutchAssembler::DoAssemble()
 	
 	
 	pCollarFaces->SelectByPoint(l - b1 / 2, 0, -c1+D/2);
+	//pCollarFaces->SelectByPoint(0, 0, -c1 + D / 2);
 	pCollarHoleForRingFace = pCollarFaces->First();
-	pRingFaces->SelectByPoint(1/2, 19,1/2 );
+
+	double r = 0.5 * (0.5 * D + D1 * 0.5);
+
+	pRingFaces->SelectByPoint(b1/2.f, r, 0);
 	pRingFace = pRingFaces->First();
 	
-	/*pRingFaces->SelectByPoint(1/2, -D/2,0 );
-	pRingFace = pRingFaces->Last();*/
-	/*pRingEdges->Clear();
-	pRingEdges = pRing->EntityCollection(o3d_edge);
-	pRingEdges->SelectByPoint(b1 / 2, -D / 2, 0);
-	pRingEdge = pRingEdges->First();*/
 
 
-	m_pDoc3D->AddMateConstraint(mc_Coincidence, pRingFace, pCollarHoleForRingFace, 1, 1, 0);
+
+	m_pDoc3D->AddMateConstraint(mc_Coincidence, pRingFace, pCollarHoleForRingFace, -1, 1, 0);
+	
+		//m_pDoc3D->AddMateConstraint(mc_Distance, pRingFace, pCollarHoleForRingFace, 1, 1, l-b1/2);
 	m_pDoc3D -> RebuildDocument();
 
 	m_pDoc3D->SaveAs(m_saveFolder+"\\—борка.a3d");
