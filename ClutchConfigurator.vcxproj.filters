@@ -48,6 +48,9 @@
     <ClInclude Include="CSaveConfigurationsDlg.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="CClutchAssemble.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClutchConfigurator.cpp">
@@ -72,6 +75,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="CSaveConfigurationsDlg.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CClutchAssemble.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

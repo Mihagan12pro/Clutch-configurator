@@ -80,11 +80,12 @@ void CAssembleTree::OnNMClick(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	CTreeView::OnLButtonDown(nFlags, point);
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 	CTreeCtrl& tree = GetTreeCtrl();
 	HTREEITEM item = tree.GetSelectedItem();
 
-	wchar_t* sketch;
+	wchar_t* pSketch = nullptr;
 	if (item == m_hAssemble)
 	{
 
@@ -95,14 +96,20 @@ void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	else if (item == m_hRing)
 	{
-		 sketch = L"Sketches\\Ring.bmp";
-		m_pView->SetSketchImage(sketch);
+		 pSketch = L"Sketches\\Ring.bmp";
+		
 	}
 	else if (item == m_hScrew)
 	{
-
+		pSketch = L"Sketches\\Screw.bmp";
 	}
 
 
-	CTreeView::OnLButtonDown(nFlags, point);
+
+	if (pSketch != nullptr)
+	{
+		m_pView->SetSketchImage(pSketch);
+	}
+
+	
 }
