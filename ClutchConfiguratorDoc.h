@@ -7,13 +7,14 @@
 class CAssembleTree;
 class CClutchConfiguratorView;
 class CMainFrame;
-namespace selected
-{
-	enum SelectedAssemble {
-		CLT_140NM,
-		CLT_150NM
-	};
-}
+#include"CAssemblesCollection.h"
+//namespace selected
+//{
+//	enum SelectedAssemble {
+//		CLT_140NM,
+//		CLT_150NM
+//	};
+//}
 class CClutchConfiguratorDoc : public CDocument
 {
 protected: // создать только из сериализации
@@ -45,7 +46,7 @@ public:
 #endif
 
 protected:
-	selected::SelectedAssemble m_selectedAssemble = selected::CLT_140NM;
+	//selected::SelectedAssemble m_selectedAssemble = selected::CLT_140NM;
 	CAssembleTree* m_pAssembleTree;
 	CClutchConfiguratorView* m_pClutchConfigView;
 

@@ -2,24 +2,25 @@
 #include "CClutchAssembler.h"
 #include<cmath>
 
-CClutchAssembler::CClutchAssembler(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f)
+
+CClutchAssembler::CClutchAssembler(Assemble assemble)
 {
-	D = _D;
-	L = _L;
-	l = _l;
-	b1 = _b1;
-	D1 = _D1;
-	d = _d;
-	c = _c;
-	d1 = _d1;
-	c1 = _c1;
-	D2 = _D2;
-	b = _b;
-	r = _r;
-	f = _f;
+	D  = assemble.GetD();
+	L  = assemble.GetL();
+	l  = assemble.Getl();
+	b1 = assemble.Getb1();
+	D1 = assemble.GetD1();
+	d  = assemble.Getd();
+	c  = assemble.Getc();
+	d1 = assemble.Getd1();
+	c1 = assemble.Getc1();
+	D2 = assemble.GetD2();
+	b  = assemble.Getb();
+	r  = assemble.Getr();
+	f  = assemble.Getf();
 }
 
-void CClutchAssembler::Assemble()
+void CClutchAssembler::BuildAssemble()
 {
 	// TODO: добавьте свой код обработчика уведомлений
 

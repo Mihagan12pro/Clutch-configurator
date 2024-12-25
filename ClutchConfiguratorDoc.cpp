@@ -48,6 +48,8 @@ BOOL CClutchConfiguratorDoc::OnNewDocument()
 	CClutchAssembler::SetRingName("Кольцо.m3d");
 	CClutchAssembler::SetScrewName("Винт.m3d");
 
+	CAssemblesCollection::InitializeAssembles();
+
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 	m_pAssembleTree -> FillTree();

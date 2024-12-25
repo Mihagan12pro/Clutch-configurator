@@ -2,6 +2,7 @@
 #include "CClutchAssemble.h"
 #include<vector>
 using namespace std;
+#define Assembles CAssemblesCollection 
 class CAssemblesCollection
 {
 	private:

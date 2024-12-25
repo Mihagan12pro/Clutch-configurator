@@ -3,6 +3,8 @@
 #include "C:\Program Files\ASCON\KOMPAS-3D v22 Study\SDK\Include\ksConstants3D.h"
 #import "C:\Program Files\ASCON\KOMPAS-3D v22 Study\SDK\lib\kAPI5.tlb"
 #include<string>
+#include"CClutchAssemble.h"
+
 
 using namespace Kompas6API5;
 
@@ -28,8 +30,8 @@ class CClutchAssembler
 {
 
 	public:
-		void Assemble();
-		CClutchAssembler(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f);
+		void BuildAssemble();
+		CClutchAssembler(Assemble assemble);
 	protected:
 		KompasObjectPtr m_pKompasApp5;
 		
