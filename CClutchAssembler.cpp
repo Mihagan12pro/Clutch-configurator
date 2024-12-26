@@ -739,7 +739,7 @@ void  CClutchAssembler::DoAssemble()
 	//pCollarFaces->SelectByPoint(0, 0, -c1 + D / 2);
 	pCollarHoleForRingFace = pCollarFaces->First();
 
-	//double r = 0.5 * (0.5 * D + D1 * 0.5);
+	
 
 	pRingFaces->SelectByPoint(b1/2.f, 0.5 * (0.5 * D + D1 * 0.5), 0);
 	pRingFace = pRingFaces->First();
@@ -779,15 +779,16 @@ void  CClutchAssembler::DoAssemble()
 	pRingFace = pRingFaces->First();
 	m_pDoc3D->AddMateConstraint(mc_Tangency,  pScrewEdge, pRingFace,-1, 0, NULL);
 		
+	
+
 	m_pDoc3D -> RebuildDocument();
 
-	m_pDoc3D->SaveAs(m_saveFolder+"\\—борка.a3d");
+	m_pDoc3D->SaveAs(m_assembleName	);
 }
 
 
 
 void CClutchAssembler::SetFolderName(const char*  save)
-
 {
 	CClutchAssembler::m_saveFolder = _bstr_t(save);
 }
@@ -796,17 +797,24 @@ void CClutchAssembler::SetCollarName(const char* name)
 {
 	CClutchAssembler::m_collarName = m_saveFolder+"\\" + _bstr_t(name);
 }
+
 void CClutchAssembler::SetRingName(const char* name)
 {
 	CClutchAssembler::m_ringName = m_saveFolder + "\\" + _bstr_t(name);
 }
+
 void CClutchAssembler::SetScrewName(const char* name)
 {
 	CClutchAssembler::m_screwName = m_saveFolder + "\\" + _bstr_t(name);
 }
 
+void CClutchAssembler::SetAssembleName(const char* name)
+{
+	CClutchAssembler::m_assembleName = m_saveFolder + "\\" + _bstr_t(name);
+}
 
 _bstr_t CClutchAssembler::m_saveFolder = _bstr_t("");
 _bstr_t CClutchAssembler::m_collarName = _bstr_t("");
 _bstr_t CClutchAssembler::m_ringName = _bstr_t("");
 _bstr_t CClutchAssembler::m_screwName = _bstr_t("");
+_bstr_t CClutchAssembler::m_assembleName = _bstr_t("");

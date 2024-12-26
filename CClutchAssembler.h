@@ -53,6 +53,7 @@ class CClutchAssembler
 		void DoAssemble();
 	private:
 		static _bstr_t m_saveFolder;
+		static _bstr_t m_assembleName;
 		static _bstr_t m_collarName;
 		static _bstr_t m_ringName;
 		static _bstr_t m_screwName;
@@ -61,6 +62,7 @@ public:
 	 static void SetCollarName(const char* name);
 	 static void SetRingName(const char* name);
 	 static void SetScrewName(const char* name);
+	 static void SetAssembleName(const char* name);
 
 	 static CString GetFolderName();
 	 static CString GetCollarName();

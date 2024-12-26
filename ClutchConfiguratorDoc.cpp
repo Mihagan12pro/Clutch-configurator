@@ -47,6 +47,7 @@ BOOL CClutchConfiguratorDoc::OnNewDocument()
 	CClutchAssembler::SetCollarName("Втулка.m3d");
 	CClutchAssembler::SetRingName("Кольцо.m3d");
 	CClutchAssembler::SetScrewName("Винт.m3d");
+	CClutchAssembler::SetAssembleName("Втулочная муфта.a3d");
 
 	CAssemblesCollection::InitializeAssembles();
 
