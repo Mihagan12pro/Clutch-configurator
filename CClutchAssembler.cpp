@@ -759,10 +759,25 @@ void  CClutchAssembler::DoAssemble()
 	pRingFaces->Clear();
 	pRingFaces = pRing->EntityCollection(o3d_face);
 
-	pRingFaces->SelectByPoint(b1 / 2, D/2, 0);
+	pRingFaces->SelectByPoint(0, D/2, 0);
 	pRingFace = pRingFaces->First();
 
 	m_pDoc3D->AddMateConstraint(mc_Perpendicular, pScrewEdge, pRingFace, 1, 1, 0);
+
+	//mc_Tangency - касание
+
+	pScrewFaces->Clear();
+	pScrewFaces = pScrew->EntityCollection(o3d_face);
+	/*pScrewFaces->SelectByPoint(0,D*0.5-D1*0.5, 0);*/
+	pScrewFaces->SelectByPoint(0,1.01* b1/2, 0);
+	pScrewEdge = pScrewFaces->First();
+
+	pRingFaces->Clear();
+	pRingFaces = pRing->EntityCollection(o3d_face);
+
+	pRingFaces->SelectByPoint(0, D / 2, 0);
+	pRingFace = pRingFaces->First();
+	m_pDoc3D->AddMateConstraint(mc_Tangency,  pScrewEdge, pRingFace,-1, 0, NULL);
 		
 	m_pDoc3D -> RebuildDocument();
 
