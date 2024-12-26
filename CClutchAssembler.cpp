@@ -673,6 +673,7 @@ void  CClutchAssembler::DoAssemble()
 
 	ksEntityPtr pCollarHoleForScrewEdge, pScrewEdge;
 	ksEntityPtr pCollarHoleForRingEdge, pRingEdge;
+	ksEntityPtr pScrewHoleForRingEdge;
 
 	ksEntityPtr pCollarHoleForRingFace, pRingFace;
 
@@ -719,14 +720,16 @@ void  CClutchAssembler::DoAssemble()
 	pScrewEdge= pScrewEdges->First();
 	pCollarEdges->Clear();
 
-	pCollarEdges = pCollar->EntityCollection(o3d_edge);
-	pCollarEdges->SelectByPoint(l - c1 * 2,c1-D1 / 2, 0);
+	pCollarFaces = pCollar->EntityCollection(o3d_face);
+	pCollarFaces->SelectByPoint(l - c1 * 2,c1-D1 / 2, 0);
+	
 	
 
-	pCollarHoleForScrewEdge = pCollarEdges->First();
+	pCollarHoleForScrewEdge = pCollarFaces->First();
 
-	m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewEdge, pCollarHoleForScrewEdge, 1, 1, 0);
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewEdge, pCollarHoleForScrewEdge, -1, 1, 0);
 
+	pCollarFaces->Clear();
 	pCollarFaces = pCollar->EntityCollection(o3d_face);
 	pRingFaces = pRing->EntityCollection(o3d_face);
 
@@ -736,17 +739,31 @@ void  CClutchAssembler::DoAssemble()
 	//pCollarFaces->SelectByPoint(0, 0, -c1 + D / 2);
 	pCollarHoleForRingFace = pCollarFaces->First();
 
-	double r = 0.5 * (0.5 * D + D1 * 0.5);
+	//double r = 0.5 * (0.5 * D + D1 * 0.5);
 
-	pRingFaces->SelectByPoint(b1/2.f, r, 0);
+	pRingFaces->SelectByPoint(b1/2.f, 0.5 * (0.5 * D + D1 * 0.5), 0);
 	pRingFace = pRingFaces->First();
 	
-
-
-
+	
 	m_pDoc3D->AddMateConstraint(mc_Coincidence, pRingFace, pCollarHoleForRingFace, -1, 1, 0);
 	
-		//m_pDoc3D->AddMateConstraint(mc_Distance, pRingFace, pCollarHoleForRingFace, 1, 1, l-b1/2);
+	
+
+
+	pScrewEdges -> Clear();
+	pScrewEdges = pScrew->EntityCollection(o3d_edge);
+
+	pScrewEdges->SelectByPoint(0,-b1/2, -(D / 2) + (D1 / 2));
+	pScrewEdge = pScrewEdges->First();
+
+	pRingFaces->Clear();
+	pRingFaces = pRing->EntityCollection(o3d_face);
+
+	pRingFaces->SelectByPoint(b1 / 2, D/2, 0);
+	pRingFace = pRingFaces->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Perpendicular, pScrewEdge, pRingFace, 1, 1, 0);
+		
 	m_pDoc3D -> RebuildDocument();
 
 	m_pDoc3D->SaveAs(m_saveFolder+"\\—борка.a3d");
