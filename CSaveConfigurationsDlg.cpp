@@ -32,3 +32,15 @@ END_MESSAGE_MAP()
 
 
 // Обработчики сообщений CSaveConfigurationsDlg
+
+
+BOOL CSaveConfigurationsDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+
+	// TODO:  Добавить дополнительную инициализацию
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// Исключение: страница свойств OCX должна возвращать значение FALSE
+}

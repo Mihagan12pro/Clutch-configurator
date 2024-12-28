@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "CClutchAssemble.h"
+CClutchAssemble::CClutchAssemble()
+{
+
+}
 CClutchAssemble::CClutchAssemble(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f)
 {
 	D = _D;
