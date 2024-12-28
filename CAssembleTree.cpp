@@ -4,7 +4,7 @@
 #include "pch.h"
 #include "ClutchConfigurator.h"
 #include "CAssembleTree.h"
-
+#include"CChooseAssembleDlg.h"
 
 // CAssembleTree
 
@@ -70,6 +70,8 @@ void CAssembleTree::FillTree()
 	m_hScrew = tree.InsertItem(L"Винт", -1, -1, m_hAssemble, TVI_FIRST);
 
 	tree.Expand(m_hAssemble, TVE_EXPAND);
+
+	CChooseAssembleDlg::SetHTREEITEMs(m_hAssemble,m_hCollar,m_hRing,m_hScrew);
 }
 
 void CAssembleTree::OnNMClick(NMHDR* pNMHDR, LRESULT* pResult)
@@ -121,4 +123,13 @@ void CAssembleTree::OnLButtonDblClk(UINT nFlags, CPoint point)
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 
 	CTreeView::OnLButtonDblClk(nFlags, point);
+
+	CTreeCtrl& tree = GetTreeCtrl();
+	HTREEITEM item = tree.GetSelectedItem();
+
+	if (item != NULL)
+	{
+		CChooseAssembleDlg::GetTreeItem(item);
+	}
+	
 }

@@ -9,6 +9,8 @@
 #define IDR_ClutchConfiguratorTYPE      130
 #define IDD_DIALOG_PATHS_EDITOR         313
 #define IDB_BITMAP1                     315
+#define IDD_DIALOG1                     316
+#define IDD_CHOOSE_ASSEMBLE             316
 #define IDC_Sketch_PICTURE              1000
 #define IDC_save_STATIC                 1002
 #define IDC_EDIT5                       1006
@@ -36,7 +38,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32778
 #define _APS_NEXT_CONTROL_VALUE         1022
 #define _APS_NEXT_SYMED_VALUE           310
