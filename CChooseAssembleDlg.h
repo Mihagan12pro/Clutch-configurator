@@ -10,7 +10,7 @@ class CChooseAssembleDlg : public CDialogEx
 
 public:
 
-	static void GetTreeItem(HTREEITEM item);
+	void GetTreeItem(HTREEITEM item);
 
 	CChooseAssembleDlg(CWnd* pParent = nullptr);   // стандартный конструктор
 	virtual ~CChooseAssembleDlg();
@@ -26,6 +26,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // поддержка DDX/DDV
 
 
+	HTREEITEM m_treeFromGetTree;
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
 };

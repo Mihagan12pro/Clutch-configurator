@@ -64,21 +64,24 @@ void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTR
 
 void CChooseAssembleDlg::GetTreeItem(HTREEITEM item)
 {
+	m_treeFromGetTree = item;
+	//SetWindowText(_T("Мое новое название"));
 	if (item == m_hAssemble)
 	{
-		
+		//SetWindowText(L"Сборка втулочной муфты");
+		//SetWindowText(L"Мое новое название");
 	}
 	else if (item == m_hRing)
 	{
-		
+		//SetWindowText(L"Кольцо");
 	}
 	else if (item == m_hCollar)
 	{
-
+		//SetWindowText(L"Втулка");
 	}
 	else if (item == m_hScrew)
 	{
-
+		//SetWindowText(L"Винт");
 	}
 }
 
@@ -95,3 +98,31 @@ END_MESSAGE_MAP()
 
 
 // Обработчики сообщений CChooseAssembleDlg
+
+
+BOOL CChooseAssembleDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	if (m_treeFromGetTree == m_hAssemble)
+	{
+		SetWindowText(L"Сборка втулочной муфты");
+		//SetWindowText(L"Мое новое название");
+	}
+	else if (m_treeFromGetTree == m_hRing)
+	{
+		SetWindowText(L"Кольцо");
+	}
+	else if (m_treeFromGetTree == m_hCollar)
+	{
+		SetWindowText(L"Втулка");
+	}
+	else if (m_treeFromGetTree == m_hScrew)
+	{
+		SetWindowText(L"Винт");
+	}
+	// TODO:  Добавить дополнительную инициализацию
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// Исключение: страница свойств OCX должна возвращать значение FALSE
+}

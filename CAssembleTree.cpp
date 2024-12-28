@@ -129,7 +129,14 @@ void CAssembleTree::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 	if (item != NULL)
 	{
-		CChooseAssembleDlg::GetTreeItem(item);
+		CChooseAssembleDlg dlg;
+		dlg.GetTreeItem(item);
+		
+
+		if (dlg.DoModal() == IDOK)
+		{
+
+		}
 	}
 	
 }
