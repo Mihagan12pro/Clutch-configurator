@@ -23,6 +23,7 @@ BEGIN_MESSAGE_MAP(CAssembleTree, CTreeView)
 	ON_WM_CREATE()
 	ON_NOTIFY_REFLECT(NM_CLICK, &CAssembleTree::OnNMClick)
 	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 
@@ -112,4 +113,12 @@ void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 
 	
+}
+
+
+void CAssembleTree::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+
+	CTreeView::OnLButtonDblClk(nFlags, point);
 }
