@@ -813,8 +813,15 @@ void CClutchAssembler::SetAssembleName(const char* name)
 	CClutchAssembler::m_assembleName = m_saveFolder + "\\" + _bstr_t(name);
 }
 
+Assembles::SelectedAssemble CClutchAssembler::SelectedAssemble()
+{
+	return m_selected;
+}
+
 _bstr_t CClutchAssembler::m_saveFolder = _bstr_t("");
 _bstr_t CClutchAssembler::m_collarName = _bstr_t("");
 _bstr_t CClutchAssembler::m_ringName = _bstr_t("");
 _bstr_t CClutchAssembler::m_screwName = _bstr_t("");
 _bstr_t CClutchAssembler::m_assembleName = _bstr_t("");
+
+Assembles::SelectedAssemble CClutchAssembler::m_selected = CAssemblesCollection::CLT_140NM;

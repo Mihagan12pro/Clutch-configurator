@@ -5,7 +5,7 @@
 #import "C:\Program Files\ASCON\KOMPAS-3D v22 Study\SDK\lib\kAPI5.tlb"
 #include<string>
 #include"CClutchAssemble.h"
-
+#include"CAssemblesCollection.h"
 
 using namespace Kompas6API5;
 
@@ -41,6 +41,8 @@ class CClutchAssembler
 		ksDocument3DPtr m_pDoc3D;
 		ksDocument2DPtr m_pDoc2D;
 
+		static CAssemblesCollection::SelectedAssemble m_selected ;
+
 		int n1, n2;
 
 
@@ -69,6 +71,8 @@ public:
 	 static CString GetCollarName();
 	 static CString GetRingName();
 	 static CString GetScrewName();
+
+	 static Assembles::SelectedAssemble SelectedAssemble();
 protected:
 	friend class CSaveConfigurationsDlg;
 };
