@@ -22,7 +22,8 @@ class CAssemblesCollection
 		static void InitializeAssembles();
 		static Assemble GetAssemble(SelectedAssemble selected);
 		
-
+		
+		static vector<Assemble> GetAllAssembled();
 
 
 };

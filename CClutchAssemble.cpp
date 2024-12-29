@@ -4,6 +4,10 @@ CClutchAssemble::CClutchAssemble(CString _NM)
 {
 	NM = _NM;
 }
+CClutchAssemble::CClutchAssemble()
+{
+
+}
 CClutchAssemble::CClutchAssemble(double _D, double _L, double _l, double _b1, double _D1, double _c, double _d1, double _c1, double _r, double _f, CGOST1139 &gost1,  CGOST1139 &gost2)
 {
 	D = _D;

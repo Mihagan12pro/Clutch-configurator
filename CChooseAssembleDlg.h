@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include "afxdialogex.h"
 class CClutchAssembler;
+class CClutchAssemble;
 class CMainFrame;
+#include<vector>
 // Диалоговое окно CChooseAssembleDlg
 
 class CChooseAssembleDlg : public CDialogEx

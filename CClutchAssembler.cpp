@@ -821,10 +821,10 @@ void CClutchAssembler::SetAssembleName(const char* name)
 	CClutchAssembler::m_assembleName = m_saveFolder + "\\" + _bstr_t(name);
 }
 
-Assembles::SelectedAssemble CClutchAssembler::SelectedAssemble()
-{
-	return m_selected;
-}
+//Assembles::SelectedAssemble CClutchAssembler::SelectedAssemble()
+//{
+//	return m_selected;
+//}
 
 _bstr_t CClutchAssembler::m_saveFolder = _bstr_t("");
 _bstr_t CClutchAssembler::m_collarName = _bstr_t("");

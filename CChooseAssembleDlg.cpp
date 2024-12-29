@@ -8,6 +8,7 @@
 #include "CClutchAssembler.h"
 #include "MainFrm.h"
 #include "CClutchAssembler.h"
+#include"CClutchAssemble.h"
 
 // Диалоговое окно CChooseAssembleDlg
 
@@ -68,24 +69,6 @@ void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTR
 void CChooseAssembleDlg::GetTreeItem(HTREEITEM item)
 {
 	m_treeFromGetTree = item;
-	//SetWindowText(_T("Мое новое название"));
-	if (item == m_hAssemble)
-	{
-		//SetWindowText(L"Сборка втулочной муфты");
-		//SetWindowText(L"Мое новое название");
-	}
-	else if (item == m_hRing)
-	{
-		//SetWindowText(L"Кольцо");
-	}
-	else if (item == m_hCollar)
-	{
-		//SetWindowText(L"Втулка");
-	}
-	else if (item == m_hScrew)
-	{
-		//SetWindowText(L"Винт");
-	}
 }
 
 
@@ -112,7 +95,12 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	if (m_treeFromGetTree == m_hAssemble)
 	{
 		SetWindowText(L"Сборка втулочной муфты");
-		//SetWindowText(L"Мое новое название");
+		m_AssemblesTable.ShowWindow(SW_SHOW);
+		for (int i = 0; i < Assembles::GetAllAssembled().size();i++)
+		{
+			
+		}
+		
 	}
 	else if (m_treeFromGetTree == m_hRing)
 	{

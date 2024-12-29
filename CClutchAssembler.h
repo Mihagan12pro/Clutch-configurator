@@ -47,6 +47,7 @@ class CClutchAssembler
 		ksDocument2DPtr m_pDoc2D;
 
 		static Assembles::SelectedAssemble m_selected ;
+		Assemble m_assemble;
 
 		int n1, n2;
 
@@ -76,7 +77,7 @@ class CClutchAssembler
 		 static CString GetCollarName();
 		 static CString GetRingName();
 		 static CString GetScrewName();
-		 static Assembles::SelectedAssemble SelectedAssemble();
+		 //static Assembles::SelectedAssemble SelectedAssemble();
 
 	protected:
 		friend class CSaveConfigurationsDlg;

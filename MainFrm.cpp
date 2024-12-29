@@ -101,7 +101,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
 	CAssemblesCollection::InitializeAssembles();
 
-	m_pAssembler = new CClutchAssembler(Assembles::GetAssemble(CClutchAssembler::SelectedAssemble()),GOST_TOP);
+	m_pAssembler = new CClutchAssembler(Assembles::GetAssemble(Assembles::CLT_140NM),GOST_TOP);
 
 
 	m_wndSplitter.CreateStatic(this, 1, 2);
