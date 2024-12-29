@@ -1,4 +1,4 @@
 #pragma once
-#define GOST_TOP true
-#define GOST_BOTTOM false
-#define GOST bool
+#define GOST_TOP 0
+#define GOST_BOTTOM 1
+#define GOST int

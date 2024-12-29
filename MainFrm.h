@@ -7,6 +7,7 @@
 #include "CChooseAssembleDlg.h"
 //class CClutchAssembler;
 class CClutchConfiguratorView;
+#include"Other.h"
 class CMainFrame : public CFrameWnd
 {
 	

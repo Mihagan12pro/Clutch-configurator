@@ -7,6 +7,7 @@
 #include "CClutchAssemble.h"
 #include "CChooseAssembleDlg.h"
 #include "CAssemblesCollection.h"
+#include"Other.h"
 
 using namespace Kompas6API5;
 #define Assembler CClutchAssembler
@@ -33,7 +34,7 @@ class CClutchAssembler
 
 	public:
 		void BuildAssemble();
-		CClutchAssembler(Assemble assemble);
+		CClutchAssembler(Assemble assemble,GOST gost);
 	protected:
 		CClutchAssembler();
 

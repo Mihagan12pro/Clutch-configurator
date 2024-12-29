@@ -7,7 +7,7 @@ CClutchAssembler::CClutchAssembler()
 
 }
 
-CClutchAssembler::CClutchAssembler(Assemble assemble)
+CClutchAssembler::CClutchAssembler(Assemble assemble, GOST gost)
 {
 	D  = assemble.GetD();
 	L  = assemble.GetL();
@@ -22,6 +22,10 @@ CClutchAssembler::CClutchAssembler(Assemble assemble)
 	//b  = assemble.Getb();
 	r  = assemble.Getr();
 	f  = assemble.Getf();
+
+	d = assemble.GetGOST1139(gost).Getd();
+	D2 = assemble.GetGOST1139(gost).GetD2();
+	b = assemble.GetGOST1139(gost).Getb();
 }
 
 void CClutchAssembler::BuildAssemble()
