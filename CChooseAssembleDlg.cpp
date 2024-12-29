@@ -78,21 +78,31 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		SetWindowText(L"Сборка втулочной муфты");
 		/*m_AssemblesTable.ShowWindow(SW_SHOW);*/
 		m_AssemblesTable.InsertColumn(0,L"Мкр", LVCFMT_LEFT,65);
-		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(2, L"D1", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(3, L"b1", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(4, L"d1", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(5, L"L", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(6, L"l", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(7, L"r", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(8, L"f", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(9, L"c", LVCFMT_LEFT, 30);
-		m_AssemblesTable.InsertColumn(10, L"c1", LVCFMT_LEFT, 30);
-	/*	for (int i = 0; i < Assembles::GetAllAssembled().size();i++)
+		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(2, L"D1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(3, L"b1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(4, L"d1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(5, L"L", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(6, L"l", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(7, L"r", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(8, L"f", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(9, L"c", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(10, L"c1", LVCFMT_LEFT, 40);
+		for (int i = 0; i < Assembles::GetAllAssembled().size();i++)
 		{
 			int item = m_AssemblesTable.InsertItem(i, Assembles::GetAllAssembled()[i].GetNM());
+			m_AssemblesTable.SetItemText(item,1,DoubleToCString(Assembles::GetAllAssembled()[i].GetD()));
+			m_AssemblesTable.SetItemText(item, 2, DoubleToCString(Assembles::GetAllAssembled()[i].GetD1()));
+			m_AssemblesTable.SetItemText(item, 3, DoubleToCString(Assembles::GetAllAssembled()[i].Getb1()));
+			m_AssemblesTable.SetItemText(item, 4, DoubleToCString(Assembles::GetAllAssembled()[i].Getd1()));
+			m_AssemblesTable.SetItemText(item, 5, DoubleToCString(Assembles::GetAllAssembled()[i].GetL()));
+			m_AssemblesTable.SetItemText(item, 6, DoubleToCString(Assembles::GetAllAssembled()[i].Getl()));
+			m_AssemblesTable.SetItemText(item, 7, DoubleToCString(Assembles::GetAllAssembled()[i].Getr()));
+			m_AssemblesTable.SetItemText(item, 8, DoubleToCString(Assembles::GetAllAssembled()[i].Getf()));
+			m_AssemblesTable.SetItemText(item, 9, DoubleToCString(Assembles::GetAllAssembled()[i].Getc()));
+			m_AssemblesTable.SetItemText(item, 10, DoubleToCString(Assembles::GetAllAssembled()[i].Getc1()));
 		}
-		*/
+		
 	}
 	else if (m_treeFromGetTree == m_hRing)
 	{
@@ -115,7 +125,7 @@ CString CChooseAssembleDlg::DoubleToCString(double number)
 {
 	CString strNumber;
 
-	strNumber.Format(L"%f",number);
+	strNumber.Format(L"%g",number);
 
 	return strNumber;
 }
