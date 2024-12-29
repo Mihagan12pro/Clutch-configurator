@@ -8,7 +8,7 @@
 #include"CAssemblesCollection.h"
 
 using namespace Kompas6API5;
-
+#define Assembler CClutchAssembler
 
 #define MAIN_LINE  1
 #define HATCH_LINE 3
@@ -41,7 +41,7 @@ class CClutchAssembler
 		ksDocument3DPtr m_pDoc3D;
 		ksDocument2DPtr m_pDoc2D;
 
-		static CAssemblesCollection::SelectedAssemble m_selected ;
+		static Assembles::SelectedAssemble m_selected ;
 
 		int n1, n2;
 
@@ -60,20 +60,20 @@ class CClutchAssembler
 		static _bstr_t m_collarName;
 		static _bstr_t m_ringName;
 		static _bstr_t m_screwName;
-public:
-	 static void SetFolderName(const char*save);
-	 static void SetCollarName(const char* name);
-	 static void SetRingName(const char* name);
-	 static void SetScrewName(const char* name);
-	 static void SetAssembleName(const char* name);
 
-	 static CString GetFolderName();
-	 static CString GetCollarName();
-	 static CString GetRingName();
-	 static CString GetScrewName();
+	public:
+		 static void SetFolderName(const char*save);
+		 static void SetCollarName(const char* name);
+		 static void SetRingName(const char* name);
+		 static void SetScrewName(const char* name);
+		 static void SetAssembleName(const char* name);
+		 static CString GetFolderName();
+		 static CString GetCollarName();
+		 static CString GetRingName();
+		 static CString GetScrewName();
+		 static Assembles::SelectedAssemble SelectedAssemble();
 
-	 static Assembles::SelectedAssemble SelectedAssemble();
-protected:
-	friend class CSaveConfigurationsDlg;
+	protected:
+		friend class CSaveConfigurationsDlg;
 };
 

@@ -99,6 +99,11 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
+	CAssemblesCollection::InitializeAssembles();
+
+	m_pAssembler = new CClutchAssembler(Assembles::GetAssemble(CClutchAssembler::SelectedAssemble()));
+
+
 	m_wndSplitter.CreateStatic(this, 1, 2);
 
 
@@ -118,4 +123,8 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	pDoc->m_pAssembleTree->m_pView = pDoc->m_pClutchConfigView;
 
 	return TRUE;
+}
+Assembler CMainFrame::GetAssembler()
+{
+	return *m_pAssembler;
 }

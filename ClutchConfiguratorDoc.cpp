@@ -49,7 +49,7 @@ BOOL CClutchConfiguratorDoc::OnNewDocument()
 	CClutchAssembler::SetScrewName("Винт.m3d");
 	CClutchAssembler::SetAssembleName("Втулочная муфта.a3d");
 
-	CAssemblesCollection::InitializeAssembles();
+	
 
 	if (!CDocument::OnNewDocument())
 		return FALSE;

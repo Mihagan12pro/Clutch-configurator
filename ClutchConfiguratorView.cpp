@@ -129,14 +129,16 @@ void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
 	CClutchConfiguratorDoc* pDoc = GetDocument();
 
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	pFrame->m_pAssembler = new CClutchAssembler(Assembles::GetAssemble(CClutchAssembler::SelectedAssemble()));
+	
 	
 
 	
-	if(pFrame->m_pAssembler != nullptr)
+	if(&pFrame->GetAssembler() != nullptr)
 	{
-		pFrame->m_pAssembler->BuildAssemble();
-			delete pFrame->m_pAssembler;
+		
+		Assembler ass = pFrame->GetAssembler();
+		ass.BuildAssemble();
+
 	}
 
 
