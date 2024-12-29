@@ -42,4 +42,5 @@ private:
 	CComboBox m_holeCOMBO;
 public:
 	CStatic m_HoleSTATIC;
+	CStatic m_NMSTATIC;
 };

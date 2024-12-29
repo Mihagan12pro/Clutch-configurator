@@ -33,7 +33,8 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_NM_COMBO, m_NMCombo);
 	DDX_Control(pDX, IDC_HOLE1139_STATIC, m_holeSTATIC);
 	DDX_Control(pDX, IDC_HOLE1139_COMBO, m_holeCOMBO);
-	DDX_Control(pDX, IDC_HOLE1139_STATIC, m_HoleSTATIC);
+
+	DDX_Control(pDX, IDC_NM_STATIC, m_NMSTATIC);
 }
 void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTREEITEM Ring, HTREEITEM Screw)
 {
