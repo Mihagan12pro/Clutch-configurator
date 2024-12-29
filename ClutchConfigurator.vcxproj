@@ -230,6 +230,7 @@
     <Image Include="res\ClutchConfiguratorDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="Sketches\Ring.bmp" />
+    <Image Include="Sketches\Screw.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,6 +11,9 @@
 #define IDB_BITMAP1                     315
 #define IDD_DIALOG1                     316
 #define IDD_CHOOSE_ASSEMBLE             316
+#define ID_RING_BITMAP                  318
+#define IDB_RING_BITMAP                 318
+#define IDB_SCREW_BITMAP                319
 #define IDC_Sketch_PICTURE              1000
 #define IDC_save_STATIC                 1002
 #define IDC_EDIT5                       1006
@@ -29,7 +32,7 @@
 #define IDC_PICTURE_STATIC              1020
 #define IDC_NM_STATIC                   1022
 #define IDC_HOLE1139_STATIC             1023
-#define IDC_HOLE1139_COMBO                  1025
+#define IDC_HOLE1139_COMBO              1025
 #define IDC_COMBO2                      1026
 #define IDC_NM_COMBO                    1026
 #define ID_32771                        32771
@@ -44,7 +47,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        318
+#define _APS_NEXT_RESOURCE_VALUE        320
 #define _APS_NEXT_COMMAND_VALUE         32778
 #define _APS_NEXT_CONTROL_VALUE         1027
 #define _APS_NEXT_SYMED_VALUE           310

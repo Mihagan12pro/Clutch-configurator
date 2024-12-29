@@ -56,10 +56,12 @@ public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnWhereSaveMenu();
 
-	void SetSketchImage(wchar_t* image);
+	void SetSketchImage(int bitmapID);
 private:
 	//CImage m_stetchImage;
 	CStatic m_sketchImage;
+public:
+	afx_msg void OnStnClickedPictureStatic();
 };
 
 #ifndef _DEBUG  // версия отладки в ClutchConfiguratorView.cpp

@@ -3,6 +3,7 @@
 //
 
 #include "pch.h"
+#include <atlimage.h> 
 #include "framework.h"
 // SHARED_HANDLERS можно определить в обработчиках фильтров просмотра реализации проекта ATL, эскизов
 // и поиска; позволяет совместно использовать код документа в данным проекте.
@@ -34,6 +35,7 @@ BEGIN_MESSAGE_MAP(CClutchConfiguratorView, CFormView)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_CREATE()
 	ON_COMMAND(ID_whereSaveMenu, &CClutchConfiguratorView::OnWhereSaveMenu)
+	ON_STN_CLICKED(IDC_PICTURE_STATIC, &CClutchConfiguratorView::OnStnClickedPictureStatic)
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CClutchConfiguratorView
@@ -186,13 +188,33 @@ void CClutchConfiguratorView::OnWhereSaveMenu()
 	}
 	// TODO: добавьте свой код обработчика команд
 }
-void CClutchConfiguratorView::SetSketchImage(wchar_t* image)
+void CClutchConfiguratorView::SetSketchImage(int bitmapID)
 {
-	CImage img;
+	bool bFlag = true;
+	
+	/*CImage img;
 
 	img.Load(image);
 
-	HBITMAP bitmap = img.Detach();;
+	HBITMAP bitmap = img.Detach();
 
-	m_sketchImage.SetBitmap(bitmap);
+	m_sketchImage.SetBitmap(bitmap);*/
+	m_sketchImage.SetBitmap
+	(
+		LoadBitmap
+		(
+			GetModuleHandle(NULL),
+			MAKEINTRESOURCE(bFlag ? bitmapID : bitmapID)
+		)
+	);
+	bFlag = !bFlag;
+	
+	
+	
+}
+
+
+void CClutchConfiguratorView::OnStnClickedPictureStatic()
+{
+	// TODO: добавьте свой код обработчика уведомлений
 }

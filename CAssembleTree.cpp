@@ -88,31 +88,30 @@ void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 	CTreeCtrl& tree = GetTreeCtrl();
 	HTREEITEM item = tree.GetSelectedItem();
 
-	wchar_t* pSketch = nullptr;
-	if (item == m_hAssemble)
+	int bitmapId=0;
+	
+	
+	if (item == m_hCollar)
 	{
-
-	}
-	else if (item == m_hCollar)
-	{
-
+	
 	}
 	else if (item == m_hRing)
 	{
-		 pSketch = L"Sketches\\Ring.bmp";
-		
+		bitmapId = ID_RING_BITMAP;
 	}
 	else if (item == m_hScrew)
 	{
-		pSketch = L"Sketches\\Screw.bmp";
+		bitmapId = IDB_SCREW_BITMAP;
 	}
-
-
-
-	if (pSketch != nullptr)
+	else//Случай, когда юзер нажал на сборку
 	{
-		m_pView->SetSketchImage(pSketch);
+
 	}
+
+
+	
+		m_pView->SetSketchImage(bitmapId);
+	
 
 	
 }
