@@ -31,9 +31,9 @@ void CAssemblesCollection::InitializeAssembles()
 	clutch_140NM.f = 0.3;
 	clutch_140NM.c = 1;
 	clutch_140NM.c1 = 1;
-	clutch_140NM.d = 16;
-	clutch_140NM.D2 = 20;
-	clutch_140NM.b = 4;
+	clutch_140NM.m_gosts1193Top = CGOST1139(6,16,20,4,L"6x16x20x4");
+	clutch_140NM.m_gosts1193Bottom = CGOST1139(6,18,22,6, L"6x18x22x6");
+	
 
 	Assemble clutch_250NM(L"250NM");
 	clutch_250NM.D = 42;
@@ -46,9 +46,9 @@ void CAssemblesCollection::InitializeAssembles()
 	clutch_250NM.f = 0.3;
 	clutch_250NM.c = 1;
 	clutch_250NM.c1 = 1;
-	clutch_250NM.d = 18;
-	clutch_250NM.D2 = 22;
-	clutch_250NM.b = 5;
+	clutch_250NM.m_gosts1193Top = CGOST1139(6,21,25,5,L"6x21x25x5");
+	clutch_250NM.m_gosts1193Bottom = CGOST1139(6,23,28,6,L"6x23x28x6");
+	
 
 
 
@@ -63,9 +63,8 @@ void CAssemblesCollection::InitializeAssembles()
 	clutch_355NM.f = 0.4;
 	clutch_355NM.c = 1;
 	clutch_355NM.c1 = 1;
-	clutch_355NM.d = 23;
-	clutch_355NM.D2 = 28;
-	clutch_355NM.b = 6;
+	clutch_355NM.m_gosts1193Top = CGOST1139(6,23,28,6,L"6x23x28x6");
+	clutch_355NM.m_gosts1193Bottom = CGOST1139(6,26,32,6,L"6x23x32x6");
 	
 	
 

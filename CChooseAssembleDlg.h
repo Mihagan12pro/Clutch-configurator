@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "afxdialogex.h"
-
-
+class CClutchAssembler;
+class CMainFrame;
 // Диалоговое окно CChooseAssembleDlg
 
 class CChooseAssembleDlg : public CDialogEx
@@ -27,8 +27,11 @@ protected:
 
 
 	HTREEITEM m_treeFromGetTree;
+	CClutchAssembler *m_assembler;
 
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+private:
+	CListCtrl m_AssemblesTable;
 };

@@ -17,6 +17,7 @@
 #define IDC_EDIT1                       1010
 #define IDC_FOLDER_EDIT                 1010
 #define IDC_LIST1                       1011
+#define IDC_ASSEMBLES_LIST              1011
 #define IDC_FOLDER_STATIC               1013
 #define IDC_COLLAR_STATIC               1014
 #define IDC_COLLAR_EDIT                 1015

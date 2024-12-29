@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{101a4565-2987-44ea-a770-2fe1f2682bba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDI">
+      <UniqueIdentifier>{d260d576-a344-4b27-937f-97f0d151a1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDI\Document">
+      <UniqueIdentifier>{ea023759-b883-400f-9fa1-33bc2a13f22b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDI\FormView">
+      <UniqueIdentifier>{032958da-8276-4ce3-9606-0cd53ee0f539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDI\MainFrame">
+      <UniqueIdentifier>{fb2810a1-5e43-4138-a394-31504524fd59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDI\TreeView">
+      <UniqueIdentifier>{71c43d85-6b3f-4a9d-9795-12148b8fb415}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClutchConfigurator.h">
@@ -24,28 +42,13 @@
     <ClInclude Include="targetver.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ClutchConfiguratorDoc.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ClutchConfiguratorView.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CAssembleTree.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="CClutchAssembler.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CSaveConfigurationsDlg.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CClutchAssemble.h">
@@ -55,6 +58,27 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CChooseAssembleDlg.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="CSaveConfigurationsDlg.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="ClutchConfiguratorDoc.h">
+      <Filter>SDI\Document</Filter>
+    </ClInclude>
+    <ClInclude Include="ClutchConfiguratorView.h">
+      <Filter>SDI\FormView</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>SDI\MainFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="CAssembleTree.h">
+      <Filter>SDI\TreeView</Filter>
+    </ClInclude>
+    <ClInclude Include="GOST1139.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Other.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,25 +86,10 @@
     <ClCompile Include="ClutchConfigurator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ClutchConfiguratorDoc.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ClutchConfiguratorView.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="CAssembleTree.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="CClutchAssembler.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="CSaveConfigurationsDlg.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="CClutchAssemble.cpp">
@@ -90,6 +99,21 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="CChooseAssembleDlg.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="CSaveConfigurationsDlg.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="ClutchConfiguratorDoc.cpp">
+      <Filter>SDI\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="ClutchConfiguratorView.cpp">
+      <Filter>SDI\FormView</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>SDI\MainFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="CAssembleTree.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

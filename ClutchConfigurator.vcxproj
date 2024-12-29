@@ -193,7 +193,9 @@
     <ClInclude Include="ClutchConfiguratorView.h" />
     <ClInclude Include="CSaveConfigurationsDlg.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GOST1139.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Other.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />

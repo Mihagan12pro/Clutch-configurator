@@ -2,6 +2,10 @@
 #include "CClutchAssembler.h"
 #include<cmath>
 
+CClutchAssembler::CClutchAssembler()
+{
+
+}
 
 CClutchAssembler::CClutchAssembler(Assemble assemble)
 {
@@ -10,12 +14,12 @@ CClutchAssembler::CClutchAssembler(Assemble assemble)
 	l  = assemble.Getl();
 	b1 = assemble.Getb1();
 	D1 = assemble.GetD1();
-	d  = assemble.Getd();
+	//d  = assemble.Getd();
 	c  = assemble.Getc();
 	d1 = assemble.Getd1();
 	c1 = assemble.Getc1();
-	D2 = assemble.GetD2();
-	b  = assemble.Getb();
+	//D2 = assemble.GetD2();
+	//b  = assemble.Getb();
 	r  = assemble.Getr();
 	f  = assemble.Getf();
 }

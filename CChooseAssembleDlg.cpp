@@ -5,7 +5,9 @@
 #include "ClutchConfigurator.h"
 #include "afxdialogex.h"
 #include "CChooseAssembleDlg.h"
-
+#include "CClutchAssembler.h"
+#include "MainFrm.h"
+#include "CClutchAssembler.h"
 
 // Диалоговое окно CChooseAssembleDlg
 
@@ -26,6 +28,7 @@ CChooseAssembleDlg::~CChooseAssembleDlg()
 void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_ASSEMBLES_LIST, m_AssemblesTable);
 }
 void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTREEITEM Ring, HTREEITEM Screw)
 {
@@ -104,6 +107,8 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	m_assembler = ((CMainFrame*)AfxGetMainWnd())->m_pAssembler;
+	
 	if (m_treeFromGetTree == m_hAssemble)
 	{
 		SetWindowText(L"Сборка втулочной муфты");

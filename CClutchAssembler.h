@@ -4,8 +4,9 @@
 #include "C:\Program Files\ASCON\KOMPAS-3D v22 Study\SDK\Include\ksConstants3D.h"
 #import "C:\Program Files\ASCON\KOMPAS-3D v22 Study\SDK\lib\kAPI5.tlb"
 #include<string>
-#include"CClutchAssemble.h"
-#include"CAssemblesCollection.h"
+#include "CClutchAssemble.h"
+#include "CChooseAssembleDlg.h"
+#include "CAssemblesCollection.h"
 
 using namespace Kompas6API5;
 #define Assembler CClutchAssembler
@@ -33,6 +34,9 @@ class CClutchAssembler
 	public:
 		void BuildAssemble();
 		CClutchAssembler(Assemble assemble);
+	protected:
+		CClutchAssembler();
+
 	protected:
 		KompasObjectPtr m_pKompasApp5;
 		
@@ -75,5 +79,6 @@ class CClutchAssembler
 
 	protected:
 		friend class CSaveConfigurationsDlg;
+		friend class CChooseAssembleDlg;
 };
 

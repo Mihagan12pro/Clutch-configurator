@@ -4,23 +4,30 @@ CClutchAssemble::CClutchAssemble(CString _NM)
 {
 	NM = _NM;
 }
-CClutchAssemble::CClutchAssemble(double _D, double _L, double _l, double _b1, double _D1, double _d, double _c, double _d1, double _c1, double _D2, double _b, double _r, double _f)
+CClutchAssemble::CClutchAssemble(double _D, double _L, double _l, double _b1, double _D1, double _c, double _d1, double _c1, double _r, double _f, CGOST1139 &gost1,  CGOST1139 &gost2)
 {
 	D = _D;
 	L = _L;
 	l = _l;
 	b1 = _b1;
 	D1 = _D1;
-	d = _d;
 	c = _c;
 	d1 = _d1;
 	c1 = _c1;
-	D2 = _D2;
-	b = _b;
 	r = _r;
 	f = _f;
-}
 
+	m_gosts1193Top = gost1;
+	m_gosts1193Bottom = gost2;
+}
+CGOST1139 CClutchAssemble::GetGOST1139(GOST gost)
+{
+	if (gost == GOST_TOP)
+	{
+		return m_gosts1193Top;
+	}
+	return m_gosts1193Bottom;
+}
 double CClutchAssemble::Getf()
 {
 	return f;
@@ -31,15 +38,6 @@ double CClutchAssemble::Getr()
 	return r;
 }
 
-double CClutchAssemble::Getb()
-{
-	return b;
-}
-
-double CClutchAssemble::GetD2()
-{
-	return D2;
-}
 
 double CClutchAssemble::Getc1()
 {
@@ -54,11 +52,6 @@ double CClutchAssemble::Getd1()
 double CClutchAssemble::Getc()
 {
 	return c;
-}
-
-double CClutchAssemble::Getd()
-{
-	return d;
 }
 
 double CClutchAssemble::GetD1()
