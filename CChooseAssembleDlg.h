@@ -36,4 +36,5 @@ public:
 	virtual BOOL OnInitDialog();
 private:
 	CListCtrl m_AssemblesTable;
+	CString DoubleToCString(double number);
 };

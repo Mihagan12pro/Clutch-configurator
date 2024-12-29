@@ -24,6 +24,7 @@ class CClutchAssemble
 		double Getl();
 		double GetL();
 		double GetD();
+		CString GetNM();
 		CGOST1139 GetGOST1139(GOST gost);
 protected:
 	friend class CAssemblesCollection;

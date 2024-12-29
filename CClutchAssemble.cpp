@@ -32,6 +32,10 @@ CGOST1139 CClutchAssemble::GetGOST1139(GOST gost)
 	}
 	return m_gosts1193Bottom;
 }
+CString CClutchAssemble::GetNM()
+{
+	return NM;
+}
 double CClutchAssemble::Getf()
 {
 	return f;
