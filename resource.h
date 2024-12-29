@@ -27,6 +27,11 @@
 #define IDC_SCREW_EDIT4                 1018
 #define IDC_SCREW_STATIC                1019
 #define IDC_PICTURE_STATIC              1020
+#define IDC_NM_STATIC                   1022
+#define IDC_HOLE1139_STATIC             1023
+#define IDC_HOLE1139_COMBO                  1025
+#define IDC_COMBO2                      1026
+#define IDC_NM_COMBO                    1026
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_whereSaveMenu                32773
@@ -41,7 +46,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32778
-#define _APS_NEXT_CONTROL_VALUE         1022
+#define _APS_NEXT_CONTROL_VALUE         1027
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

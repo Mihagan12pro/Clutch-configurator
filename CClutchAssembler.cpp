@@ -9,6 +9,7 @@ CClutchAssembler::CClutchAssembler()
 
 CClutchAssembler::CClutchAssembler(Assemble assemble, GOST gost)
 {
+	m_assemble = assemble;
 	D  = assemble.GetD();
 	L  = assemble.GetL();
 	l  = assemble.Getl();
@@ -794,7 +795,10 @@ void  CClutchAssembler::DoAssemble()
 	m_pDoc3D->SaveAs(m_assembleName	);
 }
 
-
+Assemble CClutchAssembler::GetAssemble()
+{
+	return m_assemble;
+}
 
 void CClutchAssembler::SetFolderName(const char*  save)
 {
@@ -821,6 +825,10 @@ void CClutchAssembler::SetAssembleName(const char* name)
 	CClutchAssembler::m_assembleName = m_saveFolder + "\\" + _bstr_t(name);
 }
 
+GOST CClutchAssembler::GetGOST()
+{
+	return m_gost;
+}
 //Assembles::SelectedAssemble CClutchAssembler::SelectedAssemble()
 //{
 //	return m_selected;
@@ -831,5 +839,5 @@ _bstr_t CClutchAssembler::m_collarName = _bstr_t("");
 _bstr_t CClutchAssembler::m_ringName = _bstr_t("");
 _bstr_t CClutchAssembler::m_screwName = _bstr_t("");
 _bstr_t CClutchAssembler::m_assembleName = _bstr_t("");
-
-Assembles::SelectedAssemble CClutchAssembler::m_selected = CAssemblesCollection::CLT_140NM;
+GOST CClutchAssembler::m_gost;
+//Assembles::SelectedAssemble CClutchAssembler::m_selected = CAssemblesCollection::CLT_140NM;

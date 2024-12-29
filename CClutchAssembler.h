@@ -46,7 +46,7 @@ class CClutchAssembler
 		ksDocument3DPtr m_pDoc3D;
 		ksDocument2DPtr m_pDoc2D;
 
-		static Assembles::SelectedAssemble m_selected ;
+		//static Assembles::SelectedAssemble m_selected ;
 		Assemble m_assemble;
 
 		int n1, n2;
@@ -66,6 +66,7 @@ class CClutchAssembler
 		static _bstr_t m_collarName;
 		static _bstr_t m_ringName;
 		static _bstr_t m_screwName;
+		static GOST m_gost;
 
 	public:
 		 static void SetFolderName(const char*save);
@@ -73,10 +74,12 @@ class CClutchAssembler
 		 static void SetRingName(const char* name);
 		 static void SetScrewName(const char* name);
 		 static void SetAssembleName(const char* name);
+		 static GOST GetGOST();
 		 static CString GetFolderName();
 		 static CString GetCollarName();
 		 static CString GetRingName();
 		 static CString GetScrewName();
+		 Assemble GetAssemble();
 		 //static Assembles::SelectedAssemble SelectedAssemble();
 
 	protected:

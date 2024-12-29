@@ -37,4 +37,9 @@ public:
 private:
 	CListCtrl m_AssemblesTable;
 	CString DoubleToCString(double number);
+	CComboBox m_NMCombo;
+	CStatic m_holeSTATIC;
+	CComboBox m_holeCOMBO;
+public:
+	CStatic m_HoleSTATIC;
 };

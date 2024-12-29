@@ -30,6 +30,10 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_ASSEMBLES_LIST, m_AssemblesTable);
+	DDX_Control(pDX, IDC_NM_COMBO, m_NMCombo);
+	DDX_Control(pDX, IDC_HOLE1139_STATIC, m_holeSTATIC);
+	DDX_Control(pDX, IDC_HOLE1139_COMBO, m_holeCOMBO);
+	DDX_Control(pDX, IDC_HOLE1139_STATIC, m_HoleSTATIC);
 }
 void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTREEITEM Ring, HTREEITEM Screw)
 {
@@ -73,9 +77,23 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 
 	m_assembler = ((CMainFrame*)AfxGetMainWnd())->m_pAssembler;
 	m_AssemblesTable.SetExtendedStyle(LVS_EX_GRIDLINES);
+	int nmThatWeNeed = -1;
+	for (int i = 0; i < Assembles::GetAllAssembled().size();i++)
+	{
+		if (Assembles::GetAllAssembled()[i].GetNM() == m_assembler -> GetAssemble().GetNM())
+		{
+			nmThatWeNeed = i;
+		}
+		m_NMCombo.AddString(Assembles::GetAllAssembled()[i].GetNM());
+	}
+	m_NMCombo.SetCurSel(nmThatWeNeed);
+
+
 	if (m_treeFromGetTree == m_hAssemble)
 	{
 		SetWindowText(L"Сборка втулочной муфты");
+		m_holeSTATIC.ShowWindow(SW_SHOW);;
+		m_holeCOMBO.ShowWindow(SW_SHOW);;
 		/*m_AssemblesTable.ShowWindow(SW_SHOW);*/
 		m_AssemblesTable.InsertColumn(0,L"Мкр", LVCFMT_LEFT,65);
 		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 40);
@@ -102,7 +120,10 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 			m_AssemblesTable.SetItemText(item, 9, DoubleToCString(Assembles::GetAllAssembled()[i].Getc()));
 			m_AssemblesTable.SetItemText(item, 10, DoubleToCString(Assembles::GetAllAssembled()[i].Getc1()));
 		}
+		m_holeCOMBO.AddString(m_assembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle());
+		m_holeCOMBO.AddString(m_assembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
 		
+		m_holeCOMBO.SetCurSel(m_assembler->GetGOST());
 	}
 	else if (m_treeFromGetTree == m_hRing)
 	{
@@ -121,11 +142,11 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// Исключение: страница свойств OCX должна возвращать значение FALSE
 }
-CString CChooseAssembleDlg::DoubleToCString(double number)
+CString  CChooseAssembleDlg::DoubleToCString(double number)
 {
 	CString strNumber;
 
-	strNumber.Format(L"%g",number);
+	strNumber.Format(L"%g", number);
 
 	return strNumber;
 }
