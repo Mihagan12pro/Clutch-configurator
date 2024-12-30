@@ -5,7 +5,7 @@
 #include "ClutchConfigurator.h"
 #include "CAssembleTree.h"
 #include"CChooseAssembleDlg.h"
-
+#include"MainFrm.h"
 // CAssembleTree
 
 IMPLEMENT_DYNCREATE(CAssembleTree, CTreeView)
@@ -134,7 +134,20 @@ void CAssembleTree::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 		if (dlg.DoModal() == IDOK)
 		{
-
+			CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+			*pFrame->m_pAssembler = dlg.GetNewAssembler();
+			
+			//auto a = dlg.GetNewAssembler();
+			/*auto a = dlg.GetNewAssembler();
+			auto b = a;*/
+			//Assembler newAssembler(dlg.GetNewAssembler());
+			////delete pFrame->m_pAssembler;
+			//
+			//delete pFrame->m_pAssembler;
+			//
+			//pFrame->m_pAssembler = new Assembler(newAssembler.GetAssemble(), newAssembler.GetGOST());
+			//pFrame->m_pAssembler = dlg.GetNewAssembler();
+			
 		}
 	}
 	

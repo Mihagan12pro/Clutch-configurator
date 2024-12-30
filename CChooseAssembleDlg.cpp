@@ -68,6 +68,8 @@ HTREEITEM CChooseAssembleDlg::m_hScrew;
 
 BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_NM_COMBO, &CChooseAssembleDlg::OnCbnSelchangeNmCombo)
+	ON_WM_LBUTTONDBLCLK()
+	ON_CBN_SELCHANGE(IDC_HOLE1139_COMBO, &CChooseAssembleDlg::OnCbnSelchangeHole1139Combo)
 END_MESSAGE_MAP()
 
 
@@ -78,12 +80,12 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	m_assembler = ((CMainFrame*)AfxGetMainWnd())->m_pAssembler;
+	m_pAssembler = ((CMainFrame*)AfxGetMainWnd())->m_pAssembler;
 	m_AssemblesTable.SetExtendedStyle(LVS_EX_GRIDLINES);
 	int nmThatWeNeed = -1;
 	for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
 	{
-		if (Assembles::GetAllAssembles()[i].GetNM() == m_assembler -> GetAssemble().GetNM())
+		if (Assembles::GetAllAssembles()[i].GetNM() == m_pAssembler -> GetAssemble().GetNM())
 		{
 			nmThatWeNeed = i;
 		}
@@ -123,10 +125,10 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 			m_AssemblesTable.SetItemText(item, 9, DoubleToCString(Assembles::GetAllAssembles()[i].Getc()));
 			m_AssemblesTable.SetItemText(item, 10, DoubleToCString(Assembles::GetAllAssembles()[i].Getc1()));
 		}
-		m_holeCOMBO.AddString(m_assembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle());
-		m_holeCOMBO.AddString(m_assembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
+		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle());
+		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
 		
-		m_holeCOMBO.SetCurSel(m_assembler->GetGOST());
+		m_holeCOMBO.SetCurSel(m_pAssembler->GetGOST());
 	}
 	else if (m_treeFromGetTree == m_hRing)
 	{
@@ -161,15 +163,48 @@ void CChooseAssembleDlg::OnCbnSelchangeNmCombo()
 }
 void CChooseAssembleDlg::ChangeNM(int selectedIndex)
 {
+	*m_pAssembler = Assembler(Assembles::GetAllAssembles()[selectedIndex],GOST_TOP);
 	if (m_treeFromGetTree == m_hAssemble)
 	{
 		for (int i = 0; i < m_holeCOMBO.GetCount() + 1;i++)
 		{
 			m_holeCOMBO.DeleteString(0);
 		}
-		m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle());
-		m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_BOTTOM).GetTittle());
+		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle()); //Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle());
+		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
 
 		m_holeCOMBO.SetCurSel(GOST_TOP);
 	}
+}
+
+
+void CChooseAssembleDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+
+	CDialogEx::OnLButtonDblClk(nFlags, point);
+
+
+	//if (m_AssemblesTable.)
+}
+
+Assembler CChooseAssembleDlg::GetNewAssembler()
+{
+	
+	return *m_pAssembler;
+}
+
+INT_PTR CChooseAssembleDlg::DoModal()
+{
+	// TODO: добавьте специализированный код или вызов базового класса
+	
+	return CDialogEx::DoModal();
+}
+
+
+void CChooseAssembleDlg::OnCbnSelchangeHole1139Combo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	
+	m_pAssembler->UpdateGOST(m_holeCOMBO.GetCurSel());
 }

@@ -24,11 +24,9 @@ CClutchAssembler::CClutchAssembler(Assemble assemble, GOST gost)
 	r  = assemble.Getr();
 	f  = assemble.Getf();
 
-	d = assemble.GetGOST1139(gost).Getd();
-	D2 = assemble.GetGOST1139(gost).GetD2();
-	b = assemble.GetGOST1139(gost).Getb();
+	UpdateGOST(gost);
 
-	m_gost = gost;
+	
 }
 
 void CClutchAssembler::BuildAssemble()
@@ -830,6 +828,16 @@ void CClutchAssembler::SetAssembleName(const char* name)
 GOST CClutchAssembler::GetGOST()
 {
 	return m_gost;
+}
+void CClutchAssembler::UpdateGOST(GOST gost)
+{
+	m_gost = gost;
+
+	d = m_assemble.GetGOST1139(gost).Getd();
+	D2 = m_assemble.GetGOST1139(gost).GetD2();
+	b = m_assemble.GetGOST1139(gost).Getb();
+
+	int u = 1;
 }
 //Assembles::SelectedAssemble CClutchAssembler::SelectedAssemble()
 //{

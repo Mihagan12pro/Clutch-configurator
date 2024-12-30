@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include "afxdialogex.h"
+
 class CClutchAssembler;
-class CClutchAssemble;
+//class CClutchAssemble;
+#include"CClutchAssemble.h"
 class CMainFrame;
 #include<vector>
 // Диалоговое окно CChooseAssembleDlg
@@ -29,7 +31,7 @@ protected:
 
 
 	HTREEITEM m_treeFromGetTree;
-	CClutchAssembler *m_assembler;
+	CClutchAssembler *m_pAssembler;
 
 	DECLARE_MESSAGE_MAP()
 public:
@@ -42,8 +44,14 @@ private:
 	CStatic m_NMSTATIC;
 
 public:
-	afx_msg void OnCbnSelchangeNmCombo();
+	
 private:
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	CString DoubleToCString(double number);
 	void ChangeNM(int selectedIndex);
+	afx_msg void OnCbnSelchangeNmCombo();
+public:
+	CClutchAssembler GetNewAssembler();
+	virtual INT_PTR DoModal();
+	afx_msg void OnCbnSelchangeHole1139Combo();
 };

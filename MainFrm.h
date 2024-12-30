@@ -5,6 +5,7 @@
 #pragma once
 #include"CClutchAssembler.h"
 #include "CChooseAssembleDlg.h"
+#include"CAssembleTree.h"
 //class CClutchAssembler;
 class CClutchConfiguratorView;
 #include"Other.h"
@@ -48,6 +49,7 @@ class CMainFrame : public CFrameWnd
 		CClutchAssembler* m_pAssembler;
 	private:
 		friend class CChooseAssembleDlg;
+		friend class CAssembleTree;
 		/*friend class CClutchConfiguratorView;*/
 	public:
 		Assembler GetAssembler();
