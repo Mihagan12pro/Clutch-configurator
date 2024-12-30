@@ -9,6 +9,7 @@
 #include "MainFrm.h"
 #include "CClutchAssembler.h"
 #include"CClutchAssemble.h"
+#include"iostream"
 
 // Диалоговое окно CChooseAssembleDlg
 
@@ -205,6 +206,11 @@ INT_PTR CChooseAssembleDlg::DoModal()
 void CChooseAssembleDlg::OnCbnSelchangeHole1139Combo()
 {
 	// TODO: добавьте свой код обработчика уведомлений
-	
 	m_pAssembler->UpdateGOST(m_holeCOMBO.GetCurSel());
+
+	if (m_pAssembler->d == m_pAssembler->D2 && m_pAssembler->b == m_pAssembler->d)
+	{
+		m_pAssembler->UpdateGOST(GOST_TOP);
+		m_holeCOMBO.SetCurSel(GOST_TOP);
+	}
 }

@@ -66,12 +66,25 @@ void CAssemblesCollection::InitializeAssembles()
 	clutch_355NM.m_gosts1193Top = CGOST1139(6,23,28,6,L"6x23x28x6");
 	clutch_355NM.m_gosts1193Bottom = CGOST1139(6,26,32,6,L"6x23x32x6");
 	
-	
+	Assemble clutch_9000NM(L"9000NM");
+	clutch_9000NM.D = 130;
+	clutch_9000NM.D1 = 123;
+	clutch_9000NM.b1 = 2;
+	clutch_9000NM.d1 =12 ;
+	clutch_9000NM.L = 170;
+	clutch_9000NM.l = 40;
+	clutch_9000NM.r = 0.5;
+	clutch_9000NM.f = 0.5;
+	clutch_9000NM.c = 2.5;
+	clutch_9000NM.c1 = 1.6;
+	clutch_9000NM.m_gosts1193Top = CGOST1139(10,82,92,12, L"10x82x92x12");
+	//clutch_9000NM.m_gosts1193Bottom = CGOST1139(6, 26, 32, 6, L"6x23x32x6");
 
 	
 	m_assemblesCollection.push_back(clutch_140NM);
 	m_assemblesCollection.push_back(clutch_250NM);
 	m_assemblesCollection.push_back(clutch_355NM);
+	m_assemblesCollection.push_back(clutch_9000NM);
 }
 
 Assemble CAssemblesCollection::GetAssemble(SelectedAssemble selected)
