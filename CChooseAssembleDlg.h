@@ -6,6 +6,8 @@ class CClutchAssembler;
 #include"CClutchAssemble.h"
 class CMainFrame;
 #include<vector>
+#include <unordered_set>
+using namespace std;
 // Диалоговое окно CChooseAssembleDlg
 
 class CChooseAssembleDlg : public CDialogEx
@@ -54,4 +56,15 @@ public:
 	CClutchAssembler GetNewAssembler();
 	virtual INT_PTR DoModal();
 	afx_msg void OnCbnSelchangeHole1139Combo();
+private:
+	CStatic m_D1Static;
+	CComboBox m_D1COMBO;
+	CStatic m_b1STATIC;
+	CComboBox m_b1COMBO;
+	CStatic m_DStatic;
+	CComboBox m_DCOMBO;
+private :
+	unordered_set<double> D1s = {};
+	unordered_set<double> Ds = {};
+	unordered_set<double> b1s = {};
 };

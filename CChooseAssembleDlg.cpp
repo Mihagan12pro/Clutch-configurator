@@ -37,6 +37,12 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_NM_STATIC, m_NMSTATIC);
 	DDX_Control(pDX, IDC_HOLE1139_COMBO, m_holeCOMBO);
+	DDX_Control(pDX, IDC_D1_STATIC, m_D1Static);
+	DDX_Control(pDX, IDC_D1_COMBO, m_D1COMBO);
+	DDX_Control(pDX, IDC_b1_STATIC, m_b1STATIC);
+	DDX_Control(pDX, IDC_b1_COMBO, m_b1COMBO);
+	DDX_Control(pDX, IDC_D_STATIC, m_DStatic);
+	DDX_Control(pDX, IDC_D_COMBO, m_DCOMBO);
 }
 void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTREEITEM Ring, HTREEITEM Screw)
 {
@@ -94,12 +100,12 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	}
 	m_NMCombo.SetCurSel(nmThatWeNeed);
 
-
+	
 	if (m_treeFromGetTree == m_hAssemble)
 	{
 		SetWindowText(L"Сборка втулочной муфты");
-		m_holeSTATIC.ShowWindow(SW_SHOW);;
-		m_holeCOMBO.ShowWindow(SW_SHOW);;
+		m_holeSTATIC.ShowWindow(SW_SHOW);
+		m_holeCOMBO.ShowWindow(SW_SHOW);
 		/*m_AssemblesTable.ShowWindow(SW_SHOW);*/
 		m_AssemblesTable.InsertColumn(0,L"Мкр", LVCFMT_LEFT,65);
 		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 40);
@@ -134,6 +140,30 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	else if (m_treeFromGetTree == m_hRing)
 	{
 		SetWindowText(L"Кольцо");
+		m_D1Static.ShowWindow(SW_SHOW);
+		m_D1COMBO.ShowWindow(SW_SHOW);
+		m_b1STATIC.ShowWindow(SW_SHOW);
+		m_b1COMBO.ShowWindow(SW_SHOW);
+		m_DStatic.ShowWindow(SW_SHOW);
+		m_DCOMBO.ShowWindow(SW_SHOW);
+		m_AssemblesTable.InsertColumn(0, L"Мкр", LVCFMT_LEFT, 200);
+		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 100);
+		m_AssemblesTable.InsertColumn(2, L"D1", LVCFMT_LEFT, 100);
+		m_AssemblesTable.InsertColumn(3, L"b1", LVCFMT_LEFT, 100);
+
+		
+
+		for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+		{
+			int item = m_AssemblesTable.InsertItem(i, Assembles::GetAllAssembles()[i].GetNM());
+			m_AssemblesTable.SetItemText(item, 1, DoubleToCString(Assembles::GetAllAssembles()[i].GetD()));
+			m_AssemblesTable.SetItemText(item, 2, DoubleToCString(Assembles::GetAllAssembles()[i].GetD1()));
+			m_AssemblesTable.SetItemText(item, 3, DoubleToCString(Assembles::GetAllAssembles()[i].Getb1()));
+
+			D1s.insert(Assembles::GetAllAssembles()[i].GetD1());
+			Ds.insert(Assembles::GetAllAssembles()[i].GetD());
+			b1s.insert(Assembles::GetAllAssembles()[i].Getb1());
+		}
 	}
 	else if (m_treeFromGetTree == m_hCollar)
 	{
@@ -144,6 +174,19 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		SetWindowText(L"Винт");
 	}
 	// TODO:  Добавить дополнительную инициализацию
+
+	for (double b1 : b1s)
+	{
+		m_b1COMBO.AddString(DoubleToCString(b1));
+	}
+	for (double D1 : D1s)
+	{
+		m_D1COMBO.AddString(DoubleToCString(D1));
+	}
+	for (double D : Ds)
+	{
+		m_DCOMBO.AddString(DoubleToCString(D));
+	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// Исключение: страница свойств OCX должна возвращать значение FALSE
