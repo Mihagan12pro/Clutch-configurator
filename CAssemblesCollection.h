@@ -23,7 +23,7 @@ class CAssemblesCollection
 		static Assemble GetAssemble(SelectedAssemble selected);
 		
 		
-		static vector<Assemble> GetAllAssembled();
+		static vector<Assemble> GetAllAssembles();
 
 
 };

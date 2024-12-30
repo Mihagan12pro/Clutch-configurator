@@ -36,11 +36,14 @@ public:
 	virtual BOOL OnInitDialog();
 private:
 	CListCtrl m_AssemblesTable;
-	CString DoubleToCString(double number);
+	CComboBox m_holeCOMBO;
 	CComboBox m_NMCombo;
 	CStatic m_holeSTATIC;
-	CComboBox m_holeCOMBO;
-public:
-	CStatic m_HoleSTATIC;
 	CStatic m_NMSTATIC;
+
+public:
+	afx_msg void OnCbnSelchangeNmCombo();
+private:
+	CString DoubleToCString(double number);
+	void ChangeNM(int selectedIndex);
 };

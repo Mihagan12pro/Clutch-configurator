@@ -78,7 +78,7 @@ Assemble CAssemblesCollection::GetAssemble(SelectedAssemble selected)
 {
 	return m_assemblesCollection[selected];
 }
-vector<Assemble> CAssemblesCollection::GetAllAssembled()
+vector<Assemble> CAssemblesCollection::GetAllAssembles()
 {
 	return m_assemblesCollection;
 }
