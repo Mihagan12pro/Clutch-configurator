@@ -297,7 +297,7 @@ void CClutchAssembler::CreateCollar()
 
 
 	ksEntityPtr pFillet1 = m_pPart->NewEntity(o3d_fillet);
-	ksFilletDefinitionPtr pFillet1Def = pFillet1 -> GetDefinition();
+	ksFilletDefinitionPtr pFillet1Def = pFillet1->GetDefinition();
 
 	pFillet1Def->radius = r;
 
@@ -307,45 +307,42 @@ void CClutchAssembler::CreateCollar()
 
 	for (int i = 0; i < pEdges->GetCount(); i++)
 	{
-		ksEntityPtr ed = pEdges -> GetByIndex(i);
-		ksEdgeDefinitionPtr def = ed -> GetDefinition();
+		ksEntityPtr ed = pEdges->GetByIndex(i);
+		ksEdgeDefinitionPtr def = ed->GetDefinition();
 
 		if (def->GetOwnerEntity() == pCutExtrusion1)
 		{
-			
-			
 
-				ksVertexDefinitionPtr vert = def->GetVertex(true);
-				double x, y, z;
-				if(vert != NULL)
+
+
+			ksVertexDefinitionPtr vert = def->GetVertex(true);
+			double x, y, z;
+			if (vert != NULL)
+			{
+				vert->GetPoint(&x, &y, &z);
+
+				if (x >= c && y == -D2/2)
 				{
-					vert->GetPoint(&x, &y, &z);
-
-					if (x >= c && y == -10 )
+					if (x == L)
 					{
-						if (x == L)
-						{
-							pEdges->SelectByPoint(L-c,y,-1);
-						
-							pFillets->Add(pEdges->GetByIndex(0));
-
-						}
-						else
-						{
-
-							ed->Putname("fillet");
-							pFillets->Add(ed);
-						}
-
-						
+						pEdges->SelectByPoint(L - c, y, z);
+						pFillets->Add(pEdges->GetByIndex(0));
 					}
+					/*else
+					{
+						ed->Putname("fillet");
+						pFillets->Add(ed);
+					}*/
+
+
 				}
 			}
-		
-			
-		
+		}
+
+
+
 	}
-	pFillet1 -> Create();
+	pFillet1->Create();
 
 	ksEntityPtr pMirrorCopy = m_pPart->NewEntity(o3d_mirrorOperation);
 	ksMirrorCopyDefinitionPtr pMirrorCopyDef = pMirrorCopy->GetDefinition();
