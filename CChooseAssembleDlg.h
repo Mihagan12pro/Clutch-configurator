@@ -49,13 +49,15 @@ public:
 	
 private:
 	void AddStringToCOMBO(CComboBox& combo, int nmIndex, set<double> numbers);
+	void SetCurselsChanged();
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	CString DoubleToCString(double number);
 	void ChangeNM(int selectedIndex);
 	afx_msg void OnCbnSelchangeNmCombo();
+	double CStringTODouble(CString str);
 public:
 	CClutchAssembler GetNewAssembler();
-	virtual INT_PTR DoModal();
+//	virtual INT_PTR DoModal();
 	afx_msg void OnCbnSelchangeHole1139Combo();
 private:
 	CStatic m_D1Static;
@@ -73,5 +75,8 @@ private :
 public:
 	CString m_nmValue;
 	afx_msg void OnClose();
-	afx_msg void OnCancelMode();
+//	afx_msg void OnCancelMode();
+	afx_msg void OnCbnSelchangeD1Combo();
+	afx_msg void OnCbnSelchangeb1Combo();
+	afx_msg void OnCbnSelchangeDCombo();
 };

@@ -83,6 +83,9 @@ BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_HOLE1139_COMBO, &CChooseAssembleDlg::OnCbnSelchangeHole1139Combo)
 	ON_WM_CLOSE()
 	ON_WM_CANCELMODE()
+	ON_CBN_SELCHANGE(IDC_D1_COMBO, &CChooseAssembleDlg::OnCbnSelchangeD1Combo)
+	ON_CBN_SELCHANGE(IDC_b1_COMBO, &CChooseAssembleDlg::OnCbnSelchangeb1Combo)
+	ON_CBN_SELCHANGE(IDC_D_COMBO, &CChooseAssembleDlg::OnCbnSelchangeDCombo)
 END_MESSAGE_MAP()
 
 
@@ -255,11 +258,11 @@ Assembler CChooseAssembleDlg::GetNewAssembler()
 	return *m_pAssembler;
 }
 
-INT_PTR CChooseAssembleDlg::DoModal()
-{
-
-	return CDialogEx::DoModal();
-}
+//INT_PTR CChooseAssembleDlg::DoModal()
+//{
+//
+//	return CDialogEx::DoModal();
+//}
 
 void CChooseAssembleDlg::OnCbnSelchangeHole1139Combo()
 {
@@ -272,6 +275,7 @@ void CChooseAssembleDlg::OnCbnSelchangeHole1139Combo()
 		m_holeCOMBO.SetCurSel(GOST_TOP);
 	}
 }
+
 void CChooseAssembleDlg::AddStringToCOMBO(CComboBox& combo, int nmIndex, set<double> numbers)
 {
 	vector<double> vec(numbers.begin(), numbers.end());
@@ -292,14 +296,12 @@ void CChooseAssembleDlg::AddStringToCOMBO(CComboBox& combo, int nmIndex, set<dou
 			combo.SetCurSel(i);
 		}
 	}
-	
 }
 
 void CChooseAssembleDlg::OnClose()
 {
-	
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
-	if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0)
+	if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0 && m_treeFromGetTree != m_hAssemble)
 	{
 		if (MessageBox(L"Выбранные вами параметры не подходят ни одному крутящему моменту.\nЕсли вы закроете данное окно, выставленные вами параметры будут сброшены.", L"Вы уверены, что хотите закрыть данное окно?", MB_OKCANCEL) != IDOK)
 		{
@@ -308,11 +310,72 @@ void CChooseAssembleDlg::OnClose()
 	}
 	CDialogEx::OnClose();
 }
-
-
-void CChooseAssembleDlg::OnCancelMode()
+double CChooseAssembleDlg::CStringTODouble(CString str)
 {
-	CDialogEx::OnCancelMode();
+	return _wtof(str);
+}
+//atof(thestring).
+// 
+//void CChooseAssembleDlg::OnCancelMode()
+//{
+//	CDialogEx::OnCancelMode();
+//}
 
-	// TODO: добавьте свой код обработчика сообщений
+
+void CChooseAssembleDlg::OnCbnSelchangeD1Combo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::OnCbnSelchangeb1Combo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::OnCbnSelchangeDCombo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::SetCurselsChanged()
+{
+	if (m_treeFromGetTree != m_hAssemble)
+	{
+		CString C_D,C_D1,C_b1;
+		double D,D1,b1;
+		if (m_treeFromGetTree == m_hRing)
+		{
+			m_DCOMBO.GetLBText(m_DCOMBO.GetCurSel(),C_D);
+			D = CStringTODouble(C_D);
+
+			m_D1COMBO.GetLBText(m_D1COMBO.GetCurSel(), C_D1);
+			D1 = CStringTODouble(C_D1);
+
+			m_b1COMBO.GetLBText(m_b1COMBO.GetCurSel(), C_b1);
+			b1 = CStringTODouble(C_b1);
+
+			bool has = true;
+
+			if (m_pAssembler->D != D || m_pAssembler->D1 != D1 && m_pAssembler->b1 != b1)
+			{
+				m_NMReadonlyEdit.SetWindowTextW(L"");
+
+				for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+				{
+					if (Assembles::GetAllAssembles()[i].Getb1() == b1 && Assembles::GetAllAssembles()[i].GetD1() == D1 && Assembles::GetAllAssembles()[i].GetD() == D)
+					{
+						m_NMReadonlyEdit.SetWindowTextW(Assembles::GetAllAssembles()[i].GetNM());
+						ChangeNM(i);
+						break;
+					}
+				}
+			}
+		}
+	}
 }
