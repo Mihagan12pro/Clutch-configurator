@@ -834,7 +834,7 @@ void CClutchAssembler::UpdateGOST(GOST gost)
 	D2 = m_assemble.GetGOST1139(gost).GetD2();
 	b = m_assemble.GetGOST1139(gost).Getb();
 
-	int u = 1;
+
 }
 //Assembles::SelectedAssemble CClutchAssembler::SelectedAssemble()
 //{

@@ -111,6 +111,10 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	m_NMCombo.SetCurSel(nmIndex);
 	m_NMReadonlyEdit.SetWindowTextW(Assembles::GetAllAssembles()[nmIndex].GetNM());
 	
+	m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle());
+	m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
+
+	m_holeCOMBO.SetCurSel(m_pAssembler->GetGOST());
 	if (m_treeFromGetTree == m_hAssemble)
 	{
 		SetWindowText(L"Сборка втулочной муфты");
@@ -145,10 +149,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 			m_AssemblesTable.SetItemText(item, 9, DoubleToCString(Assembles::GetAllAssembles()[i].Getc()));
 			m_AssemblesTable.SetItemText(item, 10, DoubleToCString(Assembles::GetAllAssembles()[i].Getc1()));
 		}
-		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle());
-		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
 		
-		m_holeCOMBO.SetCurSel(m_pAssembler->GetGOST());
 	}
 	else if (m_treeFromGetTree == m_hRing)
 	{
@@ -160,13 +161,20 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		m_NMReadonlyEdit.GetWindowRect(&rect);
 
 		m_NMReadonlyEdit.SetWindowPos(NULL,530,30,0,0, SWP_NOSIZE | SWP_NOZORDER);
-		m_NMReadonlyStatic.SetWindowPos(NULL, 510, 30, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_DStatic.SetWindowPos(NULL, 510, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_NMReadonlyStatic.SetWindowPos(NULL, 500, 30, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+		m_DStatic.SetWindowPos(NULL, 500, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_DCOMBO.SetWindowPos(NULL, 530, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_D1Static.SetWindowPos(NULL, 510, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+		m_D1Static.SetWindowPos(NULL, 500, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_D1COMBO.SetWindowPos(NULL, 530, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_b1STATIC.SetWindowPos(NULL, 510, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+		m_b1STATIC.SetWindowPos(NULL, 500, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_b1COMBO.SetWindowPos(NULL, 530, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+		m_holeSTATIC.SetWindowPos(NULL, 500, 160, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_holeCOMBO.SetWindowPos(NULL, 500, 180, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
 		
 		m_D1Static.ShowWindow(SW_SHOW);
 		m_D1COMBO.ShowWindow(SW_SHOW);
@@ -228,17 +236,14 @@ void CChooseAssembleDlg::OnCbnSelchangeNmCombo()
 void CChooseAssembleDlg::ChangeNM(int selectedIndex)
 {
 	*m_pAssembler = Assembler(Assembles::GetAllAssembles()[selectedIndex],GOST_TOP);
-	if (m_treeFromGetTree == m_hAssemble)
+	for (int i = 0; i < m_holeCOMBO.GetCount() + 1;i++)
 	{
-		for (int i = 0; i < m_holeCOMBO.GetCount() + 1;i++)
-		{
-			m_holeCOMBO.DeleteString(0);
-		}
-		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_TOP).GetTittle()); //Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle());
-		m_holeCOMBO.AddString(m_pAssembler->GetAssemble().GetGOST1139(GOST_BOTTOM).GetTittle());
-
-		m_holeCOMBO.SetCurSel(GOST_TOP);
+		m_holeCOMBO.DeleteString(0);
 	}
+	m_NMReadonlyEdit.SetWindowTextW(Assembles::GetAllAssembles()[selectedIndex].GetNM());
+	m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle()); //Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle());
+	m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_BOTTOM).GetTittle());
+	m_holeCOMBO.SetCurSel(GOST_TOP);
 }
 
 
@@ -370,7 +375,7 @@ void CChooseAssembleDlg::SetCurselsChanged()
 				{
 					if (Assembles::GetAllAssembles()[i].Getb1() == b1 && Assembles::GetAllAssembles()[i].GetD1() == D1 && Assembles::GetAllAssembles()[i].GetD() == D)
 					{
-						m_NMReadonlyEdit.SetWindowTextW(Assembles::GetAllAssembles()[i].GetNM());
+						//m_NMReadonlyEdit.SetWindowTextW(Assembles::GetAllAssembles()[i].GetNM());
 						ChangeNM(i);
 						break;
 					}
