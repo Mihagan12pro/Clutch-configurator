@@ -72,4 +72,6 @@ private :
 	CStatic m_NMReadonlyStatic;
 public:
 	CString m_nmValue;
+	afx_msg void OnClose();
+	afx_msg void OnCancelMode();
 };

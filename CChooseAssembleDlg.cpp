@@ -81,6 +81,8 @@ BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_NM_COMBO, &CChooseAssembleDlg::OnCbnSelchangeNmCombo)
 	ON_WM_LBUTTONDBLCLK()
 	ON_CBN_SELCHANGE(IDC_HOLE1139_COMBO, &CChooseAssembleDlg::OnCbnSelchangeHole1139Combo)
+	ON_WM_CLOSE()
+	ON_WM_CANCELMODE()
 END_MESSAGE_MAP()
 
 
@@ -255,11 +257,9 @@ Assembler CChooseAssembleDlg::GetNewAssembler()
 
 INT_PTR CChooseAssembleDlg::DoModal()
 {
-	// TODO: добавьте специализированный код или вызов базового класса
-	
+
 	return CDialogEx::DoModal();
 }
-
 
 void CChooseAssembleDlg::OnCbnSelchangeHole1139Combo()
 {
@@ -293,4 +293,26 @@ void CChooseAssembleDlg::AddStringToCOMBO(CComboBox& combo, int nmIndex, set<dou
 		}
 	}
 	
+}
+
+void CChooseAssembleDlg::OnClose()
+{
+	
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0)
+	{
+		if (MessageBox(L"Выбранные вами параметры не подходят ни одному крутящему моменту.\nЕсли вы закроете данное окно, выставленные вами параметры будут сброшены.", L"Вы уверены, что хотите закрыть данное окно?", MB_OKCANCEL) != IDOK)
+		{
+			return;
+		}
+	}
+	CDialogEx::OnClose();
+}
+
+
+void CChooseAssembleDlg::OnCancelMode()
+{
+	CDialogEx::OnCancelMode();
+
+	// TODO: добавьте свой код обработчика сообщений
 }
