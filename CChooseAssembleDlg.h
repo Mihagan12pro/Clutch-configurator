@@ -6,7 +6,7 @@ class CClutchAssembler;
 #include"CClutchAssemble.h"
 class CMainFrame;
 #include<vector>
-#include <unordered_set>
+#include <set>
 using namespace std;
 // Диалоговое окно CChooseAssembleDlg
 
@@ -48,6 +48,7 @@ private:
 public:
 	
 private:
+	void AddStringToCOMBO(CComboBox& combo, int nmIndex, set<double> numbers);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	CString DoubleToCString(double number);
 	void ChangeNM(int selectedIndex);
@@ -64,7 +65,11 @@ private:
 	CStatic m_DStatic;
 	CComboBox m_DCOMBO;
 private :
-	unordered_set<double> D1s = {};
-	unordered_set<double> Ds = {};
-	unordered_set<double> b1s = {};
+	set<double> D1s = {};
+	set<double> Ds = {};
+	set<double> b1s = {};
+	CEdit m_NMReadonlyEdit;
+	CStatic m_NMReadonlyStatic;
+public:
+	CString m_nmValue;
 };
