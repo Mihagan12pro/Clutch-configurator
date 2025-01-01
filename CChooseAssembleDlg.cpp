@@ -65,6 +65,7 @@ void CChooseAssembleDlg::SetExternalItems(HTREEITEM item,Assembler assembler)
 {
 	m_pAssembler = &assembler;
 	m_treeFromGetTree = item;
+	m_oldGost = assembler.m_gost;
 }
 
 
@@ -85,6 +86,7 @@ BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_b1_COMBO, &CChooseAssembleDlg::OnCbnSelchangeb1Combo)
 	ON_CBN_SELCHANGE(IDC_D_COMBO, &CChooseAssembleDlg::OnCbnSelchangeDCombo)
 	ON_BN_CLICKED(IDOK, &CChooseAssembleDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDCANCEL, &CChooseAssembleDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -304,14 +306,15 @@ void CChooseAssembleDlg::AddStringToCOMBO(CComboBox& combo, int nmIndex, set<dou
 
 void CChooseAssembleDlg::OnClose()
 {
+	m_pAssembler->m_gost = m_oldGost;
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
-	if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0 && m_treeFromGetTree != m_hAssemble)
+	/*if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0 && m_treeFromGetTree != m_hAssemble)
 	{
 		if (MessageBox(L"Выбранные вами параметры не подходят ни одному крутящему моменту.\nЕсли вы закроете данное окно, выставленные вами параметры будут сброшены.", L"Вы уверены, что хотите закрыть данное окно?", MB_OKCANCEL) != IDOK)
 		{
 			return;
 		}
-	}
+	}*/
 	CDialogEx::OnClose();
 }
 double CChooseAssembleDlg::CStringTODouble(CString str)
@@ -395,4 +398,12 @@ void CChooseAssembleDlg::OnBnClickedOk()
 {
 	// TODO: добавьте свой код обработчика уведомлений
 	CDialogEx::OnOK();
+}
+
+
+void CChooseAssembleDlg::OnBnClickedCancel()
+{
+	m_pAssembler->m_gost = m_oldGost;
+	// TODO: добавьте свой код обработчика уведомлений
+	CDialogEx::OnCancel();
 }

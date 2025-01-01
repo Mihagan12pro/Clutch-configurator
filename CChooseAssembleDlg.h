@@ -31,7 +31,7 @@ protected:
 	static HTREEITEM m_hAssemble, m_hCollar, m_hRing, m_hScrew;
 	virtual void DoDataExchange(CDataExchange* pDX);    // поддержка DDX/DDV
 
-
+	GOST m_oldGost;
 	HTREEITEM m_treeFromGetTree;
 	
 	CClutchAssembler *m_pAssembler;
@@ -88,4 +88,5 @@ public:
 	afx_msg void OnCbnSelchangeb1Combo();
 	afx_msg void OnCbnSelchangeDCombo();
 	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedCancel();
 };
