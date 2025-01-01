@@ -5,10 +5,7 @@
 #include "ClutchConfigurator.h"
 #include "afxdialogex.h"
 #include "CChooseAssembleDlg.h"
-#include "CClutchAssembler.h"
 #include "MainFrm.h"
-#include "CClutchAssembler.h"
-#include"CClutchAssemble.h"
 #include"iostream"
 
 // Диалоговое окно CChooseAssembleDlg
@@ -64,8 +61,9 @@ void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTR
 
 
 
-void CChooseAssembleDlg::GetTreeItem(HTREEITEM item)
+void CChooseAssembleDlg::SetExternalItems(HTREEITEM item,Assembler assembler)
 {
+	m_pAssembler = &assembler;
 	m_treeFromGetTree = item;
 }
 
@@ -86,6 +84,7 @@ BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_D1_COMBO, &CChooseAssembleDlg::OnCbnSelchangeD1Combo)
 	ON_CBN_SELCHANGE(IDC_b1_COMBO, &CChooseAssembleDlg::OnCbnSelchangeb1Combo)
 	ON_CBN_SELCHANGE(IDC_D_COMBO, &CChooseAssembleDlg::OnCbnSelchangeDCombo)
+	ON_BN_CLICKED(IDOK, &CChooseAssembleDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -96,7 +95,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	m_pAssembler = ((CMainFrame*)AfxGetMainWnd())->m_pAssembler;
+	//m_pAssembler = ((CMainFrame*)AfxGetMainWnd())->m_pAssembler;
 	m_AssemblesTable.SetExtendedStyle(LVS_EX_GRIDLINES);
 	int nmIndex = -1;
 	for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
@@ -383,4 +382,17 @@ void CChooseAssembleDlg::SetCurselsChanged()
 			}
 		}
 	}
+}
+CClutchAssemble CChooseAssembleDlg::GetAssemble()
+{
+	return m_pAssembler->GetAssemble();
+}
+GOST  CChooseAssembleDlg::GetGost()
+{
+	return m_pAssembler->GetGOST();
+}
+void CChooseAssembleDlg::OnBnClickedOk()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	CDialogEx::OnOK();
 }

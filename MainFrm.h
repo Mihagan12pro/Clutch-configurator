@@ -28,6 +28,7 @@ class CMainFrame : public CFrameWnd
 
 	// Реализация
 	public:
+		//CClutchAssembler GetAssembler();
 		virtual ~CMainFrame();
 	#ifdef _DEBUG
 		virtual void AssertValid() const;

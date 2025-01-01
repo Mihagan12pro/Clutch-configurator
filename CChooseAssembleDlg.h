@@ -2,9 +2,9 @@
 #include "afxdialogex.h"
 
 class CClutchAssembler;
-//class CClutchAssemble;
+
 #include"CClutchAssemble.h"
-class CMainFrame;
+
 #include<vector>
 #include <set>
 using namespace std;
@@ -16,7 +16,7 @@ class CChooseAssembleDlg : public CDialogEx
 
 public:
 
-	void GetTreeItem(HTREEITEM item);
+	void SetExternalItems(HTREEITEM item, CClutchAssembler assembler);
 
 	CChooseAssembleDlg(CWnd* pParent = nullptr);   // стандартный конструктор
 	virtual ~CChooseAssembleDlg();
@@ -33,11 +33,16 @@ protected:
 
 
 	HTREEITEM m_treeFromGetTree;
+	
 	CClutchAssembler *m_pAssembler;
+
+	CClutchAssemble m_assemble;
+	GOST gost;
 
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+
 private:
 	CListCtrl m_AssemblesTable;
 	CComboBox m_holeCOMBO;
@@ -47,6 +52,7 @@ private:
 
 public:
 	
+	int a;
 private:
 	void AddStringToCOMBO(CComboBox& combo, int nmIndex, set<double> numbers);
 	void SetCurselsChanged();
@@ -57,6 +63,8 @@ private:
 	double CStringTODouble(CString str);
 public:
 	CClutchAssembler GetNewAssembler();
+	CClutchAssemble GetAssemble();
+	GOST GetGost();
 //	virtual INT_PTR DoModal();
 	afx_msg void OnCbnSelchangeHole1139Combo();
 private:
@@ -79,4 +87,5 @@ public:
 	afx_msg void OnCbnSelchangeD1Combo();
 	afx_msg void OnCbnSelchangeb1Combo();
 	afx_msg void OnCbnSelchangeDCombo();
+	afx_msg void OnBnClickedOk();
 };
