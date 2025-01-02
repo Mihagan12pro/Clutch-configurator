@@ -62,6 +62,7 @@ private:
 	CStatic m_sketchImage;
 public:
 	afx_msg void OnStnClickedPictureStatic();
+	afx_msg void OnBuildAssembly();
 };
 
 #ifndef _DEBUG  // версия отладки в ClutchConfiguratorView.cpp

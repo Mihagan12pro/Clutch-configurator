@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CClutchConfiguratorView, CFormView)
 	ON_WM_CREATE()
 	ON_COMMAND(ID_whereSaveMenu, &CClutchConfiguratorView::OnWhereSaveMenu)
 	ON_STN_CLICKED(IDC_PICTURE_STATIC, &CClutchConfiguratorView::OnStnClickedPictureStatic)
+	ON_COMMAND(ID_BUILD_ASSEMBLY, &CClutchConfiguratorView::OnBuildAssembly)
 END_MESSAGE_MAP()
 
 // Создание или уничтожение CClutchConfiguratorView
@@ -128,7 +129,7 @@ void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 
-	CClutchConfiguratorDoc* pDoc = GetDocument();
+	//CClutchConfiguratorDoc* pDoc = GetDocument();
 
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 	
@@ -217,4 +218,22 @@ void CClutchConfiguratorView::SetSketchImage(int bitmapID)
 void CClutchConfiguratorView::OnStnClickedPictureStatic()
 {
 	// TODO: добавьте свой код обработчика уведомлений
+}
+
+
+void CClutchConfiguratorView::OnBuildAssembly()
+{
+	// TODO: добавьте свой код обработчика команд
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+
+
+
+
+	if (&pFrame->GetAssembler() != nullptr)
+	{
+
+		Assembler ass = pFrame->GetAssembler();
+		ass.BuildAssemble();
+
+	}
 }
