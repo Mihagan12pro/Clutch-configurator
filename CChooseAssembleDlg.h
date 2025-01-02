@@ -52,7 +52,6 @@ private:
 
 public:
 	
-	int a;
 private:
 	void AddStringToCOMBO(CComboBox& combo, int nmIndex, set<double> numbers);
 	void SetCurselsChanged();

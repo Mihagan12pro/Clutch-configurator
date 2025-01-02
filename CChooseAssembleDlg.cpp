@@ -308,13 +308,7 @@ void CChooseAssembleDlg::OnClose()
 {
 	m_pAssembler->m_gost = m_oldGost;
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
-	/*if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0 && m_treeFromGetTree != m_hAssemble)
-	{
-		if (MessageBox(L"Выбранные вами параметры не подходят ни одному крутящему моменту.\nЕсли вы закроете данное окно, выставленные вами параметры будут сброшены.", L"Вы уверены, что хотите закрыть данное окно?", MB_OKCANCEL) != IDOK)
-		{
-			return;
-		}
-	}*/
+
 	CDialogEx::OnClose();
 }
 double CChooseAssembleDlg::CStringTODouble(CString str)
@@ -369,18 +363,21 @@ void CChooseAssembleDlg::SetCurselsChanged()
 
 			bool has = true;
 
-			if (m_pAssembler->D != D || m_pAssembler->D1 != D1 && m_pAssembler->b1 != b1)
-			{
-				m_NMReadonlyEdit.SetWindowTextW(L"");
+			
 
-				for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+			for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+			{
+				double _b1 = Assembles::GetAllAssembles()[i].Getb1();
+				double _D1 = Assembles::GetAllAssembles()[i].GetD1();
+				double _D = Assembles::GetAllAssembles()[i].GetD();
+				if (_b1 == b1 && _D1 == D1 && _D == D)
 				{
-					if (Assembles::GetAllAssembles()[i].Getb1() == b1 && Assembles::GetAllAssembles()[i].GetD1() == D1 && Assembles::GetAllAssembles()[i].GetD() == D)
-					{
-						//m_NMReadonlyEdit.SetWindowTextW(Assembles::GetAllAssembles()[i].GetNM());
-						ChangeNM(i);
-						break;
-					}
+					ChangeNM(i);
+					break;
+				}
+				else
+				{
+					m_NMReadonlyEdit.SetWindowTextW(L"");
 				}
 			}
 		}
@@ -397,6 +394,13 @@ GOST  CChooseAssembleDlg::GetGost()
 void CChooseAssembleDlg::OnBnClickedOk()
 {
 	// TODO: добавьте свой код обработчика уведомлений
+	if (m_NMReadonlyEdit.GetWindowTextLengthW() == 0 && m_treeFromGetTree != m_hAssemble)
+	{
+		if (MessageBox(L"Выбранные вами параметры не подходят ни одному крутящему моменту.\nЕсли вы закроете данное окно, выставленные вами параметры будут сброшены.", L"Вы уверены, что хотите закрыть данное окно?", MB_OKCANCEL) != IDOK)
+		{
+			return;
+		}
+	}
 	CDialogEx::OnOK();
 }
 
