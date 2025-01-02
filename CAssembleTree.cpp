@@ -93,21 +93,21 @@ void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 	
 	if (item == m_hCollar)
 	{
-	
+		bitmapId = IDB_COLLAR_BITMAP;
 	}
 	else if (item == m_hRing)
 	{
-		bitmapId = ID_RING_BITMAP;
+		bitmapId = IDB_RING_BITMAP;
 	}
 	else if (item == m_hScrew)
 	{
 		bitmapId = IDB_SCREW_BITMAP;
 	}
-	else//Случай, когда юзер нажал на сборку
+
+	else
 	{
 
 	}
-
 
 	
 		m_pView->SetSketchImage(bitmapId);

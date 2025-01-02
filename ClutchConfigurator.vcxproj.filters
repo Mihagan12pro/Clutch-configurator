@@ -144,5 +144,8 @@
     <Image Include="Sketches\Screw.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="Sketches\Collar.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
