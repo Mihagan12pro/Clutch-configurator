@@ -71,14 +71,16 @@ private:
 	CComboBox m_D1COMBO;
 	CStatic m_b1STATIC;
 	CComboBox m_b1COMBO;
-	CStatic m_DStatic;
+	CStatic m_DSTATIC;
 	CComboBox m_DCOMBO;
 private :
 	set<double> D1s = {};
 	set<double> Ds = {};
 	set<double> b1s = {};
-	CEdit m_NMReadonlyEdit;
-	CStatic m_NMReadonlyStatic;
+	set<double> c1s = {};
+	set<double> d1s = {};
+	CEdit m_NMReadonlyEDIT;
+	CStatic m_NMReadonlySTATIC;
 public:
 	CString m_nmValue;
 	afx_msg void OnClose();
@@ -88,4 +90,17 @@ public:
 	afx_msg void OnCbnSelchangeDCombo();
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
+	
+private:
+	
+	/*CStatic m_dSTATIC;
+	CComboBox m_dCOMBO;*/
+	CStatic m_c1STATIC;
+	CComboBox m_c1COMBO;
+public:
+	/*CStatic m_d1STATIC;
+	CComboBox m_d1COMBO;*/
+private:
+	CStatic m_d1STATIC;
+	CComboBox m_d1COMBO;
 };
