@@ -43,7 +43,6 @@
 #define IDC_b1_STATIC                   1043
 #define IDC_D_STATIC                    1044
 #define IDC_NM_READONLY_STATIC          1045
-#define IDC__d__COMBO                   1049
 #define IDC_c1_STATIC                   1050
 #define IDC_c1_COMBO                    1051
 #define IDC__d1__STATIC                 1052

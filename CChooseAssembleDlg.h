@@ -32,6 +32,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // поддержка DDX/DDV
 
 	GOST m_oldGost;
+	int m_oldSelectedIndex;
 	HTREEITEM m_treeFromGetTree;
 	
 	CClutchAssembler *m_pAssembler;
@@ -67,7 +68,7 @@ public:
 //	virtual INT_PTR DoModal();
 	afx_msg void OnCbnSelchangeHole1139Combo();
 private:
-	CStatic m_D1Static;
+	CStatic m_D1STATIC;
 	CComboBox m_D1COMBO;
 	CStatic m_b1STATIC;
 	CComboBox m_b1COMBO;
@@ -103,4 +104,7 @@ public:
 private:
 	CStatic m_d1STATIC;
 	CComboBox m_d1COMBO;
+public:
+	afx_msg void OnCbnSelchangec1Combo();
+	afx_msg void OnSelchanged1Combo();
 };

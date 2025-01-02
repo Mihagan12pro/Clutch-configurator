@@ -35,7 +35,7 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_NM_STATIC, m_NMSTATIC);
 	DDX_Control(pDX, IDC_HOLE1139_COMBO, m_holeCOMBO);
-	DDX_Control(pDX, IDC_D1_STATIC, m_D1Static);
+	DDX_Control(pDX, IDC_D1_STATIC, m_D1STATIC);
 	DDX_Control(pDX, IDC_D1_COMBO, m_D1COMBO);
 	DDX_Control(pDX, IDC_b1_STATIC, m_b1STATIC);
 	DDX_Control(pDX, IDC_b1_COMBO, m_b1COMBO);
@@ -95,6 +95,8 @@ BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_D_COMBO, &CChooseAssembleDlg::OnCbnSelchangeDCombo)
 	ON_BN_CLICKED(IDOK, &CChooseAssembleDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CChooseAssembleDlg::OnBnClickedCancel)
+	ON_CBN_SELCHANGE(IDC_c1_COMBO, &CChooseAssembleDlg::OnCbnSelchangec1Combo)
+	ON_CBN_SELCHANGE(IDC__d1__COMBO, &CChooseAssembleDlg::OnSelchanged1Combo)
 END_MESSAGE_MAP()
 
 
@@ -180,7 +182,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		m_DSTATIC.SetWindowPos(NULL, 500, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_DCOMBO.SetWindowPos(NULL, 530, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
-		m_D1Static.SetWindowPos(NULL, 500, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_D1STATIC.SetWindowPos(NULL, 500, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_D1COMBO.SetWindowPos(NULL, 530, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 		m_b1STATIC.SetWindowPos(NULL, 500, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
@@ -190,7 +192,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		m_holeCOMBO.SetWindowPos(NULL, 500, 180, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 		
-		m_D1Static.ShowWindow(SW_SHOW);
+		m_D1STATIC.ShowWindow(SW_SHOW);
 		m_D1COMBO.ShowWindow(SW_SHOW);
 		m_b1STATIC.ShowWindow(SW_SHOW);
 		m_b1COMBO.ShowWindow(SW_SHOW);
@@ -222,7 +224,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	else if (m_treeFromGetTree == m_hScrew)
 	{
 		SetWindowText(L"Винт");
-		m_D1Static.ShowWindow(SW_SHOW);
+		m_D1STATIC.ShowWindow(SW_SHOW);
 		m_D1COMBO.ShowWindow(SW_SHOW);
 
 		m_b1STATIC.ShowWindow(SW_SHOW);
@@ -230,9 +232,6 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 
 		m_DSTATIC.ShowWindow(SW_SHOW);
 		m_DCOMBO.ShowWindow(SW_SHOW);
-
-	/*	m_dSTATIC.ShowWindow(SW_SHOW);
-		m_dCOMBO.ShowWindow(SW_SHOW);*/
 
 		m_d1COMBO.ShowWindow(SW_SHOW);
 		m_d1STATIC.ShowWindow(SW_SHOW);
@@ -246,22 +245,18 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		m_NMReadonlyEDIT.SetWindowPos(NULL, 530, 30, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_NMReadonlySTATIC.SetWindowPos(NULL, 500, 30, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
-		m_D1Static.SetWindowPos(NULL, 500, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_D1COMBO.SetWindowPos(NULL, 530, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_DSTATIC.SetWindowPos(NULL, 500, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_DCOMBO.SetWindowPos(NULL, 530, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
-		m_b1STATIC.SetWindowPos(NULL, 500, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_b1COMBO.SetWindowPos(NULL, 530, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_D1STATIC.SetWindowPos(NULL, 500, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_D1COMBO.SetWindowPos(NULL, 530, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
-		m_DSTATIC.SetWindowPos(NULL, 500, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_DCOMBO.SetWindowPos(NULL, 530, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-
-		/*m_dSTATIC.SetWindowPos(NULL, 500, 150, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_dCOMBO.SetWindowPos(NULL, 530, 150, 0, 0, SWP_NOSIZE | SWP_NOZORDER);*/
+		m_b1STATIC.SetWindowPos(NULL, 500, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_b1COMBO.SetWindowPos(NULL, 530, 120, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 		m_c1STATIC.SetWindowPos(NULL, 500, 150, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_c1COMBO.SetWindowPos(NULL, 530, 150, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
-		
 		m_d1STATIC.SetWindowPos(NULL, 500, 180, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 		m_d1COMBO.SetWindowPos(NULL, 530, 180, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
@@ -318,10 +313,10 @@ void CChooseAssembleDlg::OnCbnSelchangeNmCombo()
 }
 void CChooseAssembleDlg::ChangeNM(int selectedIndex)
 {
-	*m_pAssembler = Assembler(Assembles::GetAllAssembles()[selectedIndex],GOST_TOP);
-	for (int i = 0; i < m_holeCOMBO.GetCount() + 1;i++)
+	m_pAssembler = new Assembler(Assembles::GetAllAssembles()[selectedIndex],GOST_TOP);
+	for (int i = 0; i < m_holeCOMBO.GetCount() ;i++)
 	{
-		m_holeCOMBO.DeleteString(0);
+		m_holeCOMBO.DeleteString(i);
 	}
 	m_NMReadonlyEDIT.SetWindowTextW(Assembles::GetAllAssembles()[selectedIndex].GetNM());
 	m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle()); //Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle());
@@ -433,13 +428,26 @@ void CChooseAssembleDlg::OnCbnSelchangeDCombo()
 	SetCurselsChanged();
 }
 
+void CChooseAssembleDlg::OnCbnSelchangec1Combo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::OnSelchanged1Combo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
 
 void CChooseAssembleDlg::SetCurselsChanged()
 {
 	if (m_treeFromGetTree != m_hAssemble)
 	{
-		CString C_D,C_D1,C_b1;
-		double D,D1,b1;
+		CString C_D,C_D1,C_b1,C_c1,C_d1;
+		double D,D1,b1,d1,c1;
 		if (m_treeFromGetTree == m_hRing)
 		{
 			m_DCOMBO.GetLBText(m_DCOMBO.GetCurSel(),C_D);
@@ -451,9 +459,6 @@ void CChooseAssembleDlg::SetCurselsChanged()
 			m_b1COMBO.GetLBText(m_b1COMBO.GetCurSel(), C_b1);
 			b1 = CStringTODouble(C_b1);
 
-			bool has = true;
-
-			
 
 			for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
 			{
@@ -468,6 +473,50 @@ void CChooseAssembleDlg::SetCurselsChanged()
 				else
 				{
 					m_NMReadonlyEDIT.SetWindowTextW(L"");
+					for (int i = 0; i < m_holeCOMBO.GetCount();i++)
+					{
+						m_holeCOMBO.DeleteString(i);
+					}
+					/*m_holeCOMBO.Clear();*/
+				}
+			}
+		}
+		else if (m_treeFromGetTree == m_hScrew)
+		{
+			m_DCOMBO.GetLBText(m_DCOMBO.GetCurSel(), C_D);
+			D = CStringTODouble(C_D);
+
+			m_D1COMBO.GetLBText(m_D1COMBO.GetCurSel(), C_D1);
+			D1 = CStringTODouble(C_D1);
+
+			m_b1COMBO.GetLBText(m_b1COMBO.GetCurSel(), C_b1);
+			b1 = CStringTODouble(C_b1);
+
+			m_d1COMBO.GetLBText(m_d1COMBO.GetCurSel(), C_d1);
+			d1 = CStringTODouble(C_d1);
+
+			m_c1COMBO.GetLBText(m_c1COMBO.GetCurSel(), C_c1);
+			c1 = CStringTODouble(C_c1);
+
+			for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+			{
+				double _b1 = Assembles::GetAllAssembles()[i].Getb1();
+				double _D1 = Assembles::GetAllAssembles()[i].GetD1();
+				double _D = Assembles::GetAllAssembles()[i].GetD();
+				double _c1 = Assembles::GetAllAssembles()[i].Getc1();
+				double _d1 = Assembles::GetAllAssembles()[i].Getd1();
+				if (_b1 == b1 && _D1 == D1 && _D == D && _c1 == c1 && _d1 == d1)
+				{
+					ChangeNM(i);
+					break;
+				}
+				else
+				{
+					m_NMReadonlyEDIT.SetWindowTextW(L"");
+					for (int i = 0; i < m_holeCOMBO.GetCount();i++)
+					{
+						m_holeCOMBO.DeleteString(i);
+					}
 				}
 			}
 		}
@@ -501,3 +550,4 @@ void CChooseAssembleDlg::OnBnClickedCancel()
 	// TODO: добавьте свой код обработчика уведомлений
 	CDialogEx::OnCancel();
 }
+
