@@ -70,10 +70,102 @@ void CClutchAssembler::BuildAssemble()
 	// делаем Компас видимым
 	m_pKompasApp5->Visible = true;
 
+	keyLenght = d1 * 0.5 - c1;
+	keyDepth = 0.5 * (D2 - d) * 1.5;
+
 	CreateCollar();
 	CreateRing();
 	CreateScrew();
+	CreateKey();
 	DoAssemble();
+}
+
+void CClutchAssembler::CreateKey()
+{
+	m_pDoc3D = m_pKompasApp5->Document3D();
+
+	m_pDoc3D->Create(false, true);
+
+	m_pPart = m_pDoc3D->GetPart(pTop_Part);
+
+	ksEntityPtr pSketch1 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch1Def = pSketch1->GetDefinition();
+
+	pSketch1Def->SetPlane(m_pPart->GetDefaultEntity(ZOY));
+
+	pSketch1->Create();
+
+	m_pDoc2D = pSketch1Def->BeginEdit();
+
+	m_pDoc2D->ksLineSeg(-b/2, 0, -b/2, keyLenght, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b/2,keyLenght, b/2, keyLenght, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(b/2, keyLenght, b/2, 0, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b/2, 0, b/2, 0, MAIN_LINE);
+
+	pSketch1Def->EndEdit();
+
+	ksEntityPtr pExtrusion1 = m_pPart->NewEntity(o3d_baseExtrusion);
+	ksBaseExtrusionDefinitionPtr pExtrusion1Def = pExtrusion1->GetDefinition();
+
+	pExtrusion1Def->SetSketch(pSketch1);
+	pExtrusion1Def->SetSideParam(TRUE, etBlind,keyDepth,0,0);
+
+	pExtrusion1->Create();
+
+
+	ksEntityPtr pFillet1 = m_pPart->NewEntity(o3d_fillet);
+	ksFilletDefinitionPtr pFillet1Def = pFillet1->GetDefinition();
+
+	pFillet1Def->radius = r;
+
+	ksEntityCollectionPtr pFillets = pFillet1Def->array();
+	pFillets->Clear();
+
+	ksEntityCollectionPtr pEdges = m_pPart->EntityCollection(o3d_edge);
+	pEdges->SelectByPoint(0, -keyLenght / 2, -b/2);
+	pFillets->Add(pEdges->GetByIndex(0));
+	pFillet1->Create();
+	
+	
+
+	ksEntityPtr pMirrorCopy = m_pPart->NewEntity(o3d_mirrorOperation);
+	ksMirrorCopyDefinitionPtr pMirrorCopyDef = pMirrorCopy->GetDefinition();
+
+	pMirrorCopyDef->SetPlane(m_pPart->GetDefaultEntity(XOY));
+
+	pEdges = ksEntityCollectionPtr(pMirrorCopyDef->GetOperationArray());
+	pEdges->Clear();
+
+	pEdges->Add(pFillet1);
+
+	pMirrorCopy->Create();
+	
+	
+	ksEntityPtr pPlaneOffset = m_pPart->NewEntity(o3d_planeOffset);
+	ksPlaneOffsetDefinitionPtr pPlaneOffsetDef = pPlaneOffset->GetDefinition();
+
+	pPlaneOffsetDef->SetPlane(m_pPart->GetDefaultEntity(ZOY));
+	pPlaneOffsetDef->direction = true;
+	pPlaneOffsetDef->offset = keyDepth/2;
+
+	pPlaneOffset->Create();
+
+
+
+	ksEntityPtr pMirrorCopy2 = m_pPart->NewEntity(o3d_mirrorOperation);
+	ksMirrorCopyDefinitionPtr pMirrorCopy2Def = pMirrorCopy2->GetDefinition();
+
+	pMirrorCopy2Def->SetPlane(pPlaneOffset);
+
+	pEdges = ksEntityCollectionPtr(pMirrorCopy2Def->GetOperationArray());
+	pEdges->Clear();
+
+	pEdges->Add(pMirrorCopy);
+
+	pMirrorCopy2->Create();
+
+	m_pDoc3D->SaveAs(m_keyName);
+	m_pDoc3D->close();
 }
 void CClutchAssembler::CreateCollar()
 {
@@ -821,6 +913,10 @@ void CClutchAssembler::SetAssembleName(const char* name)
 {
 	CClutchAssembler::m_assembleName = m_saveFolder + "\\" + _bstr_t(name);
 }
+void CClutchAssembler::SetKeyName(const char* name)
+{
+	CClutchAssembler::m_keyName = m_saveFolder +"\\"+ _bstr_t(name);
+}
 
 GOST CClutchAssembler::GetGOST()
 {
@@ -846,5 +942,6 @@ _bstr_t CClutchAssembler::m_collarName = _bstr_t("");
 _bstr_t CClutchAssembler::m_ringName = _bstr_t("");
 _bstr_t CClutchAssembler::m_screwName = _bstr_t("");
 _bstr_t CClutchAssembler::m_assembleName = _bstr_t("");
+_bstr_t CClutchAssembler::m_keyName = _bstr_t("");;
 GOST CClutchAssembler::m_gost;
 //Assembles::SelectedAssemble CClutchAssembler::m_selected = CAssemblesCollection::CLT_140NM;
