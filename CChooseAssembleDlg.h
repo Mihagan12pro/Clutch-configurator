@@ -80,6 +80,11 @@ private :
 	set<double> b1s = {};
 	set<double> c1s = {};
 	set<double> d1s = {};
+	set<double> ls = {};
+	set<double> Ls = {};
+	set<double> cs = {};
+	set<double> fs = {};
+	set<double> rs = {};
 	CEdit m_NMReadonlyEDIT;
 	CStatic m_NMReadonlySTATIC;
 public:
@@ -107,4 +112,24 @@ private:
 public:
 	afx_msg void OnCbnSelchangec1Combo();
 	afx_msg void OnSelchanged1Combo();
+
+private:
+	CStatic m_cSTATIC;
+	CComboBox m_cCOMBO;
+	CStatic m_rSTATIC;
+	CComboBox m_rCOMBO;
+	CStatic m_fSTATIC;
+	CComboBox m_fCOMBO;
+	CStatic m_LSTATIC;
+	CComboBox m_LCOMBO;
+	CStatic m_lSTATIC;
+	/*CComboBox m_lCOMBO;*/
+public:
+	afx_msg void OnCbnSelchangeLCombo();
+	afx_msg void OnCbnSelchangefCombo();
+	afx_msg void OnCbnSelchangerCombo();
+	afx_msg void OnCbnSelchangecCombo();
+	afx_msg void OnCbnSelchangelCombo();
+private:
+	CComboBox m_lCOMBO;
 };

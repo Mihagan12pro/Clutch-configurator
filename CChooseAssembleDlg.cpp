@@ -52,6 +52,17 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC__d1__COMBO, m_d1COMBO);*/
 	DDX_Control(pDX, IDC__d1__STATIC, m_d1STATIC);
 	DDX_Control(pDX, IDC__d1__COMBO, m_d1COMBO);
+	DDX_Control(pDX, IDC_c_STATIC, m_cSTATIC);
+	DDX_Control(pDX, IDC_c_COMBO, m_cCOMBO);
+	DDX_Control(pDX, IDC_r_STATIC, m_rSTATIC);
+	DDX_Control(pDX, IDC_r_COMBO, m_rCOMBO);
+	DDX_Control(pDX, IDC_f_STATIC, m_fSTATIC);
+	DDX_Control(pDX, IDC_f_COMBO, m_fCOMBO);
+	DDX_Control(pDX, IDC_L_STATIC, m_LSTATIC);
+	DDX_Control(pDX, IDC_L_COMBO, m_LCOMBO);
+	DDX_Control(pDX, IDC__l__STATIC, m_lSTATIC);
+	/*DDX_Control(pDX, IDC__l__COMBO, m_lCOMBO);*/
+	DDX_Control(pDX, IDC__l__COMBO, m_lCOMBO);
 }
 void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTREEITEM Ring, HTREEITEM Screw)
 {
@@ -97,6 +108,11 @@ BEGIN_MESSAGE_MAP(CChooseAssembleDlg, CDialogEx)
 	ON_BN_CLICKED(IDCANCEL, &CChooseAssembleDlg::OnBnClickedCancel)
 	ON_CBN_SELCHANGE(IDC_c1_COMBO, &CChooseAssembleDlg::OnCbnSelchangec1Combo)
 	ON_CBN_SELCHANGE(IDC__d1__COMBO, &CChooseAssembleDlg::OnSelchanged1Combo)
+	ON_CBN_SELCHANGE(IDC_L_COMBO, &CChooseAssembleDlg::OnCbnSelchangeLCombo)
+	ON_CBN_SELCHANGE(IDC_f_COMBO, &CChooseAssembleDlg::OnCbnSelchangefCombo)
+	ON_CBN_SELCHANGE(IDC_r_COMBO, &CChooseAssembleDlg::OnCbnSelchangerCombo)
+	ON_CBN_SELCHANGE(IDC_c_COMBO, &CChooseAssembleDlg::OnCbnSelchangecCombo)
+	ON_CBN_SELCHANGE(IDC__l__COMBO, &CChooseAssembleDlg::OnCbnSelchangelCombo)
 END_MESSAGE_MAP()
 
 
@@ -167,7 +183,9 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 			m_AssemblesTable.SetItemText(item, 9, DoubleToCString(Assembles::GetAllAssembles()[i].Getc()));
 			m_AssemblesTable.SetItemText(item, 10, DoubleToCString(Assembles::GetAllAssembles()[i].Getc1()));
 		}
-		
+
+		m_holeSTATIC.SetWindowPos(NULL, 490, 70, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_holeCOMBO.SetWindowPos(NULL, 490, 90, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 	}
 	else if (m_treeFromGetTree == m_hRing)
 	{
@@ -198,7 +216,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		m_b1COMBO.ShowWindow(SW_SHOW);
 		m_DSTATIC.ShowWindow(SW_SHOW);
 		m_DCOMBO.ShowWindow(SW_SHOW);
-		m_AssemblesTable.InsertColumn(0, L"Мкр", LVCFMT_LEFT, 200);
+		m_AssemblesTable.InsertColumn(0, L"Мкр", LVCFMT_LEFT, 170);
 		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 100);
 		m_AssemblesTable.InsertColumn(2, L"D1", LVCFMT_LEFT, 100);
 		m_AssemblesTable.InsertColumn(3, L"b1", LVCFMT_LEFT, 100);
@@ -217,10 +235,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 			b1s.insert(Assembles::GetAllAssembles()[i].Getb1());
 		}
 	}
-	else if (m_treeFromGetTree == m_hCollar)
-	{
-		SetWindowText(L"Втулка");
-	}
+	
 	else if (m_treeFromGetTree == m_hScrew)
 	{
 		SetWindowText(L"Винт");
@@ -261,7 +276,7 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 		m_d1COMBO.SetWindowPos(NULL, 530, 180, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 		m_holeSTATIC.SetWindowPos(NULL, 500, 210, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-		m_holeCOMBO.SetWindowPos(NULL, 500, 240, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_holeCOMBO.SetWindowPos(NULL, 500, 230, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 	
 		m_AssemblesTable.InsertColumn(0, L"Мкр", LVCFMT_LEFT, 172);
 		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 60);
@@ -286,6 +301,82 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 			d1s.insert(Assembles::GetAllAssembles()[i].Getd1());
 		}
 	}
+	else if (m_treeFromGetTree == m_hCollar)
+	{
+		SetWindowText(L"Втулка");
+
+		m_cSTATIC.ShowWindow(SW_SHOW);
+		m_cCOMBO.ShowWindow(SW_SHOW);
+
+		m_rSTATIC.ShowWindow(SW_SHOW);
+		m_rCOMBO.ShowWindow(SW_SHOW);
+
+		m_fSTATIC.ShowWindow(SW_SHOW);
+		m_fCOMBO.ShowWindow(SW_SHOW);
+
+		m_LSTATIC.ShowWindow(SW_SHOW);
+		m_LCOMBO.ShowWindow(SW_SHOW);
+
+		m_lSTATIC.ShowWindow(SW_SHOW);
+		m_lCOMBO.ShowWindow(SW_SHOW);
+
+		m_D1STATIC.ShowWindow(SW_SHOW);
+		m_D1COMBO.ShowWindow(SW_SHOW);
+
+		m_b1STATIC.ShowWindow(SW_SHOW);
+		m_b1COMBO.ShowWindow(SW_SHOW);
+
+		m_DSTATIC.ShowWindow(SW_SHOW);
+		m_DCOMBO.ShowWindow(SW_SHOW);
+
+		m_d1COMBO.ShowWindow(SW_SHOW);
+		m_d1STATIC.ShowWindow(SW_SHOW);
+
+		m_c1STATIC.ShowWindow(SW_SHOW);
+		m_c1COMBO.ShowWindow(SW_SHOW);
+
+		m_NMReadonlySTATIC.SetWindowPos(NULL,492,60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		m_NMReadonlyEDIT.SetWindowPos(NULL, 522, 60, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+
+		m_AssemblesTable.InsertColumn(0, L"Мкр", LVCFMT_LEFT, 70);
+		m_AssemblesTable.InsertColumn(1, L"D", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(2, L"D1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(3, L"b1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(5, L"c1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(6, L"d1", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(7, L"c", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(8, L"r", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(9, L"f", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(10, L"L", LVCFMT_LEFT, 40);
+		m_AssemblesTable.InsertColumn(11, L"l", LVCFMT_LEFT, 40);
+
+		for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+		{
+			int item = m_AssemblesTable.InsertItem(i, Assembles::GetAllAssembles()[i].GetNM());
+			m_AssemblesTable.SetItemText(item, 1, DoubleToCString(Assembles::GetAllAssembles()[i].GetD()));
+			m_AssemblesTable.SetItemText(item, 2, DoubleToCString(Assembles::GetAllAssembles()[i].GetD1()));
+			m_AssemblesTable.SetItemText(item, 3, DoubleToCString(Assembles::GetAllAssembles()[i].Getb1()));
+			m_AssemblesTable.SetItemText(item, 4, DoubleToCString(Assembles::GetAllAssembles()[i].Getc1()));
+			m_AssemblesTable.SetItemText(item, 5, DoubleToCString(Assembles::GetAllAssembles()[i].Getd1()));
+			m_AssemblesTable.SetItemText(item, 6, DoubleToCString(Assembles::GetAllAssembles()[i].Getc()));
+			m_AssemblesTable.SetItemText(item, 7, DoubleToCString(Assembles::GetAllAssembles()[i].Getr()));
+			m_AssemblesTable.SetItemText(item, 8, DoubleToCString(Assembles::GetAllAssembles()[i].Getf()));
+			m_AssemblesTable.SetItemText(item, 9, DoubleToCString(Assembles::GetAllAssembles()[i].GetL()));
+			m_AssemblesTable.SetItemText(item, 10, DoubleToCString(Assembles::GetAllAssembles()[i].Getl()));
+
+			D1s.insert(Assembles::GetAllAssembles()[i].GetD1());
+			Ds.insert(Assembles::GetAllAssembles()[i].GetD());
+			b1s.insert(Assembles::GetAllAssembles()[i].Getb1());
+			c1s.insert(Assembles::GetAllAssembles()[i].Getc1());
+			d1s.insert(Assembles::GetAllAssembles()[i].Getd1());
+			cs.insert(Assembles::GetAllAssembles()[i].Getc());
+			rs.insert(Assembles::GetAllAssembles()[i].Getr());
+			fs.insert(Assembles::GetAllAssembles()[i].Getf());
+			Ls.insert(Assembles::GetAllAssembles()[i].GetL());
+			ls.insert(Assembles::GetAllAssembles()[i].Getl());
+		}
+	}
 	// TODO:  Добавить дополнительную инициализацию
 
 	AddStringToCOMBO(m_b1COMBO, nmIndex, b1s);
@@ -293,6 +384,11 @@ BOOL CChooseAssembleDlg::OnInitDialog()
 	AddStringToCOMBO(m_DCOMBO, nmIndex, Ds);
 	AddStringToCOMBO(m_d1COMBO,nmIndex,d1s);
 	AddStringToCOMBO(m_c1COMBO, nmIndex, c1s);
+	AddStringToCOMBO(m_cCOMBO, nmIndex, cs);
+	AddStringToCOMBO(m_rCOMBO, nmIndex, rs);
+	AddStringToCOMBO(m_fCOMBO, nmIndex, fs);
+	AddStringToCOMBO(m_LCOMBO, nmIndex, Ls);
+	AddStringToCOMBO(m_lCOMBO, nmIndex, ls);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// Исключение: страница свойств OCX должна возвращать значение FALSE
@@ -314,10 +410,11 @@ void CChooseAssembleDlg::OnCbnSelchangeNmCombo()
 void CChooseAssembleDlg::ChangeNM(int selectedIndex)
 {
 	m_pAssembler = new Assembler(Assembles::GetAllAssembles()[selectedIndex],GOST_TOP);
-	for (int i = 0; i < m_holeCOMBO.GetCount() ;i++)
+	for (int i = 0; i < m_holeCOMBO.GetCount()+1 ;i++)
 	{
-		m_holeCOMBO.DeleteString(i);
+		m_holeCOMBO.DeleteString(0);
 	}
+	
 	m_NMReadonlyEDIT.SetWindowTextW(Assembles::GetAllAssembles()[selectedIndex].GetNM());
 	m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle()); //Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_TOP).GetTittle());
 	m_holeCOMBO.AddString(Assembles::GetAllAssembles()[selectedIndex].GetGOST1139(GOST_BOTTOM).GetTittle());
@@ -386,6 +483,26 @@ void CChooseAssembleDlg::AddStringToCOMBO(CComboBox& combo, int nmIndex, set<dou
 		{
 			combo.SetCurSel(i);
 		}
+		else if (combo == m_cCOMBO && vec[i] == Assembles::GetAllAssembles()[nmIndex].Getc())
+		{
+			combo.SetCurSel(i);
+		}
+		else if (combo == m_rCOMBO && vec[i] == Assembles::GetAllAssembles()[nmIndex].Getr())
+		{
+			combo.SetCurSel(i);
+		}
+		else if (combo == m_fCOMBO && vec[i] == Assembles::GetAllAssembles()[nmIndex].Getf())
+		{
+			combo.SetCurSel(i);
+		}
+		else if (combo == m_LCOMBO && vec[i] == Assembles::GetAllAssembles()[nmIndex].GetL())
+		{
+			combo.SetCurSel(i);
+		}
+		else if (combo == m_lCOMBO && vec[i] == Assembles::GetAllAssembles()[nmIndex].Getl())
+		{
+			combo.SetCurSel(i);
+		}
 	}
 }
 
@@ -435,6 +552,37 @@ void CChooseAssembleDlg::OnCbnSelchangec1Combo()
 }
 
 
+void CChooseAssembleDlg::OnCbnSelchangeLCombo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::OnCbnSelchangefCombo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::OnCbnSelchangerCombo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+
+
+void CChooseAssembleDlg::OnCbnSelchangecCombo()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	SetCurselsChanged();
+}
+void CChooseAssembleDlg::OnCbnSelchangelCombo()
+{
+	SetCurselsChanged();
+}
+
 void CChooseAssembleDlg::OnSelchanged1Combo()
 {
 	// TODO: добавьте свой код обработчика уведомлений
@@ -446,8 +594,8 @@ void CChooseAssembleDlg::SetCurselsChanged()
 {
 	if (m_treeFromGetTree != m_hAssemble)
 	{
-		CString C_D,C_D1,C_b1,C_c1,C_d1;
-		double D,D1,b1,d1,c1;
+		CString C_D,C_D1,C_b1,C_c1,C_d1,C_c,C_f,C_r,C_L,C_l;
+		double D,D1,b1,d1,c1,c,f,r,L,l;
 		if (m_treeFromGetTree == m_hRing)
 		{
 			m_DCOMBO.GetLBText(m_DCOMBO.GetCurSel(),C_D);
@@ -520,6 +668,67 @@ void CChooseAssembleDlg::SetCurselsChanged()
 				}
 			}
 		}
+		else if (m_treeFromGetTree == m_hCollar)
+		{
+			m_DCOMBO.GetLBText(m_DCOMBO.GetCurSel(), C_D);
+			D = CStringTODouble(C_D);
+
+			m_D1COMBO.GetLBText(m_D1COMBO.GetCurSel(), C_D1);
+			D1 = CStringTODouble(C_D1);
+
+			m_b1COMBO.GetLBText(m_b1COMBO.GetCurSel(), C_b1);
+			b1 = CStringTODouble(C_b1);
+
+			m_d1COMBO.GetLBText(m_d1COMBO.GetCurSel(), C_d1);
+			d1 = CStringTODouble(C_d1);
+
+			m_c1COMBO.GetLBText(m_c1COMBO.GetCurSel(), C_c1);
+			c1 = CStringTODouble(C_c1);
+
+			m_cCOMBO.GetLBText(m_cCOMBO.GetCurSel(), C_c);
+			c = CStringTODouble(C_c);
+
+			m_fCOMBO.GetLBText(m_fCOMBO.GetCurSel(), C_f);
+			f = CStringTODouble(C_f);
+
+			m_rCOMBO.GetLBText(m_rCOMBO.GetCurSel(), C_r);
+			r= CStringTODouble(C_r);
+
+			m_lCOMBO.GetLBText(m_lCOMBO.GetCurSel(), C_l);
+			l = CStringTODouble(C_l);
+
+			m_LCOMBO.GetLBText(m_LCOMBO.GetCurSel(), C_L);
+			L = CStringTODouble(C_L);
+
+			for (int i = 0; i < Assembles::GetAllAssembles().size();i++)
+			{
+
+				double _b1 = Assembles::GetAllAssembles()[i].Getb1();
+				double _D1 = Assembles::GetAllAssembles()[i].GetD1();
+				double _D = Assembles::GetAllAssembles()[i].GetD();
+				double _c1 = Assembles::GetAllAssembles()[i].Getc1();
+				double _d1 = Assembles::GetAllAssembles()[i].Getd1();
+				double _c = Assembles::GetAllAssembles()[i].Getc();
+				double _r = Assembles::GetAllAssembles()[i].Getr();
+				double _f = Assembles::GetAllAssembles()[i].Getf();
+				double _L = Assembles::GetAllAssembles()[i].GetL();
+				double _l = Assembles::GetAllAssembles()[i].Getl();
+
+				if (_b1 == b1 && _D1 == D1 && _D == D && _c1 == c1 && _d1 == d1 && c == _c && r == _r && f == _f && _L == L && _l == l)
+				{
+					ChangeNM(i);
+					break;
+				}
+				else
+				{
+					m_NMReadonlyEDIT.SetWindowTextW(L"");
+					for (int i = 0; i < m_holeCOMBO.GetCount();i++)
+					{
+						m_holeCOMBO.DeleteString(i);
+					}
+				}
+			}
+		}
 	}
 }
 CClutchAssemble CChooseAssembleDlg::GetAssemble()
@@ -550,4 +759,6 @@ void CChooseAssembleDlg::OnBnClickedCancel()
 	// TODO: добавьте свой код обработчика уведомлений
 	CDialogEx::OnCancel();
 }
+
+
 

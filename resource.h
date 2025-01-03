@@ -49,6 +49,16 @@
 #define IDC_c1_COMBO                    1051
 #define IDC__d1__STATIC                 1052
 #define IDC__d1__COMBO                  1053
+#define IDC_c_STATIC                    1054
+#define IDC_c_COMBO                     1055
+#define IDC_r_STATIC                    1056
+#define IDC_r_COMBO                     1057
+#define IDC_f_STATIC                    1058
+#define IDC_f_COMBO                     1059
+#define IDC_L_STATIC                    1060
+#define IDC_L_COMBO                     1061
+#define IDC__l__STATIC                  1062
+#define IDC__l__COMBO                   1063
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_whereSaveMenu                32773
@@ -72,7 +82,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        322
 #define _APS_NEXT_COMMAND_VALUE         32787
-#define _APS_NEXT_CONTROL_VALUE         1054
+#define _APS_NEXT_CONTROL_VALUE         1064
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
