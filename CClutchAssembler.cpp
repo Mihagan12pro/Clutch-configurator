@@ -77,11 +77,11 @@ void CClutchAssembler::BuildAssemble()
 	shaftHoleForKey = keyDepth - 0.5 * (D2 - d);
 	keyStart = 1;
 
-	/*CreateCollar();
+	CreateCollar();
 	CreateRing();
 	CreateScrew();
 	CreateKey();
-	CreateShaft();*/
+	CreateShaft();
 	DoAssemble();
 }
 void CClutchAssembler::CreateShaft()
@@ -1022,12 +1022,48 @@ void  CClutchAssembler::DoAssemble()
 	pRingFace = pRingFaces->First();
 	m_pDoc3D->AddMateConstraint(mc_Tangency,  pScrewEdge, pRingFace,-1, 0, NULL);
 		
-	/*DoSubAssemble(pCollar);*/
+	ksPartPtr pShaft1, pShaft2;
+	ksEntityPtr pShaft1Edge, pShaft2Edge,pCollarEdge;
+	ksEntityCollectionPtr pShaft1Edges,pShaft2Edges;
 
-	ksPartPtr pShaft1, pKey11, pKey12;
+
+	m_pDoc3D->SetPartFromFile(m_shaftName, m_pPart, true);
+	m_pDoc3D->SetPartFromFile(m_shaftName, m_pPart, true);
+
+	pShaft1 = m_pDoc3D->GetPart(3);
+	pShaft2 = m_pDoc3D->GetPart(4);
+
+	pShaft1Edges = pShaft1->EntityCollection(o3d_edge);
+	pShaft2Edges = pShaft2->EntityCollection(o3d_edge);
+	pCollarEdges = pCollar->EntityCollection(o3d_edge);
+
+	pShaft1Edges->SelectByPoint(0, d / 2, 0);
+	pShaft2Edges->SelectByPoint(0, d / 2, 0);
+	pCollarEdges->SelectByPoint(0,c - D/2,0);
+
+	pShaft1Edge = pShaft1Edges->First();
+	pShaft2Edge = pShaft2Edges->First();
+	pCollarEdge = pCollarEdges->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pShaft1Edge, pCollarEdge, -1, 45, NULL);
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pShaft2Edge, pCollarEdge, 1, 45, NULL);
+
+	pShaft1Edges = pShaft1->EntityCollection(o3d_edge);
+	pShaft2Edges = pShaft2->EntityCollection(o3d_edge);
+
+	pShaft1Edges->SelectByPoint(0, (d * 0.5 - shaftHoleForKey), keyStart);
+	pShaft2Edges->SelectByPoint(0, (d * 0.5 - shaftHoleForKey),keyStart);
+
+	
+
+	pShaft1Edge = pShaft1Edges->First();
+	pShaft2Edge = pShaft2Edges->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Angle, pShaft1Edge, pShaft2Edge, -1, 45, 45);
+	
+	/*ksPartPtr pShaft1, pKey11, pKey12;
 	ksEntityPtr pCollarShaftEdge, pShaftCollarEdge;
 	ksEntityPtr pKey11CollarEdge,pCollarKey11Edge;
-	//ksEntityPtr pShaftEdgeForKey11, pKey11BackEdge;
 	ksEntityPtr pShaftEdgeForAngleWithCollar, pKey11BackEdge;
 	ksEntityCollectionPtr pShaftEdges,pKey11Edges, pKey12Edges;
 
@@ -1071,17 +1107,8 @@ void  CClutchAssembler::DoAssemble()
 	pCollarEdges->SelectByPoint(0, -D2 / 2, 0);
 	pCollarShaftEdge = pCollarEdges->GetByIndex(0);
 
-	/*m_pDoc3D->AddMateConstraint(mc_Parallel, pShaftCollarEdge, pCollarShaftEdge, 1, 0, NULL);*/
-	m_pDoc3D->AddMateConstraint(mc_Parallel,  pCollarShaftEdge, pShaftCollarEdge,-1, 0, NULL);
-
-	//pCollarEdges->SelectByPoint(0, -D2 / 2, 0);
-	//pCollarEdgeForKey12 = pCollarEdges->GetByIndex(0);
-
-	//pKey12Edges->SelectByPoint(0, 0, 0);
-	//pKey12TopEdge = pKey12Edges->GetByIndex(0);
-
-	
-
+	m_pDoc3D->AddMateConstraint(mc_Angle,  pCollarShaftEdge, pShaftCollarEdge,-1, 45, NULL);
+*/
 
 	m_pDoc3D -> RebuildDocument();
 
