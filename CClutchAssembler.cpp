@@ -1060,55 +1060,14 @@ void  CClutchAssembler::DoAssemble()
 	pShaft2Edge = pShaft2Edges->First();
 
 	m_pDoc3D->AddMateConstraint(mc_Angle, pShaft1Edge, pShaft2Edge, -1, 45, 45);
+
 	
-	/*ksPartPtr pShaft1, pKey11, pKey12;
-	ksEntityPtr pCollarShaftEdge, pShaftCollarEdge;
-	ksEntityPtr pKey11CollarEdge,pCollarKey11Edge;
-	ksEntityPtr pShaftEdgeForAngleWithCollar, pKey11BackEdge;
-	ksEntityCollectionPtr pShaftEdges,pKey11Edges, pKey12Edges;
-
-	m_pDoc3D->SetPartFromFile(m_shaftName, m_pPart, true);
-	m_pDoc3D->SetPartFromFile(m_keyName, m_pPart, true);
-	m_pDoc3D->SetPartFromFile(m_keyName, m_pPart, true);
-
-	pShaft1 = m_pDoc3D->GetPart(3);
-	pKey11 = m_pDoc3D->GetPart(4);
-	pKey12 = m_pDoc3D->GetPart(5);
-
 	pCollarEdges = pCollar->EntityCollection(o3d_edge);
-	pShaftEdges = pShaft1->EntityCollection(o3d_edge);
-
-	pShaftEdges->SelectByPoint(0, d / 2,0);
-	pShaftCollarEdge = pShaftEdges->First();
-
-	pCollarEdges->SelectByPoint(0,D*0.5-c,0);
-	pCollarShaftEdge = pCollarEdges->First();
-
-	m_pDoc3D->AddMateConstraint(mc_Concentric, pCollarShaftEdge, pShaftCollarEdge, -1, 0, NULL);
-	
-
-	pCollarEdges = pCollar->EntityCollection(o3d_edge);
-	pKey11Edges = pKey11->EntityCollection(o3d_edge);
-
 	pCollarEdges->SelectByPoint(0,-D2/2,0);
-	pCollarKey11Edge = pCollarEdges->GetByIndex(0);
+	pCollarEdge = pCollarEdges->GetByIndex(0);
+	
+	m_pDoc3D->AddMateConstraint(mc_Angle, pCollarEdge, pShaft2Edge, -1, 0, 0);
 
-	pKey11Edges->SelectByPoint(0,0,0);
-	pKey11CollarEdge = pKey11Edges->GetByIndex(0);
-
-	m_pDoc3D->AddMateConstraint(mc_Parallel, pCollarKey11Edge, pKey11CollarEdge, 1, 0, NULL);
-
-	pCollarEdges = pCollar->EntityCollection(o3d_edge);
-	pShaftEdges = pShaft1->EntityCollection(o3d_edge);
-
-	pShaftEdges->SelectByPoint(-b *0.5 + c,0.5 * d - shaftHoleForKey ,keyStart);
-	pShaftCollarEdge = pShaftEdges->GetByIndex(0);
-
-	pCollarEdges->SelectByPoint(0, -D2 / 2, 0);
-	pCollarShaftEdge = pCollarEdges->GetByIndex(0);
-
-	m_pDoc3D->AddMateConstraint(mc_Angle,  pCollarShaftEdge, pShaftCollarEdge,-1, 45, NULL);
-*/
 
 	m_pDoc3D -> RebuildDocument();
 
