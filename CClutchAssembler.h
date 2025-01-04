@@ -55,13 +55,14 @@ class CClutchAssembler
 		double D, L, l, b1, D1, d, c, d1, c1, D2, b, r, f;
 
 		double keyLenght,keyDepth;
-
+		double shaftLenght,shaftHoleForKey,keyStart;
 
 		void CreateCollar();//Создание втулки
 		void CreateRing();//Создание кольца
 		void CreateScrew();//Создание винта
 		void CreateKey();//Создание шпонки
-		void DoAssemble();//Собирает сборку
+		void CreateShaft();//Создание вала
+		void DoAssemble();//Собирание сборку
 
 
 		void UpdateGOST(GOST gost);
@@ -72,6 +73,7 @@ class CClutchAssembler
 		static _bstr_t m_ringName;
 		static _bstr_t m_screwName;
 		static _bstr_t m_keyName;
+		static _bstr_t m_shaftName;
 		static GOST m_gost;
 
 	public:
@@ -80,6 +82,7 @@ class CClutchAssembler
 		 static void SetRingName(const char* name);
 		 static void SetScrewName(const char* name);
 		 static void SetKeyName(const char* name);
+		 static void SetShaftName(const char* name);
 		 static void SetAssembleName(const char* name);
 		 static GOST GetGOST();
 		 static CString GetFolderName();

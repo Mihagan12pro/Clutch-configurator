@@ -48,6 +48,7 @@ BOOL CClutchConfiguratorDoc::OnNewDocument()
 	CClutchAssembler::SetRingName("Кольцо.m3d");
 	CClutchAssembler::SetScrewName("Винт.m3d");
 	CClutchAssembler::SetKeyName("Шпонка.m3d");
+	CClutchAssembler::SetShaftName("Вал.m3d");
 	CClutchAssembler::SetAssembleName("Втулочная муфта.a3d");
 
 	

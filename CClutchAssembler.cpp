@@ -73,12 +73,156 @@ void CClutchAssembler::BuildAssemble()
 	keyLenght = d1 * 0.5 - c1;
 	keyDepth = 0.5 * (D2 - d) * 1.5;
 
+	shaftLenght = 0.85 * L *0.5;
+	shaftHoleForKey = keyDepth - 0.5 * (D2 - d);
+	keyStart = 1;
+
 	CreateCollar();
 	CreateRing();
 	CreateScrew();
 	CreateKey();
+	CreateShaft();
 	DoAssemble();
 }
+void CClutchAssembler::CreateShaft()
+{
+	m_pDoc3D = m_pKompasApp5->Document3D();
+
+	m_pDoc3D->Create(false, true);
+
+	m_pPart = m_pDoc3D->GetPart(pTop_Part);
+
+
+	ksEntityPtr pSketch1 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch1Def = pSketch1->GetDefinition();
+	pSketch1Def->SetPlane(m_pPart->GetDefaultEntity(XOY));
+	pSketch1->Create();
+
+	m_pDoc2D = pSketch1Def->BeginEdit();
+
+	m_pDoc2D->ksCircle(0,0,d/2,MAIN_LINE);
+
+	pSketch1Def->EndEdit();
+
+
+
+	ksEntityPtr pExtrusion1 = m_pPart->NewEntity(o3d_baseExtrusion);
+	ksBaseExtrusionDefinitionPtr pExtrusion1Def = pExtrusion1->GetDefinition();
+
+	pExtrusion1Def->SetSketch(pSketch1);
+	pExtrusion1Def->SetSideParam(TRUE,etBlind,shaftLenght,0,0);
+
+	pExtrusion1->Create();
+
+
+
+	ksEntityPtr pPlaneOffsetFromXOZ = m_pPart->NewEntity(o3d_planeOffset);
+	ksPlaneOffsetDefinitionPtr pPlaneOffsetFromXOZDef = pPlaneOffsetFromXOZ->GetDefinition();
+
+	pPlaneOffsetFromXOZDef->SetPlane(m_pPart->GetDefaultEntity(XOZ));
+	pPlaneOffsetFromXOZDef->offset = d / 2 - shaftHoleForKey;
+
+	pPlaneOffsetFromXOZ->Create();
+
+
+
+	ksEntityPtr pSketch2 = m_pPart->NewEntity(o3d_sketch);
+	ksSketchDefinitionPtr pSketch2Def = pSketch2->GetDefinition();
+
+	pSketch2Def->SetPlane(pPlaneOffsetFromXOZ);
+
+	pSketch2->Create();
+
+	m_pDoc2D = pSketch2Def->BeginEdit();
+
+	m_pDoc2D->ksLineSeg(-b/2,-keyStart,b/2,-keyStart,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b/2 , -(d1 * 0.5 - c1) - keyStart, b/2, -(keyLenght)-keyStart, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(-b/2, -keyStart, -b/2, -(keyLenght)-keyStart, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(b/2, -keyStart, b/2, -(keyLenght)-keyStart, MAIN_LINE);
+
+	pSketch2Def->EndEdit();
+
+
+	ksEntityPtr pCutExtrusion1 = m_pPart->NewEntity(o3d_cutExtrusion);
+	ksCutExtrusionDefinitionPtr pCutExtrusion1Def = pCutExtrusion1->GetDefinition();
+
+	pCutExtrusion1Def->directionType = dtReverse;
+	pCutExtrusion1Def->SetSketch(pSketch2);
+	pCutExtrusion1Def->SetSideParam(true, etThroughAll,shaftHoleForKey , 0, false);
+
+	pCutExtrusion1->Create();
+
+	
+	ksEntityPtr pFillet1 = m_pPart->NewEntity(o3d_fillet);
+	ksFilletDefinitionPtr pFiller1Def = pFillet1->GetDefinition();
+
+	pFiller1Def->radius = r;
+	
+	ksEntityCollectionPtr pEdges = m_pPart->EntityCollection(o3d_edge);
+	ksEntityCollectionPtr pFillets = pFiller1Def->array();
+
+	pFillets->Clear();
+
+	for (int i = 0; i < pEdges->GetCount();i++)
+	{
+		ksEntityPtr ed = pEdges->GetByIndex(i);
+		ksEdgeDefinitionPtr def = ed->GetDefinition();
+
+		if (def->GetOwnerEntity() == pCutExtrusion1)
+		{
+			ksVertexDefinitionPtr vert = def->GetVertex(true);
+			double x, y, z;
+			vert->GetPoint(&x, &y, &z);
+			if ( x == b/2 && y <= 0.5*d - shaftHoleForKey)
+			{
+				pEdges->SelectByPoint(x, (0.5 * d - shaftHoleForKey), keyLenght);
+				pFillets->Add(pEdges->GetByIndex(0));	
+			}
+		}
+	}
+
+	pFillet1->Create();
+
+
+	ksEntityPtr pMirrorCopy1 = m_pPart->NewEntity(o3d_mirrorOperation);
+	ksMirrorCopyDefinitionPtr pMirrorCopy1Def = pMirrorCopy1->GetDefinition();
+	pMirrorCopy1Def->SetPlane(m_pPart->GetDefaultEntity(ZOY));
+
+	pEdges = ksEntityCollectionPtr(pMirrorCopy1Def -> GetOperationArray());
+	pEdges->Clear();
+
+	pEdges->Add(pFillet1);
+
+	pMirrorCopy1->Create();
+
+
+	ksEntityPtr pCircularCopy1 = m_pPart->NewEntity(o3d_circularCopy);
+	ksCircularCopyDefinitionPtr pCircularCopy1Def = pCircularCopy1->GetDefinition();
+
+	ksEntityPtr pAxis = m_pPart->NewEntity(o3d_axis2Planes);
+	ksAxis2PlanesDefinitionPtr pAxisDef = pAxis->GetDefinition();
+
+	pAxisDef->SetPlane(1,m_pPart->GetDefaultEntity(ZOY));
+	pAxisDef->SetPlane(2, m_pPart->GetDefaultEntity(XOZ));
+
+	pAxis->Create();
+
+	pCircularCopy1Def->SetAxis(pAxis);
+	pCircularCopy1Def->SetCopyParamAlongDir(2, 45, FALSE, FALSE);
+
+	pEdges = ksEntityCollectionPtr(pCircularCopy1Def->GetOperationArray());
+	pEdges->Clear();
+
+	pEdges->Add(pCutExtrusion1);
+	pEdges->Add(pMirrorCopy1);
+
+	pCircularCopy1->Create();
+
+	m_pDoc3D->SaveAs(m_shaftName);
+	m_pDoc3D->close();
+}
+
+
 
 void CClutchAssembler::CreateKey()
 {
@@ -167,6 +311,7 @@ void CClutchAssembler::CreateKey()
 	m_pDoc3D->SaveAs(m_keyName);
 	m_pDoc3D->close();
 }
+
 void CClutchAssembler::CreateCollar()
 {
 	m_pDoc3D = m_pKompasApp5->Document3D();
@@ -917,6 +1062,10 @@ void CClutchAssembler::SetKeyName(const char* name)
 {
 	CClutchAssembler::m_keyName = m_saveFolder +"\\"+ _bstr_t(name);
 }
+void CClutchAssembler::SetShaftName(const char* name)
+{
+	CClutchAssembler::m_shaftName = m_saveFolder + "\\" + _bstr_t(name);
+}
 
 GOST CClutchAssembler::GetGOST()
 {
@@ -942,6 +1091,7 @@ _bstr_t CClutchAssembler::m_collarName = _bstr_t("");
 _bstr_t CClutchAssembler::m_ringName = _bstr_t("");
 _bstr_t CClutchAssembler::m_screwName = _bstr_t("");
 _bstr_t CClutchAssembler::m_assembleName = _bstr_t("");
-_bstr_t CClutchAssembler::m_keyName = _bstr_t("");;
+_bstr_t CClutchAssembler::m_keyName = _bstr_t("");
+_bstr_t CClutchAssembler::m_shaftName = _bstr_t("");
 GOST CClutchAssembler::m_gost;
 //Assembles::SelectedAssemble CClutchAssembler::m_selected = CAssemblesCollection::CLT_140NM;
