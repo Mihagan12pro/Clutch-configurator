@@ -101,6 +101,6 @@ class CClutchAssembler
 		friend class CSaveConfigurationsDlg;
 		friend class CChooseAssembleDlg;
 	protected:
-		void DoSubAssemble(PartPtr pShaft, PartPtr pKey1, PartPtr pKey2, PartPtr pCollar);
+		void DoSubAssemble(PartPtr pCollar);
 };
 
