@@ -914,6 +914,10 @@ void  CClutchAssembler::DoAssemble()
 {
 	ksPartPtr pCollar, pRing, pScrew;
 
+
+
+	ksPartPtr pSubAssembly1Shaft, pSubAssembly1Key1, pSubAssembly1Key2;
+
 	ksEntityPtr pCollarHoleForScrewEdge, pScrewEdge;
 	ksEntityPtr pCollarHoleForRingEdge, pRingEdge;
 	ksEntityPtr pScrewHoleForRingEdge;
@@ -1028,7 +1032,10 @@ void  CClutchAssembler::DoAssemble()
 
 	m_pDoc3D->SaveAs(m_assembleName	);
 }
+void CClutchAssembler::DoSubAssemble(PartPtr pShaft, PartPtr pKey1, PartPtr pKey2, PartPtr pCollar)
+{
 
+}
 Assemble CClutchAssembler::GetAssemble()
 {
 	return m_assemble;

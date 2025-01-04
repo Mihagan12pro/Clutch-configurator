@@ -37,6 +37,11 @@ class CClutchAssembler
 		CClutchAssembler(Assemble assemble,GOST gost);
 	protected:
 		CClutchAssembler();
+		class PartPtr :public ksPartPtr
+		{
+
+		};
+
 
 	protected:
 		KompasObjectPtr m_pKompasApp5;
@@ -95,5 +100,7 @@ class CClutchAssembler
 	protected:
 		friend class CSaveConfigurationsDlg;
 		friend class CChooseAssembleDlg;
+	protected:
+		void DoSubAssemble(PartPtr pShaft, PartPtr pKey1, PartPtr pKey2, PartPtr pCollar);
 };
 
