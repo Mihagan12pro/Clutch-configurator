@@ -233,6 +233,7 @@
     <Image Include="Sketches\Collar.bmp" />
     <Image Include="Sketches\Ring.bmp" />
     <Image Include="Sketches\Screw.bmp" />
+    <Image Include="Sketches\TODO.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

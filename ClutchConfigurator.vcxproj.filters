@@ -150,5 +150,8 @@
     <Image Include="Sketches\Assemble.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="Sketches\TODO.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
