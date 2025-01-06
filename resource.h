@@ -15,8 +15,9 @@
 #define IDB_BITMAP2                     321
 #define IDB_COLLAR_BITMAP               321
 #define IDB_RING_BITMAP                 322
-#define IDB_BITMAP3                     323
 #define IDB_SCREW_BITMAP                323
+#define IDB_BITMAP3                     324
+#define IDB_ASSEMBLE_BITMAP             324
 #define IDC_Sketch_PICTURE              1000
 #define IDC_save_STATIC                 1002
 #define IDC_EDIT5                       1006
@@ -81,7 +82,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        324
+#define _APS_NEXT_RESOURCE_VALUE        325
 #define _APS_NEXT_COMMAND_VALUE         32787
 #define _APS_NEXT_CONTROL_VALUE         1064
 #define _APS_NEXT_SYMED_VALUE           310

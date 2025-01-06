@@ -106,7 +106,7 @@ void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 
 	else
 	{
-
+		bitmapId = IDB_ASSEMBLE_BITMAP;
 	}
 
 	
