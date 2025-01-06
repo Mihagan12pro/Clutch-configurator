@@ -24,6 +24,7 @@ BEGIN_MESSAGE_MAP(CAssembleTree, CTreeView)
 	ON_NOTIFY_REFLECT(NM_CLICK, &CAssembleTree::OnNMClick)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
+	ON_COMMAND(ID_BUILD_ASSEMBLY, &CAssembleTree::OnBuildAssembly)
 END_MESSAGE_MAP()
 
 
@@ -142,4 +143,22 @@ void CAssembleTree::OnLButtonDblClk(UINT nFlags, CPoint point)
 		}
 	}
 	
+}
+
+
+void CAssembleTree::OnBuildAssembly()
+{
+	// TODO: добавьте свой код обработчика команд
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+
+
+
+
+	if (&pFrame->GetAssembler() != nullptr)
+	{
+
+		Assembler ass = pFrame->GetAssembler();
+		ass.BuildAssemble();
+
+	}
 }
