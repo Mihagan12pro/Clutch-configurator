@@ -332,10 +332,10 @@ void CClutchAssembler::CreateCollar()
 
 	m_pDoc2D = pSketch4Def->BeginEdit();
 	
-	m_pDoc2D->ksLineSeg(l-c1*2,D/2,   l,D/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l-c1*2,D/2, l,D/2,MAIN_LINE);
 	m_pDoc2D->ksLineSeg(l,D / 2,l,0,MAIN_LINE);
 	m_pDoc2D->ksLineSeg(l - c1 * 2, 0, l, 0, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l - c1 * 2, D/2,       l - c1 * 2, 0, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l - c1 * 2, D/2, l - c1 * 2, 0, MAIN_LINE);
 	
 	m_pDoc2D->ksLineSeg(l,-D/2,l,10,HATCH_LINE);
 	pSketch4Def->EndEdit();
@@ -663,7 +663,7 @@ void  CClutchAssembler::DoAssemble()
 
 	pCollarHoleForScrewEdge = pCollarFaces->First();
 
-	m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewEdge, pCollarHoleForScrewEdge, -1, 1, 0);
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pScrewEdge, pCollarHoleForScrewEdge, 1, 1, 0);
 
 	pCollarFaces->Clear();
 	pCollarFaces = pCollar->EntityCollection(o3d_face);
@@ -700,22 +700,38 @@ void  CClutchAssembler::DoAssemble()
 
 	m_pDoc3D->AddMateConstraint(mc_Perpendicular, pScrewEdge, pRingFace, 1, 1, 0);
 
+
+
+	//l-c1*2,D/2
+	pScrewFaces = pScrew->EntityCollection(o3d_face);
+	pCollarFaces = pCollar->EntityCollection(o3d_face);
+	 
+	pCollarFaces->SelectByPoint(l - c1 * 2,D / 2-c,0);
+	pScrewFaces->SelectByPoint(0, 0.5*d1-c1, -0.25*(D-d));
+
+	ksEntityPtr pCollarForScrewEdge,pScrewForCollarFace;
+	
+
+	pCollarForScrewEdge = pCollarFaces->First();
+	pScrewForCollarFace= pScrewFaces->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Concentric, pCollarForScrewEdge, pScrewForCollarFace, -1, -1, 0);
 	//mc_Tangency - касание
 
-	pScrewFaces->Clear();
-	pScrewFaces = pScrew->EntityCollection(o3d_face);
-	/*pScrewFaces->SelectByPoint(0,D*0.5-D1*0.5, 0);*/
-	pScrewFaces->SelectByPoint(0,1.01* b1/2, 0);
-	pScrewEdge = pScrewFaces->First();
+	//pScrewFaces->Clear();
+	//pScrewFaces = pScrew->EntityCollection(o3d_face);
+	///*pScrewFaces->SelectByPoint(0,D*0.5-D1*0.5, 0);*/
+	//pScrewFaces->SelectByPoint(0,1.01* b1/2, 0);
+	//pScrewEdge = pScrewFaces->First();
 
-	pRingFaces->Clear();
-	pRingFaces = pRing->EntityCollection(o3d_face);
+	//pRingFaces->Clear();
+	//pRingFaces = pRing->EntityCollection(o3d_face);
 
-	pRingFaces->SelectByPoint(0, D / 2, 0);
-	pRingFace = pRingFaces->First();
-	m_pDoc3D->AddMateConstraint(mc_Tangency,  pScrewEdge, pRingFace,-1, 0, NULL);
-		
-	
+	//pRingFaces->SelectByPoint(0, D / 2, 0);
+	//pRingFace = pRingFaces->First();
+	//m_pDoc3D->AddMateConstraint(mc_Tangency,  pScrewEdge, pRingFace,1, 0, NULL);
+	//	
+	//
 
 	m_pDoc3D -> RebuildDocument();
 
