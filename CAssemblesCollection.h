@@ -24,7 +24,5 @@ class CAssemblesCollection
 		
 		
 		static vector<Assemble> GetAllAssembles();
-
-
 };
 

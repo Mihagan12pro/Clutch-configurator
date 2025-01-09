@@ -127,26 +127,13 @@ CClutchConfiguratorDoc* CClutchConfiguratorView::GetDocument() const // встр
 
 void CClutchConfiguratorView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
-
-	//CClutchConfiguratorDoc* pDoc = GetDocument();
-
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	
-	
-
 	
 	if(&pFrame->GetAssembler() != nullptr)
 	{
-		
-		Assembler ass = pFrame->GetAssembler();
-		ass.BuildAssemble();
-
+		Assembler assembler = pFrame->GetAssembler();
+		assembler.BuildAssemble();
 	}
-
-
-	
-
 	CFormView::OnLButtonDown(nFlags, point);
 }
 
@@ -193,13 +180,6 @@ void CClutchConfiguratorView::SetSketchImage(int bitmapID)
 {
 	bool bFlag = true;
 	
-	/*CImage img;
-
-	img.Load(image);
-
-	HBITMAP bitmap = img.Detach();
-
-	m_sketchImage.SetBitmap(bitmap);*/
 	m_sketchImage.SetBitmap
 	(
 		LoadBitmap
@@ -209,9 +189,6 @@ void CClutchConfiguratorView::SetSketchImage(int bitmapID)
 		)
 	);
 	bFlag = !bFlag;
-	
-	
-	
 }
 
 
@@ -223,17 +200,10 @@ void CClutchConfiguratorView::OnStnClickedPictureStatic()
 
 void CClutchConfiguratorView::OnBuildAssembly()
 {
-	// TODO: добавьте свой код обработчика команд
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-
-
-
-
 	if (&pFrame->GetAssembler() != nullptr)
 	{
-
-		Assembler ass = pFrame->GetAssembler();
-		ass.BuildAssemble();
-
+		Assembler assembler = pFrame->GetAssembler();
+		assembler.BuildAssemble();
 	}
 }

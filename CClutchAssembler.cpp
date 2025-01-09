@@ -31,27 +31,20 @@ CClutchAssembler::CClutchAssembler(Assemble assemble, GOST gost)
 
 void CClutchAssembler::BuildAssemble()
 {
-	// TODO: добавьте свой код обработчика уведомлений
-
-
-
 	CComPtr<IUnknown> pKompasAppUnk = nullptr;
 	if (!m_pKompasApp5)
 	{
 		// Получаем CLSID для Компас
 		CLSID InvAppClsid;
 		HRESULT hRes = CLSIDFromProgID(L"Kompas.Application.5", &InvAppClsid);
-		if (FAILED(hRes)) {
+		if (FAILED(hRes)) 
+		{
 			m_pKompasApp5 = nullptr;
 			return;
 		}
-
-		// Проверяем есть ли запущенный экземпляр Компас
-		//если есть получаем IUnknown
 		hRes = ::GetActiveObject(InvAppClsid, NULL, &pKompasAppUnk);
-		if (FAILED(hRes)) {
-			// Приходится запускать Компас самим так как работающего нет
-			// Также получаем IUnknown для только что запущенного приложения Компас
+		if (FAILED(hRes)) 
+		{
 			TRACE(L"Could not get hold of an active Inventor, will start a new session\n");
 			hRes = CoCreateInstance(InvAppClsid, NULL, CLSCTX_LOCAL_SERVER, __uuidof(IUnknown), (void**)&pKompasAppUnk);
 			if (FAILED(hRes)) {
@@ -75,6 +68,7 @@ void CClutchAssembler::BuildAssemble()
 	CreateScrew();
 	DoAssemble();
 }
+
 void CClutchAssembler::CreateCollar()
 {
 	m_pDoc3D = m_pKompasApp5->Document3D();
@@ -87,6 +81,7 @@ void CClutchAssembler::CreateCollar()
 	ksEntityPtr pSketch1 = m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketch1Def = pSketch1->GetDefinition();
 
+	//Создание 1 эскиза
 	pSketch1Def->SetPlane(m_pPart->GetDefaultEntity(XOZ));
 	pSketch1->Create();
 
@@ -105,20 +100,12 @@ void CClutchAssembler::CreateCollar()
 	ksEntityPtr pRotate1 = m_pPart->NewEntity(o3d_bossRotated);
 	ksBossRotatedDefinitionPtr pRotate1Def = pRotate1->GetDefinition();
 
+	//Выдавливание вращением
 	pRotate1Def->SetSketch(pSketch1);
 	pRotate1Def->SetSideParam(TRUE, 360);
 	pRotate1->Create();
 
-
-
-
-
-
-
-
-
-
-
+	//Создание 2 эскиза
 	ksEntityPtr pSketch2 = m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketch2Def = pSketch2->GetDefinition();
 
@@ -136,7 +123,7 @@ void CClutchAssembler::CreateCollar()
 
 	pSketch2Def->EndEdit();
 
-
+	//Вырезание вращением
 	ksEntityPtr pCutRotate1 = m_pPart->NewEntity(o3d_cutRotated);
 	ksCutRotatedDefinitionPtr pCutRotate1Def = pCutRotate1->GetDefinition();
 
@@ -145,9 +132,7 @@ void CClutchAssembler::CreateCollar()
 
 	pCutRotate1->Create();
 
-
-
-
+	//Создание 3 эскиза
 	ksEntityPtr pSketch3 = m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketch3Def = pSketch3->GetDefinition();
 	pSketch3Def->SetPlane(m_pPart->GetDefaultEntity(ZOY));
@@ -162,10 +147,9 @@ void CClutchAssembler::CreateCollar()
 	m_pDoc2D->ksLineSeg(-b / 2, 0, b / 2, 0, MAIN_LINE);
 	pSketch3Def->EndEdit();
 
-
+	//Вырезание выдавливанием 1
 	ksEntityPtr pCutExtrusion1 = m_pPart->NewEntity(o3d_cutExtrusion);
 	ksCutExtrusionDefinitionPtr pCutExtrusion1Def = pCutExtrusion1->GetDefinition();
-
 
 	pCutExtrusion1Def->SetSketch(pSketch3);
 	pCutExtrusion1Def->SetSideParam(true, etThroughAll, 0, 0, false);
@@ -173,11 +157,7 @@ void CClutchAssembler::CreateCollar()
 
 	pCutExtrusion1->Create();
 
-
-
-
-
-
+	//Создание фаски 1
 	ksEntityPtr pChamfer1 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer1Def = pChamfer1->GetDefinition();
 
@@ -190,16 +170,11 @@ void CClutchAssembler::CreateCollar()
 
 	pEdges->SelectByPoint(0, d / 2, 0);
 
-
-
 	pChamfers->Add(pEdges->GetByIndex(0));
-
-
 
 	pChamfer1->Create();
 
-
-
+	//Создание фаски 2
 	ksEntityPtr pChamfer2 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer2Def = pChamfer2->GetDefinition();
 
@@ -215,11 +190,9 @@ void CClutchAssembler::CreateCollar()
 
 	pChamfers->Add(pEdges->GetByIndex(0));
 
-
-
 	pChamfer2->Create();
 
-
+	//Создание фаски 3
 	ksEntityPtr pChamfer3 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer3Def = pChamfer3->GetDefinition();
 
@@ -232,16 +205,11 @@ void CClutchAssembler::CreateCollar()
 
 	pEdges->SelectByPoint(L, d / 2, 0);
 
-
 	pChamfers->Add(pEdges->GetByIndex(0));
-
-
 
 	pChamfer3->Create();
 
-
-
-
+	//Создание фаски 4
 	ksEntityPtr pChamfer4 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer4Def = pChamfer4->GetDefinition();
 
@@ -252,18 +220,13 @@ void CClutchAssembler::CreateCollar()
 	pChamfers = pChamfer4Def->array();
 	pChamfers->Clear();
 
-	//pEdges->SelectByPoint(0, d / 2, 0);
 	pEdges->SelectByPoint(0, D / 2, 0);
 
 	pChamfers->Add(pEdges->GetByIndex(0));
 
-
-
 	pChamfer4->Create();
 
-
-
-
+	//Создание фаски 5
 	ksEntityPtr pChamfer5 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer5Def = pChamfer5->GetDefinition();
 
@@ -271,7 +234,6 @@ void CClutchAssembler::CreateCollar()
 	pEdges = m_pPart->EntityCollection(o3d_edge);
 	pChamfers = pChamfer5Def->array();
 	pChamfers->Clear();
-
 
 	for (int i = 0;i < pEdges->GetCount();i++)
 	{
@@ -285,17 +247,13 @@ void CClutchAssembler::CreateCollar()
 			vert->GetPoint(&x, &y, &z);
 			if (x != 0 && fabs(y) < d / 2)
 			{
-
-				
 				pChamfers->Add(ed);
 			}
 		}
 
 		pChamfer5->Create();
 	}
-
-
-
+	//Создание Скругления
 	ksEntityPtr pFillet1 = m_pPart->NewEntity(o3d_fillet);
 	ksFilletDefinitionPtr pFillet1Def = pFillet1->GetDefinition();
 
@@ -312,9 +270,6 @@ void CClutchAssembler::CreateCollar()
 
 		if (def->GetOwnerEntity() == pCutExtrusion1)
 		{
-
-
-
 			ksVertexDefinitionPtr vert = def->GetVertex(true);
 			double x, y, z;
 			if (vert != NULL)
@@ -328,22 +283,13 @@ void CClutchAssembler::CreateCollar()
 						pEdges->SelectByPoint(L - c, y, z);
 						pFillets->Add(pEdges->GetByIndex(0));
 					}
-					/*else
-					{
-						ed->Putname("fillet");
-						pFillets->Add(ed);
-					}*/
-
-
 				}
 			}
 		}
-
-
-
 	}
 	pFillet1->Create();
 
+	//Зеркальный массив
 	ksEntityPtr pMirrorCopy = m_pPart->NewEntity(o3d_mirrorOperation);
 	ksMirrorCopyDefinitionPtr pMirrorCopyDef = pMirrorCopy->GetDefinition();
 
@@ -352,22 +298,19 @@ void CClutchAssembler::CreateCollar()
 	pEdges = ksEntityCollectionPtr(pMirrorCopyDef->GetOperationArray());
 	pEdges->Clear();
 
-	pEdges->Add(pFillet1);
+	pEdges->Add(pFillet1);//Добавление скругления в зеркальный массив
 
 	pMirrorCopy->Create();
 
-
-
 	pEdges->Clear();
 
+	//Массив по концентрической сетке
 	ksEntityPtr pCircularCopy1 = m_pPart->NewEntity(o3d_circularCopy);
 	ksCircularCopyDefinitionPtr pCircularCopy1Def = pCircularCopy1->GetDefinition();
 
-	//pCircularCopy1Def->count1 = 2;
 	pCircularCopy1Def->SetCopyParamAlongDir(2, 45, FALSE, FALSE);
 	
 	
-
 	pEdges = ksEntityCollectionPtr(pCircularCopy1Def->GetOperationArray());
 
 	pCircularCopy1Def->SetAxis(m_pPart->GetDefaultEntity(o3d_axisOX));
@@ -380,7 +323,7 @@ void CClutchAssembler::CreateCollar()
 
 	pCircularCopy1->Create();
 
-
+	//Создание эскиза 4
 	ksEntityPtr pSketch4 = m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketch4Def = pSketch4->GetDefinition();
 
@@ -389,18 +332,17 @@ void CClutchAssembler::CreateCollar()
 
 	m_pDoc2D = pSketch4Def->BeginEdit();
 	
-	m_pDoc2D->ksLineSeg(l-c1*2,-D/2,   l,-D/2,MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l, -D / 2,l,0,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l-c1*2,D/2,   l,D/2,MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l,D / 2,l,0,MAIN_LINE);
 	m_pDoc2D->ksLineSeg(l - c1 * 2, 0, l, 0, MAIN_LINE);
-	m_pDoc2D->ksLineSeg(l - c1 * 2, -D/2,       l - c1 * 2, 0, MAIN_LINE);
+	m_pDoc2D->ksLineSeg(l - c1 * 2, D/2,       l - c1 * 2, 0, MAIN_LINE);
 	
 	m_pDoc2D->ksLineSeg(l,-D/2,l,10,HATCH_LINE);
 	pSketch4Def->EndEdit();
 
 	pSketch4->Create();
 
-
-
+	//Выдавливание вращением 
 	ksEntityPtr pCutRotate2 = m_pPart->NewEntity(o3d_cutRotated);
 	ksCutRotatedDefinitionPtr pCutRotate2Def = pCutRotate2->GetDefinition();
 
@@ -410,7 +352,7 @@ void CClutchAssembler::CreateCollar()
 
 	pCutRotate2->Create();
 
-
+	//Создание фаски 6
 	ksEntityPtr pChamfer6 = m_pPart->NewEntity(o3d_chamfer);
 	ksChamferDefinitionPtr pChamfer6Def = pChamfer6->GetDefinition();
 
@@ -433,12 +375,8 @@ void CClutchAssembler::CreateCollar()
 			vert->GetPoint(&x,&y,&z);
 
 
-			if (y==-D/2)
+			if (y==D/2)
 			{
-				//ed->Putname("chamfer6");
-			
-				n1 = i;
-
 				pEdges->SelectByPoint(x,y,z);
 
 				ed = pEdges->GetByIndex(0);
@@ -450,16 +388,11 @@ void CClutchAssembler::CreateCollar()
 				pChamfers->Add(ed);
 
 			}
-
-
 		}
-
-
-
 	}
 	pChamfer6->Create();
 
-
+	//Создание эскиза 5
 	ksEntityPtr pSketch5 = m_pPart->NewEntity(o3d_sketch);
 	ksSketchDefinitionPtr pSketch5Def = pSketch5->GetDefinition();
 
@@ -477,7 +410,7 @@ void CClutchAssembler::CreateCollar()
 
 	pSketch5->Create();
 
-
+	//Выдавливание  вращением 3
 	ksEntityPtr pCutRotate3 = m_pPart->NewEntity(o3d_cutRotated);
 	ksCutRotatedDefinitionPtr pCutRotate3Def = pCutRotate3->GetDefinition();
 
@@ -486,7 +419,7 @@ void CClutchAssembler::CreateCollar()
 
 	pCutRotate3->Create();
 
-
+	//Создание условного изображения резьбы
 	ksEntityPtr pThread = m_pPart->NewEntity(o3d_thread);
 	ksThreadDefinitionPtr pThreadDef = pThread->GetDefinition();
 	pThreadDef -> PutallLength(TRUE);
@@ -506,10 +439,7 @@ void CClutchAssembler::CreateCollar()
 			face->Update();
 			face->Putname("HoleForScrew");
 			pThreadDef->SetBaseObject(face);
-			
-			n1 = i;
 		}
-		
 	}
 	pThread->Create();
 	m_pDoc3D->SaveAs(m_collarName);
@@ -659,7 +589,7 @@ void   CClutchAssembler::CreateScrew()
 		{
 			
 			face->Update();
-			face->Putname(SCREW_BODY);
+			//face->Putname(SCREW_BODY);
 			pThreadDef->SetBaseObject(face);
 			n2 = i;
 		}

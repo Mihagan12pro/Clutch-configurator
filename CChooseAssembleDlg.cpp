@@ -48,8 +48,6 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC__d__COMBO, m_dCOMBO);*/
 	DDX_Control(pDX, IDC_c1_STATIC, m_c1STATIC);
 	DDX_Control(pDX, IDC_c1_COMBO, m_c1COMBO);
-	/*DDX_Control(pDX, IDC__d1__STATIC, m_d1STATIC);
-	DDX_Control(pDX, IDC__d1__COMBO, m_d1COMBO);*/
 	DDX_Control(pDX, IDC__d1__STATIC, m_d1STATIC);
 	DDX_Control(pDX, IDC__d1__COMBO, m_d1COMBO);
 	DDX_Control(pDX, IDC_c_STATIC, m_cSTATIC);
@@ -61,7 +59,6 @@ void CChooseAssembleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_L_STATIC, m_LSTATIC);
 	DDX_Control(pDX, IDC_L_COMBO, m_LCOMBO);
 	DDX_Control(pDX, IDC__l__STATIC, m_lSTATIC);
-	/*DDX_Control(pDX, IDC__l__COMBO, m_lCOMBO);*/
 	DDX_Control(pDX, IDC__l__COMBO, m_lCOMBO);
 }
 void CChooseAssembleDlg::SetHTREEITEMs(HTREEITEM Assemble, HTREEITEM Collar, HTREEITEM Ring, HTREEITEM Screw)

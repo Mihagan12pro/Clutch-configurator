@@ -38,6 +38,4 @@ class CGOST1139
 		{
 			return b;
 		}
-	
-
 };

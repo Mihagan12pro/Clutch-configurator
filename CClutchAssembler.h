@@ -24,11 +24,6 @@ using namespace Kompas6API5;
 #define YOZ o3d_planeYOZ
 #define ZOY o3d_planeYOZ
 
-
-#define COLLAR_HOLE_FOR_SCREW "HoleForScrew"
-#define SCREW_BODY "ScrewBody"
-
-
 class CClutchAssembler
 {
 
@@ -82,7 +77,6 @@ class CClutchAssembler
 		 static CString GetRingName();
 		 static CString GetScrewName();
 		 Assemble GetAssemble();
-		 //static Assembles::SelectedAssemble SelectedAssemble();
 
 	protected:
 		friend class CSaveConfigurationsDlg;

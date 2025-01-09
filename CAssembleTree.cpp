@@ -109,12 +109,7 @@ void CAssembleTree::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		bitmapId = IDB_ASSEMBLE_BITMAP;
 	}
-
-	
 		m_pView->SetSketchImage(bitmapId);
-	
-
-	
 }
 
 
@@ -148,17 +143,11 @@ void CAssembleTree::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CAssembleTree::OnBuildAssembly()
 {
-	// TODO: добавьте свой код обработчика команд
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-
-
-
 
 	if (&pFrame->GetAssembler() != nullptr)
 	{
-
-		Assembler ass = pFrame->GetAssembler();
-		ass.BuildAssemble();
-
+		Assembler assembler= pFrame->GetAssembler();
+		assembler.BuildAssemble();
 	}
 }

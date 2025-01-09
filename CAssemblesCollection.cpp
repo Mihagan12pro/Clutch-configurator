@@ -15,11 +15,6 @@ void CAssemblesCollection::InitializeAssembles()
 {
 	m_assemblesCollection.clear();
 
-	
-
-
-
-
 	Assemble clutch_140NM(L"140NM");
 	clutch_140NM.D = 38;
 	clutch_140NM.D1 = 34;
