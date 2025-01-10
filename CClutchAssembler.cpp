@@ -716,6 +716,20 @@ void  CClutchAssembler::DoAssemble()
 	pScrewForCollarFace= pScrewFaces->First();
 
 	m_pDoc3D->AddMateConstraint(mc_Concentric, pCollarForScrewEdge, pScrewForCollarFace, -1, -1, 0);
+	//(D/2)-(D1/2)
+	 
+	pRingFaces = pRing->EntityCollection(o3d_face);
+	pScrewFaces = pScrew->EntityCollection(o3d_face);
+
+	pScrewFaces->SelectByPoint(0, 0, (D1 / 2) - (D / 2));
+	pScrewForCollarFace = pScrewFaces->First();
+
+	pRingFaces->SelectByPoint(0,D1/2,0);
+	pRingFace = pRingFaces->First();
+
+	m_pDoc3D->AddMateConstraint(mc_Tangency, pRingFace, pScrewForCollarFace, -1, 1, 0);
+
+	
 	//mc_Tangency - касание
 
 	//pScrewFaces->Clear();
